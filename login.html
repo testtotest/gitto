@@ -76,7 +76,8 @@ $("button").click(function(){
 						{					
 						    $.session.set('uid', data.result.id);
 							$.session.set('phone', data.result.phone);
-							$.session.set('token', data.result.token);						
+							$.session.set('token', data.result.token);	
+							$.session.set('pic', data.result.headPortrait);					
 							$(location).attr('href', 'set.html');
 						}	
 						else	

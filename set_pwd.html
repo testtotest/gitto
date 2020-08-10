@@ -20,18 +20,20 @@
 	  $("button").click(function(){
 	      $.session.set('uid', null);
 	      $.session.set('token', null);	
-		  $.session.set('phone', null);
+		  $.session.set('phone', null);		  
 		  $(location).attr('href', 'login.html');	
 	  });
-	  $("#uphone").text($.session.get('phone'));
+	  $("#uphone").text($.session.get('phone'));	 
+	  $("img").attr('src',$.session.get('pic'));
 	});
+	
 	</script>
 	<body style="background-color: #F7F7F7;color: #343434;">		
 		<div class="mt-2" style="background-color: #FFFFFF;">
 			    <a href="set_pic.html">
 				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">头像</div>		   
-					<div class="p-2 bd-highlight"><img src="bdist/img/moren.png"/></div>		
+					<div class="p-2 bd-highlight"><img src="bdist/img/moren.png" width="30"/></div>		
 				</div> </a>
 				 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">手机号</div>		   

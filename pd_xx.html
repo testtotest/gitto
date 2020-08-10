@@ -28,21 +28,51 @@
 		}
 	</style>
 	<body>
-	<div class="form-signin">
-		<div class="bg-f p-2 mb-2">
-			<div class="d-flex justify-content-between bd-highlight ">
-				 <div class="p-2 bd-highlight"><b>公告</b></div>	   
-				 <div class="p-2 bd-highlight"><img src="bdist/img/tixing.png" class="w-100"/></div>	
-			</div>	
-			<div class="pl-2 m-set" style="color: #999999;">测试测试</div>
-		</div>	
-		<div class="bg-f p-2 mb-2">
-			<div class="d-flex justify-content-between bd-highlight ">
-				 <div class="p-2 bd-highlight"><b>公告</b></div>	   
-				 <div class="p-2 bd-highlight"><img src="bdist/img/tixing.png" class="w-100"/></div>	
-			</div>	
-			<div class="pl-2 m-set" style="color: #999999;">测试测试</div>
-		</div>	
-	</div>
+	<div class="list form-signin"></div>
+	<script>
+		function getP(id)
+		{	
+			 var parpam ={}
+			 parpam.userId = $.session.get('uid');
+			 parpam.messageId = id;
+			 $.ajax({
+			 		type: 'POST',
+			 		url: "http://101.200.129.62:8082/ty/incrementHf/obf/messageRead",
+			 		data: JSON.stringify(parpam),
+			 		contentType: "application/json",
+			 		headers: {
+			 		   token: $.session.get('token')
+			 		},	
+			 		success: function(data){
+			 			if(data.status=="0000")
+			 			{			 				
+			 				$(location).attr('href', 'pd_xx.html');
+			 			}
+			 			else
+			 			{
+			 				alert(data.message);
+			 			}
+			 			
+			 		}
+			 });				
+		}
+		var parpam ={}
+		parpam.token =$.session.get('token');
+		parpam.userId = $.session.get('uid');	
+		$.ajax({
+			type: 'Get',
+			url: "http://101.200.129.62:8082/ty/incrementHf/obf/announcementList",
+			data: parpam,									
+			success: function(data){				
+				$.each(data.result.list,function(i,val){
+					if(val.noticeStatus==1)	
+					bj="bdist/img/tixing.png" 
+					else	
+					bj=""					
+					$(".list").append('<div onclick=getP("'+val.id+'") class="bg-f p-2 mb-2"><div class="d-flex justify-content-between bd-highlight "><div class="p-2 bd-highlight"><b>公告</b></div><div class="p-2 bd-highlight"><img src="'+bj+'" class="w-100"/></div></div>	<div class="pl-2 m-set" style="color: #999999;">'+val.content+'</div></div>	');
+				});
+			}
+		});	
+	</script>
 	</body>
 </html>

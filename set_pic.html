@@ -25,21 +25,32 @@
 		{
 			$(location).attr('href', 'login.html');			
 		}
-			   // $(document).ready(function(){
-			   //   $(".getP").click(function(){
-			   //       alert($(this).data("url"));	  
-			   //   });
-			   // });
+			 
 	    
 		function getP(pic)
-		{			
+		{	
+			var parpam ={}			 
+			 parpam.phone = $.session.get('phone');
+			 parpam.headPortrait = pic;
 			$.ajax({
 					type: 'POST',
 					url: "http://101.200.129.62:8082/ty/incrementHf/user/changeHeadPortrait",
 					data: JSON.stringify(parpam),
 					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
 					success: function(data){
-						alert(data.message);
+						if(data.status=="0000")
+						{
+							$.session.set('pic',pic)
+							$(location).attr('href', 'set_pwd.html');
+						}
+						else
+						{
+							alert(data.message);
+						}
+						
 					}
 			});					
 		}

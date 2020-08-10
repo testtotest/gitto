@@ -13,23 +13,31 @@
 	<script>	
 		
 		var parpam ={}				
-		if($.session.get('token')!="")
+		if($.session.get('token')!=null)
 		{
-			 parpam.token =$.session.get('token');
-			 parpam.userId = $.session.get('id');			 
+			// parpam.token =$.session.get('token');
+			 parpam.userId = $.session.get('id');				
 		}
 		else
 		{
 			$(location).attr('href', 'login.html');			
-		}	   
+		}	  
+		
 		$.ajax({
 			type: 'Get',
 			url: "http://101.200.129.62:8082/ty/incrementHf/wallet/walletInfo?userId",
-			data: parpam,									
+			data: parpam,
+			headers: {
+			  token: $.session.get('token')
+			},											
 			success: function(data){
 				//alert(data.message);
 			}
-		});		
+		});	
+		$(document).ready(function(){
+			$("#uphone").text($.session.get('phone'));
+		    $(".pic").attr('src',$.session.get('pic'));
+		});
 	</script>
 	<style>
 	   body{background-color: #F6F7F8;}
@@ -54,8 +62,8 @@
 	     <div class="bg-f ">
 			 <div class="bd-example">
 			 	  <div class="d-flex justify-content-start bd-highlight mb-3">
-			 		<div class="p-2 bd-highlight"><img src="bdist/img/moren.png"/></div>
-			 		<div class="p-2 bd-highlight" style="width: 60%;line-height: 50px;">130</div>
+			 		<div class="p-2 bd-highlight"><img class="pic" src="bdist/img/moren.png" width="50"/></div>
+			 		<div id="uphone" class="p-2 bd-highlight" style="width: 60%;line-height: 50px;">130</div>
 			 		<div class="p-2 bd-highlight"><a href="set_pwd.html"><img src="bdist/img/shezhi_top.png"/></a></div>
 			 		<div class="p-2 bd-highlight"><a href="pd_xx.html"><img src="bdist/img/xiaoxi.png"/></a></div>
 			 	  </div>		  
@@ -138,16 +146,19 @@
 		   	  </div>	
 			  </a>		
 		   </div>
+		   <a href="set_wtfk.html">
 		   <div class="bd-example p-2 border-bottom">
 		   	  <div class="d-flex justify-content-start bd-highlight">
 		   		<div class="p-2 bd-highlight" style="width: 10%;">
 		   			<img src="bdist/img/fankui.png"/>
 		   		</div>
 		   		<div class="p-2 bd-highlight" style="width: 80%;">
-		   			<a href="set_wtfk.html">问题反馈</a></div>
+		   			问题反馈</div>
 		   		<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
 		   	  </div>		  
 		   </div>
+		   </a>
+		   <a href="set_cjwt_list.html">
 		   <div class="bd-example p-2">
 		   	  <div class="d-flex justify-content-start bd-highlight">
 		   		<div class="p-2 bd-highlight" style="width: 10%;"><img src="bdist/img/wenti.png"/></div>
@@ -155,6 +166,7 @@
 		   		<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
 		   	  </div>		  
 		   </div> 
+		   </a>
 	   </div>	
 	   </div>
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">

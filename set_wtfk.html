@@ -11,8 +11,7 @@
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 	</head>
 	<style>
-		body{background-color: #F7F7F7;color: #343434;}
-	
+		body{background-color: #F7F7F7;color: #343434;}	
 			.fc{
 				color: #9C9C9C;
 			}
@@ -24,8 +23,47 @@
              <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" placeholder="请输入要反馈的内容"></textarea>
 		 </div>		 
 		 <div class="mt-3 b-center">
-			 <button class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">提交反馈</button>
+			 <button  class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">提交反馈</button>
 		 </div>
-		  
+		  <script>
+			  
+			     $("button").click(function(){
+			         //alert($(this).data(""));	
+					 if($(".form-control").val().length==0)
+					 {
+						 alert("问题不能为空!");  
+					 }
+					 else
+					 {
+                         var parpam ={}
+                          parpam.userId = $.session.get('uid');
+                          parpam.content = $(".form-control").val();						  
+                         $.ajax({
+                         		type: 'POST',
+                         		url: "http://101.200.129.62:8082/ty/incrementHf/obf/userFeedback",
+                         		data: JSON.stringify(parpam),
+                         		contentType: "application/json",
+                         		headers: {
+                         		  token: $.session.get('token')
+                         		},	
+                         		success: function(data){
+                         									
+                         			if(data.status=="0000")
+                         			{                         				
+                         				$(location).attr('href', 'set_wtfk_list.html');
+                         			}
+                         			else
+                         			{
+                         				alert(data.message);
+                         			}
+                         			
+                         		}
+                         });					
+					 }
+					 
+					 
+			     });
+			 
+		  </script>
 	</body>
 </html>
