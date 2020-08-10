@@ -1,0 +1,13 @@
+body{background-color: #F6F7F8;}
+p{margin: 0px;padding: 0;}
+a{color: #303030;}	
+.bg-f{background-color: #FFFFFF;}
+.border-bottom {
+	       border-bottom: 1px solid #F4F5F6!important;
+	   }	
+	   .pb-6 {
+	       padding-bottom: 4rem!important;
+	   }
+	   .m-set{
+		   font-size:13px;
+	   }

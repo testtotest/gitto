@@ -18,38 +18,30 @@
 	</style>
 	<script>		
 		parpam.userId = uid;	
-		$(document).ready(function(){
-			$("button").click(function(){
+		
 				var parpam ={}
-				parpam.userId = uid
-				parpam.idCard=$(".idC").val()
-				parpam.bankCode=$(".bankC").val()
-				parpam.bankName=$(".bankN").val()
-				parpam.bankBranch=$(".bankB").val()				
+				//parpam.cardNu = '6222030200001517626'
+				 parpam.userId = uid
+				// parpam.idCard=$(".idC").val()
+				// parpam.bankCode=$(".bankC").val()
+				// parpam.bankName=$(".bankN").val()
+				// parpam.bankBranch=$(".bankB").val()				
 				
 				$.ajax({
-						type: 'POST',
-						url: url+"/ty/incrementHf/bank/upBankInfo",
-						data: JSON.stringify(parpam),
-						contentType: "application/json",
+						type: 'Get',
+						url: url+"/ty/incrementHf/bank/bankInfo",
+						data: parpam,						
 						headers: {
 						  token: token
 						},	
 						success: function(data){
-						    alert(data.message);
-							// if(data.status=="0000")
-							// {								
-								
-							// }
-							// else
-							// {
-							// 	alert(data.message);
-							// }
-							
+							$(".idC").val(data.result.idCard)
+							$(".bankC").val(data.result.bankCode)
+							$(".bankN").val(data.result.bankName)
+							$(".bankB").val(data.result.bankBranch)   							
 						}
 				});				
-			})
-		});
+		
 	</script>
 	<body>		
 	
@@ -57,37 +49,35 @@
 				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">当前密码</div>		   
 					<div class="p-2 bd-highlight fc">
-						<input type="text" id="id" />
+						<input type="text"/>
 					</div>			
 				</div> 
 		     <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">卡号</div>		   
 					<div class="p-2 bd-highlight fc">
-						<input  class="bankC" value="6222030200001517626"/>
+						<input  class="bankC"/>
 					</div>			
 			 </div>  
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">开户行</div>		   
 					<div class="p-2 bd-highlight fc">
-						<input class="bankN" value="工商银行" />
+						<input class="bankN"/>
 					</div>		
 			 </div>
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 			 		<div class="p-2 bd-highlight">开户支行</div>		   
 			 		<div class="p-2 bd-highlight fc">
-						<input class="bankB" value="分行上地支行11" />
+						<input class="bankB"/>
 					</div>		
 			 </div>
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 			 		<div class="p-2 bd-highlight">省份证号</div>		   
 			 		<div class="p-2 bd-highlight fc">
-						<input class="idC" value="230122199211132319" />
+						<input class="idC" />
 					</div>		
 			 </div>
 		 </div>		 
-		 <div class="mt-4" style="width: 96%; margin: auto;">
-			 <button class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">保存修改</button>
-		 </div>
+		
 		  
 	</body>
 </html>

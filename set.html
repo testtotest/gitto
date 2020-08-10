@@ -4,66 +4,47 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title></title>
+		<title>个人中心</title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+	    <script src="app.js"></script>
 	</head>
+	<style>
+	   p{margin: 0px;padding: 0 0 5px 0;}	   
+	   a{color: #303030;}
+	   a:link {	  
+	   text-decoration: none;
+	   }	   
+	</style>
 	<script>	
-		
-		var parpam ={}				
-		if($.session.get('token')!=null)
-		{
-			// parpam.token =$.session.get('token');
-			 parpam.userId = $.session.get('id');				
-		}
-		else
-		{
-			$(location).attr('href', 'login.html');			
-		}	  
-		
+		$(document).ready(function(){
+			$("#uphone").text(uphone);
+		    $(".pic").attr('src',pic);
+		});	   
+		parpam.token =token;
+		parpam.userId = uid;	   
 		$.ajax({
 			type: 'Get',
-			url: "http://101.200.129.62:8082/ty/incrementHf/wallet/walletInfo?userId",
+			url: url+"/ty/incrementHf/wallet/walletInfo?userId",
 			data: parpam,
 			headers: {
-			  token: $.session.get('token')
+			  token: token
 			},											
 			success: function(data){
 				//alert(data.message);
 			}
-		});	
-		$(document).ready(function(){
-			$("#uphone").text($.session.get('phone'));
-		    $(".pic").attr('src',$.session.get('pic'));
-		});
-	</script>
-	<style>
-	   body{background-color: #F6F7F8;}
-	   p{margin: 0px;padding: 0 0 5px 0;}
-	   .bg-f{background-color: #FFFFFF;}
-	   a{color: #303030;}
-	   a:link {	  
-	   text-decoration: none;
-	   }
-	   .border-bottom {
-	       border-bottom: 1px solid #F4F5F6!important;
-	   }	
-	   .pb-6 {
-	       padding-bottom: 4rem!important;
-	   }
-	   .m-set{
-		   font-size:13px;
-	   }
-	</style>
+		});			
+	</script>	
 	<body>	
 	<div class="pb-6">
 	     <div class="bg-f ">
 			 <div class="bd-example">
 			 	  <div class="d-flex justify-content-start bd-highlight mb-3">
 			 		<div class="p-2 bd-highlight"><img class="pic" src="bdist/img/moren.png" width="50"/></div>
-			 		<div id="uphone" class="p-2 bd-highlight" style="width: 60%;line-height: 50px;">130</div>
+			 		<div id="uphone" class="p-2 bd-highlight" style="width: 60%;line-height: 50px;"></div>
 			 		<div class="p-2 bd-highlight"><a href="set_pwd.html"><img src="bdist/img/shezhi_top.png"/></a></div>
 			 		<div class="p-2 bd-highlight"><a href="pd_xx.html"><img src="bdist/img/xiaoxi.png"/></a></div>
 			 	  </div>		  
@@ -86,7 +67,7 @@
 		
 		<div class="bg-f  ml-2 mr-2">
 			<div class="bd-example p-2 border-bottom">
-				 <a href="set_card.html">
+				 <a href="set_card_info.html">
 				  <div class="d-flex justify-content-start bd-highlight">
 					<div class="p-2 bd-highlight" style="width: 10%;">
 						<img src="bdist/img/yhk.png"/>
@@ -179,10 +160,12 @@
 					<p><img src="bdist/img/renwu.png"/></p>
 					<p>我的任务</p>
 				</div>
+				<a href="set.html">
 			    <div class=" bd-highlight" style="text-align: center;" >
 					<p><img src="bdist/img/wode.png"/></p>
 					<p>个人中心</p>
-				</div>				
+				</div>
+				</a>				
 			</div>			
 		</div>
 	</body>

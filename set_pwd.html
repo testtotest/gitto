@@ -2,57 +2,54 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title></title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
-		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-	</head>
-	<style>
-		.border-bottom {
-		    border-bottom: 1px solid #F4F5F6!important;
-		}		
-	</style>
-	<script>		
-	$(document).ready(function(){
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bdist/css/pub.css">
+		<script src="app.js"></script>
+	</head>	
+	<body>
+		<div class="mt-2" style="background-color: #FFFFFF;">
+			<a href="set_pic.html">
+				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+					<div class="p-2 bd-highlight">头像</div>
+					<div class="p-2 bd-highlight"><img src="bdist/img/moren.png" width="30" /></div>
+				</div>
+			</a>
+			<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+				<div class="p-2 bd-highlight">手机号</div>
+				<div class="p-2 bd-highlight" style="color: #9C9C9C;" id="uphone">13000110011<img /></div>
+			</div>
+			<!-- <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+					<div class="p-2 bd-highlight">昵称</div>		   
+					<div class="p-2 bd-highlight" style="color: #9C9C9C;">图片<img/></div>			
+				 </div> -->
+		</div>
+		<a href="e_pwd.html" style="color: #D7D7D7;">
+			<div class="d-flex justify-content-between bd-highlight mt-2 ml-2 mr-2" style="background-color: #FFFFFF;">
+				<div class="p-2 bd-highlight" style="color: #343434;">修改密码</div>
+				<div class="p-2 bd-highlight">></div>
+			</div>
+		</a>
+		<div class="mt-5" style="width: 96%; margin: auto;padding-top: 90%;">
+			<button class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">退出登录</button>
+		</div>
+	</body>
+</html>
+<script>
+		$(document).ready(function(){
 	  $("button").click(function(){
 	      $.session.set('uid', null);
 	      $.session.set('token', null);	
 		  $.session.set('phone', null);		  
 		  $(location).attr('href', 'login.html');	
 	  });
-	  $("#uphone").text($.session.get('phone'));	 
-	  $("img").attr('src',$.session.get('pic'));
+	  $("#uphone").text(uphone);
+	  $("img").attr('src',pic);
 	});
 	
 	</script>
-	<body style="background-color: #F7F7F7;color: #343434;">		
-		<div class="mt-2" style="background-color: #FFFFFF;">
-			    <a href="set_pic.html">
-				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
-					<div class="p-2 bd-highlight">头像</div>		   
-					<div class="p-2 bd-highlight"><img src="bdist/img/moren.png" width="30"/></div>		
-				</div> </a>
-				 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
-					<div class="p-2 bd-highlight">手机号</div>		   
-					<div class="p-2 bd-highlight" style="color: #9C9C9C;" id="uphone">13000110011<img/></div>			
-				 </div>  
-				<!-- <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
-					<div class="p-2 bd-highlight">昵称</div>		   
-					<div class="p-2 bd-highlight" style="color: #9C9C9C;">图片<img/></div>			
-				 </div> -->
-		 </div>
-		 <a href="e_pwd.html" style="color: #D7D7D7;">
-		 <div class="d-flex justify-content-between bd-highlight mt-2 ml-2 mr-2" style="background-color: #FFFFFF;">
-		   	    <div class="p-2 bd-highlight" style="color: #343434;">修改密码</div>		   
-		     	<div class="p-2 bd-highlight" >></div>						
-		 </div> 
-		 </a>
-		 <div class="mt-5" style="width: 96%; margin: auto;padding-top: 90%;">
-			 <button  class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">退出登录</button>
-		 </div>
-		  
-	</body>
-</html>

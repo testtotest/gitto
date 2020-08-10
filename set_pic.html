@@ -9,23 +9,13 @@
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-	</head>
-	<style>
-		.border-bottom {
-		    border-bottom: 1px solid #F4F5F6!important;
-		}		
-	</style>
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+		<script src="app.js"></script>
+	</head>	
 	<script>	
 		var parpam ={}
 		parpam.token =$.session.get('token');
-		parpam.phone = $.session.get('phone');	
-		if($.session.get('token')!="")
-		{}
-		else
-		{
-			$(location).attr('href', 'login.html');			
-		}
-			 
+		parpam.phone = $.session.get('phone');			
 	    
 		function getP(pic)
 		{	
