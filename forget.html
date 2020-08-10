@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/sign.css" > 
+		 
+	</head>
+	<body>
+		<form class="form-signin" onsubmit="return validate_form(this)" action="" method="post">
+		 <h3 class=" mb-3 font-weight-normal">忘记密码</h1>
+		<label >手机号</label>
+		<input type="text" name="inputM" id="inputM" class="form-control mb-3 login-input" placeholder="请输入手机号" required autofocus>
+			<div class="input-group mb-4">
+			  <input type="text" id="inputC" aria-label="First name" class="form-control login-input" placeholder="请输入验证码">
+			  <div class="input-group-prepend">
+			    <span class="input-group-texts" id="gcode">发送验证码</span>
+			  </div>
+			</div>		
+		<label >新密码</label>
+			<input type="password" id="inputP" class="form-control mb-3 login-input" placeholder="请设置新密码" >
+		<label >确认新密码</label>
+			<input type="password" id="inputPs" class="form-control mb-3 login-input" placeholder="请确认新密码" >		
+		<button class="btn btn-lg btn-warning btn-block " type="button">重置密码</button> 
+		 </form>
+	</body>
+</html>
+<script type="text/javascript">
+
+function isPhoneNo(phone) { 
+	
+ var pattern = /^1[34578]\d{9}$/; 
+ return pattern.test(phone); 
+}
+function checkNumber(obj){ 
+     var reg = /^[0-9]+$/; 
+      if(obj!=""&&!reg.test(obj)){            
+          return false; 
+     } 
+} 
+
+$("#gcode").click(function(){
+	var str = '';
+	if($.trim($('#inputM').val()).length == 0) {
+	  str += '手机号码没有输入\n';
+	  $('#inputM').focus();
+	 }else {
+		if(isPhoneNo($.trim($('#inputM').val()))== false){
+			   str += '手机号码不正确\n';
+			   $('#inputM').focus();
+		}
+	}
+	if(str != '') {
+	   alert(str);
+	   return false;
+	}
+	else
+	{
+	   /////////////
+	   var parpam ={}
+	   parpam.phone=$('#inputM').val();	
+	    $.post("http://101.200.129.62:8082/ty/incrementAdmin/sedSms/installationApplyForH5",parpam,function(data){
+	       alert(data.message)
+	     }, "json");
+	  
+	   /////////////
+	}
+})
+$("button").click(function(){
+	var str = '';
+	if($.trim($('#inputM').val()).length == 0) {
+		  str += '手机号码没有输入\n';
+		  $('#inputM').focus();
+	 }else {
+		if(isPhoneNo($.trim($('#inputM').val()))== false){
+			   str += '手机号码不正确\n';
+			   $('#inputM').focus();
+		}
+	 }
+	 
+	  if($.trim($('#inputP').val()).length == 0 || $.trim($('#inputPs').val()).length == 0) {
+	      str += '密码没有输入\n';	  
+	  }
+	  if(str != '') {
+		  alert(str);
+		  return false;
+	  }
+	  else
+	  {
+		  var parpam ={}
+		  parpam.captcha=$.trim($('#inputC').val());
+		  parpam.phone = $.trim($('#inputM').val());
+		  parpam.newPassword = $.trim($('#inputPs').val());		 
+		  $.ajax({
+		  			type: 'POST',
+		  			url: "http://101.200.129.62:8082/ty/incrementHf/user/resetPassword",
+		  			data: JSON.stringify(parpam),	
+		  			contentType: "application/json",	
+		  			//dataType: "json",
+		  			success: function(data){
+		  				if(data.status=="0000")
+						{
+							$(location).attr('href', 'login.html');
+						}
+						else
+						{
+							alert(data.message)
+						}
+		  			}
+		  });
+	  }
+})
+
+
+</script>

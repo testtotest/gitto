@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function WebSocketTest()
+			{
+				 if ("WebSocket" in window)
+				 {
+				      alert("您的浏览器支持 WebSocket!");
+					  var ws = new WebSocket("ws://121.40.165.18:8800");
+					   ws.onopen = function()
+					  {					              
+					        ws.send("发送数据");
+					        alert("数据发送中...");
+					  };
+					  ws.onerror = function() {
+                           alert("WebSocket连接发生错误");
+                      };
+					  ws.onmessage = function (evt) 
+					  { 
+					        var received_msg = evt.data;
+					        setMessageInnerHTML(evt.data);
+					  };					                  
+					  ws.onclose = function()
+					  { 
+						    ws.close();
+					        alert("连接已关闭..."); 
+					  };
+					  window.onbeforeunload = function() {
+					      closeWebSocket();
+					  }
+					  
+				 }
+				 else
+				 {				      
+				      alert("您的浏览器不支持 WebSocket!");
+				 }
+			}
+			function setMessageInnerHTML(innerHTML) {
+			    document.getElementById('message').innerHTML += innerHTML + '<br/>';
+			}
+		</script>
+	</head>
+	<body>
+		 <div id="message"></div>
+		  <div id="sse">
+		         <a href="javascript:WebSocketTest()">运行 WebSocket</a>
+		  </div>
+	</body>
+</html>
