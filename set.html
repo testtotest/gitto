@@ -8,153 +8,153 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
-		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-		<link rel="stylesheet" href="bdist/css/pub.css" >
-	    <script src="app.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bdist/css/pub.css">
+		<script src="app.js"></script>
 	</head>
 	<style>
-	   p{margin: 0px;padding: 0 0 5px 0;}	   
-	   a{color: #303030;}
-	   a:link {	  
-	   text-decoration: none;
-	   }	   
+		p {padding: 0 0 5px 0;}
 	</style>
-	<script>
-		$(document).ready(function(){
+	<script>		
+		$(document).ready(function() {
 			$("#uphone").text(uphone);
-		    $(".pic").attr('src',pic);
-		});	
-		walletInfo()	
-	</script>	
-	<body>	
-	<div class="pb-6">
-	     <div class="bg-f ">
-			 <div class="bd-example">
-			 	  <div class="d-flex justify-content-start bd-highlight mb-3">
-			 		<div class="p-2 bd-highlight"><img class="pic" src="bdist/img/moren.png" width="50"/></div>
-			 		<div id="uphone" class="p-2 bd-highlight" style="width: 60%;line-height: 50px;"></div>
-			 		<div class="p-2 bd-highlight"><a href="set_pwd.html"><img src="bdist/img/shezhi_top.png"/></a></div>
-			 		<div class="p-2 bd-highlight"><a href="pd_xx.html"><img src="bdist/img/xiaoxi.png"/></a></div>
-			 	  </div>		  
-			 </div>
-			 <div class="d-flex justify-content-center bd-highlight mb-3">
-			     <div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
-			 		<p><b id="ye"></b></p>
-			 		<p>余额</p>
-			 	</div>
-			     <div class="p-2 bd-highlight" style="text-align: center;width: 50%;">
-			 		<p><b id="ljlqje"></b></p>
-			 		<p>累计领取金额</p>
-			 	</div>
-			     <div class="p-2 bd-highlight" style="text-align: center;width: 25%;" >
-			 		<p><b id="djje"></b></p>
-			 		<p>冻结金额</p>
-			 	</div>	    	
-			 </div>			 
-		 </div>
-		
-		<div class="bg-f  ml-2 mr-2">
-			<div class="bd-example p-2 border-bottom">
-				 <a href="set_card_info.html">
-				  <div class="d-flex justify-content-start bd-highlight">
-					<div class="p-2 bd-highlight" style="width: 10%;">
-						<img src="bdist/img/yhk.png"/>
+			$(".pic").attr('src', pic);
+		});
+		walletInfo()
+	</script>
+	<body>
+		<div class="pb-6">
+			<div class="bg-f ">
+				<div class="bd-example">
+					<div class="d-flex justify-content-start bd-highlight mb-3">
+						<div class="p-2 bd-highlight"><img class="pic" src="bdist/img/moren.png" width="50" /></div>
+						<div id="uphone" class="p-2 bd-highlight" style="width: 60%;line-height: 50px;"></div>
+						<div class="p-2 bd-highlight"><a href="set_pwd.html"><img src="bdist/img/shezhi_top.png" /></a></div>
+						<div class="p-2 bd-highlight"><a href="pd_xx.html"><img src="bdist/img/xiaoxi.png" /></a></div>
 					</div>
-					<div class="p-2 bd-highlight " style="width: 80%;">银行卡信息</div>
-					<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
-				  </div>	
-				</a>		
+				</div>
+				<div class="d-flex justify-content-center bd-highlight mb-3">
+					<div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
+						<p><b id="ye"></b></p>
+						<p>余额</p>
+					</div>
+					<div class="p-2 bd-highlight" style="text-align: center;width: 50%;">
+						<p><b id="ljlqje"></b></p>
+						<p>累计领取金额</p>
+					</div>
+					<div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
+						<p><b id="djje"></b></p>
+						<p>冻结金额</p>
+					</div>
+				</div>
 			</div>
-			<div class="bd-example p-2">
-				 <a href="set_zh.html">
-				  <div class="d-flex justify-content-start bd-highlight">
-					<div class="p-2 bd-highlight" style="width: 10%;">
-						<img src="bdist/img/tongji.png"/>
+
+			<div class="bg-f  ml-2 mr-2">
+				<div class="bd-example p-2 border-bottom">
+					<a href="set_card_info.html">
+						<div class="d-flex justify-content-start bd-highlight">
+							<div class="p-2 bd-highlight" style="width: 10%;">
+								<img src="bdist/img/yhk.png" />
+							</div>
+							<div class="p-2 bd-highlight " style="width: 80%;">银行卡信息</div>
+							<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
+						</div>
+					</a>
+				</div>
+				<div class="bd-example p-2">
+					<a href="set_zh.html">
+						<div class="d-flex justify-content-start bd-highlight">
+							<div class="p-2 bd-highlight" style="width: 10%;">
+								<img src="bdist/img/tongji.png" />
+							</div>
+							<div class="p-2 bd-highlight" style="width: 80%;">收益统计</div>
+							<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
+						</div>
+					</a>
+				</div>
+			</div>
+
+			<div class="bg-f mt-3  ml-2 mr-2">
+				<div class="pl-3 pt-3"><b>我的任务</b></div>
+				<div class="d-flex justify-content-center bd-highlight mb-3">
+					<div class="p-2 bd-highlight w-25 t-center">
+						<p><img src="bdist/img/tijiao.png" /></p>
+						<p>待提交</p>
 					</div>
-					<div class="p-2 bd-highlight" style="width: 80%;">收益统计</div>
-					<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
-				  </div>	
-				 </a>	
+					<div class="p-2 bd-highlight w-25 t-center">
+						<p><img src="bdist/img/shenhe.png" /></p>
+						<p>审核中</p>
+					</div>
+					<div class="p-2 bd-highlight w-25 t-center">
+						<p><img src="bdist/img/wancheng.png" /></p>
+						<p>已完成</p>
+					</div>
+					<div class="p-2 bd-highlight w-25 t-center">
+						<p><img src="bdist/img/quxiao.png" /></p>
+						<p>已取消</p>
+					</div>
+				</div>
+			</div>
+
+			<div class="bg-f mt-3  ml-2 mr-2">
+
+				<div class="bd-example p-2 border-bottom">
+					<a href="set_pwd.html">
+						<div class="d-flex justify-content-start bd-highlight">
+							<div class="p-2 bd-highlight" style="width: 10%;">
+								<img src="bdist/img/shezhi.png" />
+							</div>
+							<div class="p-2 bd-highlight" style="width: 80%;text-align: left;">
+								用户设置
+							</div>
+							<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
+						</div>
+					</a>
+				</div>
+				<a href="set_wtfk.html">
+					<div class="bd-example p-2 border-bottom">
+						<div class="d-flex justify-content-start bd-highlight">
+							<div class="p-2 bd-highlight" style="width: 10%;">
+								<img src="bdist/img/fankui.png" />
+							</div>
+							<div class="p-2 bd-highlight" style="width: 80%;">
+								问题反馈</div>
+							<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
+						</div>
+					</div>
+				</a>
+				<a href="set_cjwt_list.html">
+					<div class="bd-example p-2">
+						<div class="d-flex justify-content-start bd-highlight">
+							<div class="p-2 bd-highlight" style="width: 10%;"><img src="bdist/img/wenti.png" /></div>
+							<div class="p-2 bd-highlight" style="width: 80%;">常见问题</div>
+							<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
+						</div>
+					</div>
+				</a>
 			</div>
 		</div>
-	   
-		<div class="bg-f mt-3  ml-2 mr-2">
-			<div class="pl-3 pt-3"><b>我的任务</b></div>
-			<div class="d-flex justify-content-center bd-highlight mb-3">
-			    <div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
-					<p><img src="bdist/img/tijiao.png"/></p>
-					<p>待提交</p>
-				</div>
-			    <div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
-					<p><img src="bdist/img/shenhe.png"/></p>
-					<p>审核中</p>
-				</div>
-			    <div class="p-2 bd-highlight" style="text-align: center;width: 25%;" >
-					<p><img src="bdist/img/wancheng.png"/></p>
-					<p>已完成</p>
-				</div>
-				<div class="p-2 bd-highlight" style="text-align: center;width: 25%;">
-					<p><img src="bdist/img/quxiao.png"/></p>
-					<p>已取消</p>
-				</div>
-			</div>
-		</div>
-	   
-	   <div class="bg-f mt-3  ml-2 mr-2">
-		  
-		   <div class="bd-example p-2 border-bottom">
-			  <a href="set_pwd.html">
-		   	  <div class="d-flex justify-content-start bd-highlight">
-		   		<div class="p-2 bd-highlight" style="width: 10%;">
-		   			<img src="bdist/img/shezhi.png"/>
-		   		</div>
-		   		<div class="p-2 bd-highlight" style="width: 80%;text-align: left;">
-		   			用户设置
-		   		</div>
-		   		<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
-		   	  </div>	
-			  </a>		
-		   </div>
-		   <a href="set_wtfk.html">
-		   <div class="bd-example p-2 border-bottom">
-		   	  <div class="d-flex justify-content-start bd-highlight">
-		   		<div class="p-2 bd-highlight" style="width: 10%;">
-		   			<img src="bdist/img/fankui.png"/>
-		   		</div>
-		   		<div class="p-2 bd-highlight" style="width: 80%;">
-		   			问题反馈</div>
-		   		<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
-		   	  </div>		  
-		   </div>
-		   </a>
-		   <a href="set_cjwt_list.html">
-		   <div class="bd-example p-2">
-		   	  <div class="d-flex justify-content-start bd-highlight">
-		   		<div class="p-2 bd-highlight" style="width: 10%;"><img src="bdist/img/wenti.png"/></div>
-		   		<div class="p-2 bd-highlight" style="width: 80%;">常见问题</div>
-		   		<div class="p-2 bd-highlight" style="color: #D7D7D7;">></div>
-		   	  </div>		  
-		   </div> 
-		   </a>
-	   </div>	
-	   </div>
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">
 			<div class="d-flex justify-content-between">
-			    <div class=" bd-highlight" style="text-align: center;">
-					<p><img src="bdist/img/paidan.png"/></p>
+				<a href="pd_zx.html">
+				<div class=" bd-highlight t-center">
+					<p><img src="bdist/img/paidans.png" /></p>
 					<p>派单中心</p>
 				</div>
-			    <div class=" bd-highlight" style="text-align: center;">
-					<p><img src="bdist/img/renwu.png"/></p>
+				</a>
+				<a href="renwu.html">
+				<div class=" bd-highlight t-center">
+					<p><img src="bdist/img/renwus.png" /></p>
 					<p>我的任务</p>
 				</div>
+				</a>
 				<a href="set.html">
-			    <div class=" bd-highlight" style="text-align: center;" >
-					<p><img src="bdist/img/wode.png"/></p>
-					<p>个人中心</p>
-				</div>
-				</a>				
-			</div>			
+					<div class=" bd-highlight t-center">
+						<p><img src="bdist/img/wode.png" /></p>
+						<p>个人中心</p>
+					</div>
+				</a>
+			</div>
 		</div>
 	</body>
 </html>

@@ -8,26 +8,23 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
-		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >		
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >	
+		<link rel="stylesheet" href="bdist/css/pub.css" >
 	</head>
-	<style>
-		body{background-color: #F6F7F8;}
-		 p{margin: 0px;padding: 0 0 5px 0;}
-		.bg-f{background-color: #FFFFFF;}
+	<style>		
+		 p{padding: 0 0 5px 0;}		
 		.form-signin {
 		  width: 100%;
 		  max-width: 380px;
 		  padding: 15px;
 		  margin: auto;
-		}
-		.m-set{
-				   font-size:13px;
-		}
-		.pb-6 {
-		    padding-bottom: 4rem!important;
-		}
+		}	
 	</style>
 	<body>
+	<div class="tab">
+		<a href="javascript:;" class="item cur">全部</a>
+		<a href="javascript:;" class="item">未读消息</a>		
+	</div>	
 	<div class="list form-signin"></div>
 	<script>
 		function getP(id)
