@@ -9,48 +9,34 @@
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-		<style>
-			body{background-color: #F6F7F8;font-size:15px;}
-			p{margin: 0px;padding: 0;}
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+		<script src="app.js"></script>
+		<style>			
 			a{color: #303030;}
 			a:link {	  
 			text-decoration: none;
 			}
-			.t-a-c{text-align: center;}
-			.bg-f{background-color: #FFFFFF;}
-			.border-bottom {
-			    border-bottom: 1px solid #F4F5F6!important;
-			}	
+			.t-a-c{text-align: center;}			
 			.c-d-7{color: #D7D7D7;}
 			.c-d-70{color:#707070}
 		</style>
-		<script>
-			var parpam ={}
-			parpam.userId = "2";
-			parpam.token =$.session.get('token');
-			$.ajax({
-						type: 'Get',
-						url: "http://101.200.129.62:8082/ty/incrementHf/flow/capitalFlow",
-						data: parpam,							
-						success: function(data){						
-							//alert(data.result.list);
-						}
-			});
-			
+		<script>			
+			bankInfo()
+			walletInfo()		
 		</script>
 	</head>
 	<body>
 		 <div class="d-flex justify-content-center bd-highlight pt-3 pb-3 bg-f">
 		     <div class="p-2 bd-highlight t-a-c w-25">
-		 		<p><b>30</b></p>
+		 		<p><b id="ye"></b></p>
 		 		<p>余额</p>
 		 	</div>
 		     <div class="p-2 bd-highlight text-align t-a-c w-50">
-		 		<p><b>30</b></p>
+		 		<p><b id="ljlqje"></b></p>
 		 		<p>累计领取金额</p>
 		 	</div>
 		     <div class="p-2 bd-highlight t-a-c w-25">
-		 		<p><b>30</b></p>
+		 		<p><b id="djje"></b></p>
 		 		<p>冻结金额</p>
 		 	</div>	    	
 		 </div>
@@ -61,19 +47,19 @@
 			 </div> 
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2 p-2">
 			 	<div class="p-2 bd-highlight">卡号</div>		   
-			 	<div class="p-2 bd-highlight c-d-70">123</div>			
+			 	<div class="p-2 bd-highlight c-d-70 bankC"></div>			
 			 </div>
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2 p-2">
 			 					<div class="p-2 bd-highlight">开户行</div>		   
-			 					<div class="p-2 bd-highlight c-d-70">123</div>		
+			 					<div class="p-2 bd-highlight c-d-70 bankN"></div>		
 			 </div>
 			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2 p-2">
 			 		<div class="p-2 bd-highlight">开户支行</div>		   
-			 		<div class="p-2 bd-highlight c-d-70">123</div>		
+			 		<div class="p-2 bd-highlight c-d-70 bankB"></div>		
 			 </div>
 			 <div class="d-flex justify-content-between bd-highlight  ml-2 mr-2 p-2">
-			 		<div class="p-2 bd-highlight">省份证号</div>		   
-			 		<div class="p-2 bd-highlight c-d-70">123</div>		
+			 		<div class="p-2 bd-highlight">身份证号</div>		   
+			 		<div class="p-2 bd-highlight c-d-70 idC"></div>		
 			 </div>			 
 		 </div>
 		 <div class="mt-2 bg-f">

@@ -9,22 +9,26 @@
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-		<style>
-			body{background-color: #F6F7F8;font-size:15px;}
-			
-		</style>
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+		<script src="app.js"></script>
 	</head>
+	<script>
+		parpam.key = 'withdrawal_rules'
+		$.ajax({
+				type: 'Get',
+				url: url+"/ty/incrementHf/keyvalue/getKeyValue",
+				data: parpam,						
+				headers: {
+				  token: token
+				},	
+				success: function(data){
+					$(".txt").html(data.result)				 							
+				}
+		});	
+	</script>
 	<body>
-		<div class="p-2 mt-3">
-			<p class="text-sm-left">
-				1.测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-			</p>
-			<p class="text-sm-left">
-				2.测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-			</p>
-			<p class="text-sm-left">
-				3.测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试
-			</p>
+		<div class="p-3 txt">
+			
 		</div>
 	</body>
 </html>

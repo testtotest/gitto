@@ -9,3 +9,48 @@ if(token.length==0)
 	$(location).attr('href', 'login.html');					
 }
 
+function walletInfo()
+{
+	
+	parpam.userId = uid;
+	$.ajax({
+		type: 'Get',
+		url: url+"/ty/incrementHf/wallet/walletInfo",
+		data: parpam,
+		headers: {
+		  token: token
+		},											
+		success: function(data){				
+			if(data.status=='0000')
+			{
+				$('#ye').html(data.result.balance);
+				$('#ljlqje').html(data.result.amount);
+				$('#djje').html(data.result.frozen);
+			}
+			else
+			{
+				alert(data.message);
+			}
+		}		
+	});	
+}
+
+function bankInfo()
+{
+	parpam.userId = uid
+	$.ajax({
+			type: 'Get',
+			url: url+"/ty/incrementHf/bank/bankInfo",
+			data: parpam,						
+			headers: {
+			  token: token
+			},	
+			success: function(data){
+				$(".idC").html(data.result.idCard)
+				$(".bankC").html(data.result.bankCode)
+				$(".bankN").html(data.result.bankName)
+				$(".bankB").html(data.result.bankBranch)   							
+			}
+	});	
+}
+
