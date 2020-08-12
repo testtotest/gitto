@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>派单中心</title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/pub.css">
+	</head>
+	<style>		
+		 p{padding: 0 0 5px 0;}			
+	</style>
+	<body>
+	<div class="pb-6">	
+		<div class="form-signin bg-f">
+			<div class="d-flex justify-content-between bd-highlight ">
+				 <div class="p-2 bd-highlight">
+					 <a href="pd_xx.html"><img src="bdist/img/xiaoxis.png" class="w-100"/></a></div>	   
+				 <div class="p-2 bd-highlight"><a href="pd_kf.html"><img src="bdist/img/zaixian.png" class="w-100"/></a></div>	
+			</div>		
+		</div>
+		<div class="w-100 pl-4 pt-3" style="background-color: #F6F7F8;"><b>最新任务</b></div>
+		<div class="form-signin list"></div>
+	</div>	
+	<script>		
+		var url="http://101.200.129.62:8082"
+		var parpam ={}
+		parpam.userId = $.session.get('uid');		
+		$.ajax({
+				type: 'Get',
+				url: url+"/ty/incrementHf/task/taskList",	
+				data: parpam,			
+				headers: {
+				  token: $.session.get('token')
+				},				
+				success: function(data){
+					if(data.status=="0000")
+					{
+						$.each(data.result.list,function(i,val){
+							 $(".list").append('<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2"><div><h5>'+val.title+'</h5></div><div class="pb-2">'+val.detailed+'</div><div><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.moneyReward+'元</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">秒审核</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.missionTime+'小时内完成</button></div></div></a>');
+						});							
+					}
+					else
+					{
+						alert(data.message);
+					}
+					
+				}
+		});			
+	</script>
+		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">
+			<div class="d-flex justify-content-between">
+				<a href="pd_zx">
+				<div class=" bd-highlight t-center">
+					<p><img src="bdist/img/paidan.png" /></p>
+					<p>派单中心</p>
+				</div>
+				</a>
+				<a href="renwu">
+				<div class=" bd-highlight t-center">
+					<p><img src="bdist/img/renwus.png" /></p>
+					<p>我的任务</p>
+				</div>
+				</a>
+				<a href="set">
+					<div class=" bd-highlight t-center">
+						<p><img src="bdist/img/wodes.png" /></p>
+						<p>个人中心</p>
+					</div>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>

@@ -9,16 +9,20 @@
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
-		<link rel="stylesheet" href="bdist/css/pub.css">		
+		<link rel="stylesheet" href="bdist/css/pub.css">
+		<script src="app.js"></script>
 	</head>
 	<style>
 		p {padding: 0 0 5px 0;}
 	</style>
 	<script>		
-		$(document).ready(function() {			
-			$("#uphone").text($.session.get('phone'));
-			$(".pic").attr('src', $.session.get('pic'));			
+		$(document).ready(function() {
+			$("#uphone").text(uphone);
+			$(".pic").attr('src', pic);
+			
 		});
+		walletInfo()
+		
 	</script>
 	<body>
 		<div class="pb-6">
@@ -134,19 +138,19 @@
 		</div>
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">
 			<div class="d-flex justify-content-between">
-				<a href="pd_zx">
+				<a href="pd_zx.html">
 				<div class=" bd-highlight t-center">
 					<p><img src="bdist/img/paidans.png" /></p>
 					<p>派单中心</p>
 				</div>
 				</a>
-				<a href="renwu">
+				<a href="renwu.html">
 				<div class=" bd-highlight t-center">
 					<p><img src="bdist/img/renwus.png" /></p>
 					<p>我的任务</p>
 				</div>
 				</a>
-				<a href="set">
+				<a href="set.html">
 					<div class=" bd-highlight t-center">
 						<p><img src="bdist/img/wode.png" /></p>
 						<p>个人中心</p>

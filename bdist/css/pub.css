@@ -1,4 +1,4 @@
-body{background-color: #F6F7F8;}
+body{background-color: #F6F7F8;font-size: 0.9rem;}
 p{margin: 0px;padding: 0;}
 a{color: #303030;}	
 a:link {text-decoration: none;}
@@ -46,3 +46,9 @@ a:link {text-decoration: none;}
 	   
 	   
 	   .renwu{ color:#666666;}
+	   .form-signin {
+	     width: 100%;
+	     max-width: 380px;
+	     padding: 15px;
+	     margin: auto;
+	   }

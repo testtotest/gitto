@@ -8,7 +8,26 @@ var request = require('request');
 app.set('view engine','ejs');
 app.set('views', __dirname + '/'); 
 app.use('/bdist', express.static('bdist'));
-app.get('/', function (req, res) {	
+app.get('/', function (req, res) {
+	// var requestData ={}
+	// requestData.token ='';
+	// var url = 'http://101.200.129.62:8082/ty/incrementHf/user/headPortraitList'	
+	// request({
+	//     url: url,
+	//     method: "GET",
+	//     json: true,
+	//     headers: {
+	// 		 ////"content-type": "application/json",
+	//         ////"content-type": "application/x-www-form-urlencoded",
+	// 		"token":"Mi0xODI0OTAwMjk5My0xNTk3MTM1MTQ5NDA3LWYyZjEwYTdhNjM0YzRhOTBhMGE0NzQ4MDlkYmU2MGNh"
+	//     }
+	//   ////  body: requestData
+	// }, function(error, response, body) {
+	// 	//response.body.result
+	//      console.log(response.body.message)
+	// 	 res.render('test.ejs',{arr:response.body.result});
+	// 	 res.end();
+	// }); 
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/login.html'));     
 })
@@ -33,47 +52,10 @@ app.get('/set', function (req, res) {
 	res.writeHead(200,{"Content-Type":"text/html"});
 	res.end(fs.readFileSync(__dirname + '/set.html'));
 })
-//派单中心
-app.get('/pai', function (req, res) {
+app.get('/login', function (req, res) {
 	res.writeHead(200,{"Content-Type":"text/html"});
-	res.end(fs.readFileSync(__dirname + '/pd/pd_zx.html'));
-})	
-app.get('/paiinfo', function (req, res) {	
-	
-	//res.writeHead(200,{"Content-Type":"text/html"});
-	//res.end(fs.readFileSync(__dirname + '/pd/pd_xq.html'));
-	if(req.query.type==1)
-	res.render('pd/pd_xqs.ejs',{id:req.query.id});
-	 else
-	 res.render('pd/pd_xq.ejs',{id:req.query.id});
-	 //res.end();
-})
-//领取任务
-
-app.get('/lqButton', urlencodedParser, function (req, res) {	
-	 var parpam ={};
-	 parpam.userId = req.query.userId;
-	 parpam.taskId = req.query.taskId;
-	 var url = 'http://101.200.129.62:8082/ty/incrementHf/task/recieveTask'
-	 request({
-	     url: url,
-	     method: "POST",
-	     json: true,
-	     headers: {
-	 			 "content-type": "application/json",
-				 "token":req.query.token
-	     },				  
-	     body: JSON.stringify(parpam)
-	 }, function(error, response, body) {			  
-	 	   res.end(response.body);
-	 });        		 
+	res.end(fs.readFileSync(__dirname + '/reg.html'));
 })		
-//任务
-app.get('/renwu', function (req, res) {
-	res.writeHead(200,{"Content-Type":"text/html"});
-	res.end(fs.readFileSync(__dirname + '/pd/renwu.html'));
-})	
-	
 var server = app.listen(8081, function () { 
 	  var host = server.address().address
 	  var port = server.address().port 
