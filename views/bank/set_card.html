@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>修改银行卡信息</title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+		<script src="app.js"></script>
+	</head>
+	<style>
+		.fc{color: #9C9C9C;}
+		input{border: 0px;width: 100%;text-align: right;}
+	</style>
+	<script>
+		parpam.userId = uid;
+		$.ajax({
+				type: 'Get',
+				url: url+"/ty/incrementHf/bank/bankInfo",
+				data: parpam,						
+				headers: {
+				  token: token
+				},	
+				success: function(data){
+					$("#id").val(data.result.id)
+					$(".idC").val(data.result.idCard)
+					$(".bankC").val(data.result.bankCode)
+					$(".bankN").val(data.result.bankName)
+					$(".bankB").val(data.result.bankBranch)   							
+				}
+		});	
+			
+		$(document).ready(function(){
+			$("button").click(function(){
+				var parpam ={}
+				parpam.userId = uid
+				parpam.idCard=$(".idC").val()
+				parpam.bankCode=$(".bankC").val()
+				parpam.bankName=$(".bankN").val()
+				parpam.bankBranch=$(".bankB").val()	
+				parpam.id=$("#id").val()				
+				$.ajax({
+						type: 'POST',
+						url: url+"/ty/incrementHf/bank/upBankInfo",
+						data: JSON.stringify(parpam),
+						contentType: "application/json",
+						headers: {
+						  token: token
+						},	
+						success: function(data){
+						    alert(data.message);
+							// if(data.status=="0000")
+							// {								
+								
+							// }
+							// else
+							// {
+							// 	alert(data.message);
+							// }
+							
+						}
+				});				
+			})
+		});
+	</script>
+	<body>		
+	
+		<div class="mt-2 bg-f">
+				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+					<div class="p-2 bd-highlight">当前密码</div>		   
+					<div class="p-2 bd-highlight fc">
+						<input type="text" id="id" />
+					</div>			
+				</div> 
+		     <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+					<div class="p-2 bd-highlight">卡号</div>		   
+					<div class="p-2 bd-highlight fc">
+						<input  class="bankC"/>
+					</div>			
+			 </div>  
+			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+					<div class="p-2 bd-highlight">开户行</div>		   
+					<div class="p-2 bd-highlight fc">
+						<input class="bankN"/>
+					</div>		
+			 </div>
+			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+			 		<div class="p-2 bd-highlight">开户支行</div>		   
+			 		<div class="p-2 bd-highlight fc">
+						<input class="bankB"/>
+					</div>		
+			 </div>
+			 <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
+			 		<div class="p-2 bd-highlight">身份证号</div>		   
+			 		<div class="p-2 bd-highlight fc">
+						<input class="idC"/>
+					</div>		
+			 </div>
+		 </div>		 
+		 <div class="mt-4" style="width: 96%; margin: auto;">
+			 <button class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">保存修改</button>
+		 </div>
+		  
+	</body>
+</html>

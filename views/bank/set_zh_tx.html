@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bdist/css/pub.css">
+		<script src="app.js"></script>
+		<style>
+			.t-a-c{text-align: center;}			
+			.b-f-s{font-size: inherit;}
+			.btn-warning-e {
+			    color: #212529;
+			    background-color: #ffc107;
+			    border-color: #ffc107;
+			}
+			.btn-light-e {
+			    color: #212529;
+			    background-color: #f8f9fa;
+			    border-color: #f8f9fa;
+			}
+			.end
+			{
+			     cursor:pointer;
+			     color:#212529;
+			}
+		</style>
+		<script>
+			    walletInfo()		
+				function getP(dom,p) {
+					$(".set_txt").val(p);
+					var collection = $(".flag");
+					$.each(collection, function () {
+						$(this).removeClass("btn-warning-e");
+						$(this).addClass("btn-light-e");
+					});
+					$(dom).removeClass("btn-light-e");
+					$(dom).addClass("btn-warning-e");
+				 }
+				 $(function () {
+						var collection = $(".flag");
+						$.each(collection, function () {
+							$(this).addClass("btn-light-e");
+						});
+						$(".submit").click(function(){
+							 if($(".set_txt").val().length==0)
+							 {
+								 alert('请选择金额');
+							 }
+							 else
+							 {
+								 alert($(".set_txt").val());
+							 }
+						});	
+				});
+		</script>	
+		
+	</head>
+	<body>		
+		<div class="d-flex justify-content-center bd-highlight pt-3 pb-3 bg-f">
+			<div class="p-2 bd-highlight t-a-c w-25">
+				<p><b id="ye"></b></p>
+				<p>余额</p>
+			</div>
+			<div class="p-2 bd-highlight text-align t-a-c w-50">
+				<p><b id="ljlqje"></b></p>
+				<p>累计领取金额</p>
+			</div>
+			<div class="p-2 bd-highlight t-a-c w-25">
+				<p><b id="djje"></b></p>
+				<p>冻结金额</p>
+			</div>
+		</div>
+		<div class="mt-3 bg-f p-1" style="width: 94%; margin: auto;">
+			<div class="pl-2 mt-3 mb-2">提现金额</div>
+			<div class="d-flex d-flex justify-content-between bd-highlight ">
+				<div class="p-2 bd-highlight">
+					<input class="set_txt" type="hidden"/>
+					<button onclick=getP(this,'5') type="button" class="flag btn  pl-4 pr-4">5元</button>
+				</div>
+				<div class="p-2 bd-highlight">
+					<button onclick=getP(this,'10') type="button" class="flag btn pl-4 pr-4">10元</button>
+				</div>
+				<div class="p-2 bd-highlight">
+					<button onclick=getP(this,'30') type="button" class="flag btn  pl-4 pr-4">30元</button>
+				</div>
+			</div>
+			<div class="d-flex d-flex justify-content-between bd-highlight">
+				<div class="p-2 bd-highlight">
+					<button onclick=getP(this,'100') type="button" class="flag btn  pl-4 pr-4">100元</button>
+				</div>
+				<div class="p-2 bd-highlight">
+					<button onclick=getP(this,'200') type="button" class="flag btn  pl-4 pr-4">200元</button>
+				</div>
+				<div class="p-2 bd-highlight">
+					<button onclick=getP(this,'500') type="button" class="flag btn  pl-4 pr-4">500元</button>
+				</div>
+			</div>
+			<div class="pl-2 mt-2 mb-2"><a href="set_zh_gz.html">提现规则</a></div>
+		</div>
+		<div class="mt-4" style="width: 96%; margin: auto;">
+			<button class="submit btn btn-lg btn-warning  w-100 b-f-s" type="button">确认提现</button>
+		</div>
+	</body>
+</html>
