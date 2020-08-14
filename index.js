@@ -16,21 +16,6 @@ app.get('/', function (req, res) {
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/user/login.html'));     
 })
-
-app.get('/axios', function (req, res) {
-	axios.get('/axiosForm')
-	  .then(function (response) {
-	    console.log(response);
-	  })
-	  .catch(function (error) {
-	    console.log(error);
-	  });
-	res.end()
-})
-app.get('/axiosForm', function (req, res) {
-	res.end('ok')
-})
-
 app.post('/loginForm', urlencodedParser, function (req, res) {
 	  var parpam ={};
 	  parpam.phone = req.body.phone;
@@ -65,23 +50,24 @@ app.get('/paiinfo', function (req, res) {
 })
 //领取任务
 
-app.get('/lqButton', urlencodedParser, function (req, res) {	
-	 var parpam ={};
-	 parpam.userId = req.query.userId;
-	 parpam.taskId = req.query.taskId;
-	 var url = 'http://101.200.129.62:8082/ty/incrementHf/task/recieveTask'
-	 request({
-	     url: url,
-	     method: "POST",
-	     json: true,
-	     headers: {
-	 			 "content-type": "application/json",
-				 "token":req.query.token
-	     },				  
-	     body: JSON.stringify(parpam)
-	 }, function(error, response, body) {			  
-	 	   res.end(response.body);
-	 });        		 
+app.get('/lqButton', function (req, res) {	
+	 // var parpam ={};
+	 // parpam.userId = req.query.userId;
+	 // parpam.taskId = req.query.taskId;
+	 // var url = 'http://101.200.129.62:8082/ty/incrementHf/task/recieveTask'
+	 // request({
+	 //     url: url,
+	 //     method: "POST",
+	 //     json: true,
+	 //     headers: {
+	 // 		 "content-type": "application/json",
+		// 	 "token":req.query.token
+	 //     },				  
+	 //     body: JSON.stringify(parpam)
+	 // }, function(error, response, body) {			  
+	 // 	   res.end(response.body);
+	 // });    
+	res.end()
 })		
 //任务
 app.get('/renwu', function (req, res) {
@@ -102,6 +88,23 @@ app.get('/set_zh', function (req, res) {
 	res.end(fs.readFileSync(__dirname + '/views/bank/set_zh.html'));
 })
 
+app.get('/axios', function (req, res) {
+	// axios({
+	// 	headers: {'token': 'Mi0xODI0OTAwMjk5My0xNTk3MzY5MzgxNTM1LThlNDA4OWE3OGMzNjQ2MWM5ZmI3YTViYmE3NGY4MjFk'},
+	//     method: 'Get',
+	//     url: 'http://101.200.129.62:8082/ty/incrementHf/user/headPortraitList'
+	// }).then(function (response) {
+ //         console.log(response.data);
+ //    })
+ //    .catch(function (error) {
+ //         console.log(error);
+ //    });
+	
+	res.end()
+})
+app.get('/axiosForm', function (req, res) {
+	res.end('ok')
+})
 
 var server = app.listen(config.port, function () { 
 	  var host = server.address().address
