@@ -28,6 +28,7 @@
 
         <script type="text/html" id="table-content-list">
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+		  <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-edit"></i>删除</a>
         </script>
       </div>
     </div>
@@ -47,6 +48,36 @@
       table.on("tool(LAY-app-content-list)", function (t) {		
         var e = t.data
         //监听   修改    查看详情 
+		if ("del" === t.event) {
+			var subUrl = '/system/deleteMenu'
+			var param = {}
+			param.menuId = e.id
+			
+			$.ajax({
+				  type: "POST",
+				  url: layui.api.baseUrl + mUrl + subUrl,
+				  data: JSON.stringify(param),
+				  contentType: "application/json",
+				  headers: {
+					token: sessionStorage.getItem("token")
+				  },
+				  dataType: "json",
+				  success: function (data) {
+						if (data.status == "0000") {
+						  layer.msg(msg);					 
+						} else if (data.status == "4031") {
+						  layer.msg(data.message);
+						  setTimeout(function () {
+						    window.parent.parent.location.href = '../../user/login.html';
+						  }, 2000)
+						} else {
+						  layer.msg('失败' + data.message)
+						}
+						
+				  }
+			});
+		}
+		
         if ("edit" === t.event) {
           var param = {}
           var sortTemp = '<option value="-1">请选择</option>'

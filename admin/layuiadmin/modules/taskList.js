@@ -3,20 +3,20 @@ layui.define(["table", "form", "util", "api"], function (t) {
     i = layui.table,
     n = layui.form,
     util = layui.util,
-    baseUrl = layui.api.baseUrl;
-
+    // setter = layui.setter,
+    baseapi = layui.api.baseUrl;
+  //satrt
   i.render({
     elem: "#LAY-app-content-list",
-    url: baseUrl + "/ty/incrementAdmin/admin/menuList",
+    url: baseapi + mUrl+"/operator/task/bigTaskList",
     request: {
       pageName: "pageNo", //页码的参数名称，默认：page
       limitName: "pageSize",
+      // token:sessionStorage.getItem("token")
     },
-    // where: {
-    //   token: sessionStorage.getItem("token")
-    // },
     headers: {},
-    parseData: function (res) {
+    where: {},
+    parseData: function (res) {		
       if (res.status == "4030" || res.status == "4031") {
         layer.msg(res.message);
         setTimeout(function () {
@@ -28,13 +28,13 @@ layui.define(["table", "form", "util", "api"], function (t) {
         layer.msg(res.message);
         return false;
       }
-      if (res.result.count == 0) {
-        //显示无数据提示内容
-        return {
-          code: 201,
-          msg: "未查询到相关数据",
-        };
-      }
+      // if (res.result.count == 0) {
+      //   //显示无数据提示内容
+      //   return {
+      //     code: 201,
+      //     msg: "未查询到相关数据",
+      //   };
+      // }
       return {
         code: res.status, //解析接口状态
         msg: res.message, //解析提示文本
@@ -50,45 +50,47 @@ layui.define(["table", "form", "util", "api"], function (t) {
         // },
         {
           field: "id",
-          title: "菜单ID",
-          minWidth: 20,
-        },
-        {
-          field: "name",
-          title: "菜单名称",
-          minWidth: 150,
-        },
-        {
-          field: "menuUrl",
-          title: "菜单地址",
-          minWidth: 350,
-        },
-        // {
-        //   field: "icon",
-        //   title: "icon",
-        //   // minWidth: 50,
-        //   align: "center",
-        // },
-        // {
-        //   field: "remark",
-        //   title: "备注",
-        //   // minWidth: 50,
-        //   align: "center",
-        // },
-        {
-          field: "pId",
-          title: "父菜单ID",
-          minWidth: 50,
+          width: 70,
+          title: "ID",
           sort: !0,
-          align: "center",
         },
+		{
+		  field: "title",
+		  width: 150,
+		  title: "任务标题"
+		},
+		{
+		  field: "orderCount",
+		  width: 150,
+		  title: "成单量"
+		}, 			
+		{
+		  field: "create_time",
+		  title: "发布时间",
+		  minWidth: 160,
+		  templet: function (d) {
+		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+		  },
+		}, 				 
         {
-          title: "操作",
-          minWidth: 50,
-          align: "center",
-          fixed: "right",
-          toolbar: "#table-content-list",
+          field: "status",
+          title: "状态",
+          width: 100,
+          templet: function (d) { 
+        	  if(d.status==1){return '已发布'}
+			  else if(d.status==2){return '已完成'}
+			  else if(d.status==3){return '已超时'}
+			  else if(d.status==4){return '待完成'}
+			  else if(d.status==5){return '暂停'}
+          },
         },
+		{
+		  title: "操作",
+		  minWidth: 100,
+		  align: "center",
+		  fixed: "right",
+		  toolbar: "#table-content-list",
+		},	
       ],
     ],
 
@@ -108,6 +110,10 @@ layui.define(["table", "form", "util", "api"], function (t) {
       // "edit" === t.event && layer.open({
 
       // })
+
+      // "total" === t.event && layer.open({
+
+      // })
     }),
-    t("menulist", {});
+    t("taskList", {});
 });

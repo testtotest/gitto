@@ -28,28 +28,50 @@
 <body>
   <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
     style="padding: 20px 30px 0 0;">
-   
+   <input type="hidden" name="id" id="id" />
 	<div class="layui-form-item">
-	  <label class="layui-form-label layui-form-label-dry">反馈id</label>
+	  <label class="layui-form-label layui-form-label-dry">任务id</label>
 	  <div class="layui-input-inline">
-	    <input type="text" name="id" id="id" value="1" disabled class="layui-input">
+	    <input type="text" name="taskId" id="taskId" value="35"  disabled class="layui-input">
 	  </div>
 	</div> 
 	<div class="layui-form-item">
 	  <label class="layui-form-label layui-form-label-dry">类型</label>
 	  <div class="layui-input-inline">
 	    <select name="tId" id="tId" lay-filter="tId">
-	         <option value="3">审核驳回</option>
-			 <option value="4">审核通过</option>			
+	         <option value="1">任务步骤</option>
+			 <option value="2">任务示例</option>			 
 	    </select>
 	  </div>
+	</div>  
+	<div class="layui-form-item">
+	  <label class="layui-form-label layui-form-label-dry">步骤序号<span class="red">*</span></label>
+	  <div class="layui-input-inline">
+	    <input type="text" name="stepNumber" id="stepNumber" lay-verify="required" maxlength="30" placeholder="请输入"
+	      autocomplete="off" class="layui-input" />
+	  </div>
 	</div>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">备注</label>
-      <div class="layui-input-inline">
-        <input type="text" name="remark" id="remark"  class="layui-input">
-      </div>
-    </div>    
+	  <div class="layui-form-item">
+	    <label class="layui-form-label layui-form-label-dry">描述<span class="red">*</span></label>
+	    <div class="layui-input-inline">
+	      <textarea name="description" id="description" style="width: 300px; height: 150px;" autocomplete="off"
+	        class="layui-textarea"></textarea>
+	    </div>
+	  </div>
+	  <div class="layui-form-item">
+	    <label class="layui-form-label layui-form-label-dry">缩略图</label>
+	    <div class="layui-input-inline">
+	      <div class="layui-upload">
+	        <button type="button" class="layui-btn" id="photo2-btn">
+	          上传图片
+	        </button>
+	        <div class="layui-upload-list">
+	          <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo2-img" />
+	        </div>
+	      </div>
+	    </div>
+	    <input type="hidden" name="photo2" id="photo2" autocomplete="off" class="layui-input" />
+	  </div>
     <div class="layui-form-item layui-hide">
       <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
         value="确认添加">
@@ -69,21 +91,59 @@
         , form = layui.form
         , upload = layui.upload
         , baseUrl = layui.api.baseUrl;
+	
+		
+		var uploadInst = upload.render({
+		  elem: "#photo2-btn",
+		  url: imgurl,
+		  before: function (obj) {
+		    //预读本地文件示例，不支持ie8
+		    obj.preview(function (index, file, result) {
+		      $("#photo2-img").attr("src", result); //图片链接（base64）
+		    });
+		  },
+		  data: {
+		    "oldFilePath": $("#photo2").val()
+		  },
+		  done: function (res) {
+		    console.log("res", res.result);
+		    if (res.status == "0000") {
+		      $("#photo2").val(res.result);
+		
+		      return layer.msg("图片上传成功");
+		    } else {
+		      return layer.msg("图片上传失败");
+		    }
+		  },
+		  error: function () {
+		    //演示失败状态，并实现重传
+		    var demoText = $("#bigimages-normal-demoText");
+		    demoText.html(
+		      '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+		    );
+		    demoText.find(".demo-reload").on("click", function () {
+		      uploadInst.upload();
+		    });
+		  },
+		});
+		
       //监听提交
       form.on('submit(layuiadmin-app-form-submit)', function (data) {
       
             var field = data.field; //获取提交的字段     
 			var index = parent.layer.getFrameIndex(window.name); 	  
 			var msg = ' '
-			var subUrl = '/manager/task/taskReceiveAudit'
+			var subUrl = '/operator/task/upTaskStatus'
 			if (field.id) {
 			  msg = '修改成功'
 			}
 			var param = {}
-			param.id = field.id
-			param.status = field.tId
-			param.remark = field.remark
-			
+			param.taskId = field.taskId
+			param.type = field.tId
+			param.detailed = field.description
+			param.stepNumber = field.stepNumber
+			param.file = field.photo2
+			//param.id = field.tId
 			$.ajax({
 				  type: "POST",
 				  url: baseUrl + mUrl + subUrl,
