@@ -22,12 +22,14 @@
 		.bd-callout-warning {
 		    border-left-color: #f0ad4e;
 		}		
+		
 	</style>
 	
 	<body>
 	 	
 	   <div class="bg-f p-3">
-		    <p class="font-weight-bold title"></p>
+		    
+		    <p class="font-weight-bold title"></p>		
 		    <p style="color: #FFCB4F;">任务时间 <span class="timeTote"></span></p>
 			<p class="mt-3 font-weight-bold">任务金额</p>
 			<p class="moneyReward" style="color: #F66A52;"><label></label><label>元</label></p>
@@ -37,8 +39,12 @@
 	   <div class="bg-f mt-2 p-3">
 		   <div class="bd-callout bd-callout-warning p-2 list"></div>
 		   <div>
-			   <img  width="100" id="shangchuanimg" />	 
-			    <div class="upload-wrap anticon" nv-file-drop="" uploader="uploader"><input id="input-file" class="file-ele" type="file" file-model="image" name="image" accept="image/*" nv-file-select uploader="uploader" multiple /><div class="file-open"><em class="icon icon-upload"></em>&nbsp;上传截图</div></div>			   
+			        <img  width="100" id="shangchuanimg" />	 
+			        <div class="upload-wrap anticon ml-2" nv-file-drop="" uploader="uploader">
+					<input id="input-file" class="file-ele" type="file" file-model="image" name="image" accept="image/*" nv-file-select uploader="uploader" multiple /><div class="file-open">
+					<em class="icon icon-upload"></em>&nbsp;上传截图
+					</div>
+			</div>			   
 		   </div>
 		   <input type="hidden" id="taskId" value="<%=id%>" />
 		   <div class="views_but"></div>
@@ -146,9 +152,9 @@ function directTurnIntoBase64(fileObj,callback){
 					
 					$.each(data.result.list, function (i,val) {
 						
-						$(".list").append('<div class="font-weight-bold pt-1 pb-1" >'+val.stepNumber+'</div><div class="mb-3">'+val.detailed+'</div>')
+						$(".list").append('<div class="font-weight-bold pt-1 pb-1" ><span style="min-width:40px;border-radius:50px 0px 50px 50px;background-color:#212121;padding:10px;line-height:30px;color:#fff">'+val.stepNumber+'</span></div><div class="mb-2 mt-2">'+val.detailed+'</div>')
 					});	
-					$(".list").append('<div class="rounded pt-5 pb-5 " style="background-color: #F6F7F8;text-align: center;width: 40%;"><p align="center"><img src="bdist/img/tpan.png"/></p><label  >上传截图</label></div>')
+					//$(".list").append('<div class="rounded pt-5 pb-5 " style="background-color: #F6F7F8;text-align: center;width: 40%;"><p align="center"><img src="bdist/img/tpan.png"/></p><label  >上传截图</label></div>')
 					$(".title").html(data.result.title)
 					$(".moneyReward").html(data.result.moneyReward)	
 					$(".detailed").html(data.result.detailed)	
@@ -188,11 +194,12 @@ function directTurnIntoBase64(fileObj,callback){
 		
 		function upimg(imgurl)
 		{
+			$("img").show();
 			 var parpamp ={}
 			 parpamp.img=imgurl;//$("#shangchuanimg").attr("src");
 			 parpamp.userId = uid;
 			 parpamp.receiveId = $("#taskId").val();
-			 alert(JSON.stringify(parpamp))
+
 			 // $.ajax({
 			 // 		type: 'POST',
 			 // 		url: url+"/ty/incrementHf/task/insertUserStep",
@@ -208,5 +215,6 @@ function directTurnIntoBase64(fileObj,callback){
 		}
 		$(document).ready(function(){	
 			$(".btn-img").click(function(){});	
+			$("img").hide();
 		});
 	</script>

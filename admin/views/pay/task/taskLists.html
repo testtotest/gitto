@@ -61,8 +61,7 @@
           {{#  } }}
         </script> -->
 					<script type="text/html" id="table-content-list">
-						<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="stepList"><i
-		    class="layui-icon layui-icon-edit"></i>步骤</a>	
+						<a  class="layui-btn layui-btn-normal layui-btn-xs" ><iclass="layui-icon layui-icon-edit" lay-event="stepList"></i>步骤</a>	
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskAudit"><i
             class="layui-icon layui-icon-edit"></i>状态</a>		
         </script><!--  -->
@@ -124,7 +123,7 @@
 
 							if ("stepList" == t.event) {
 							
-								sessionStorage.setItem("typeId", t.data.id);
+								sessionStorage.setItem("typeStepId", t.data.id);
 								layer.open({
 									type: 2,
 									title: "任务步骤",
@@ -139,7 +138,7 @@
 									},
 									success: function(layero, index) {
 										var body = layer.getChildFrame("body", index);
-                                        body.contents().find("#id").val(e.id);
+                                        body.contents().find("#tid").val(t.data.id);
 									}
 								});
 							}

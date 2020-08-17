@@ -76,20 +76,20 @@
 			var msg = ' '
 			var subUrl = '/operator/task/releaseTask'
 			if (field.id) {
-			  msg = '修改成功'
+			  msg = ''
 			}
 			var param = {}
 			param.pid = field.pid
 			param.title = field.title	
 			param.detailed = field.description
-		    
+		   
 			$.ajax({
 				  type: "POST",
 				  url: baseUrl + mUrl + subUrl,
 				  data: JSON.stringify(param),
 				  contentType: "application/json",
 				  headers: {
-					token: sessionStorage.getItem("token")
+					 token: sessionStorage.getItem("token")
 				  },
 				  dataType: "json",
 				  success: function (data) {

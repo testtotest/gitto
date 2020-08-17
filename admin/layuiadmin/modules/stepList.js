@@ -1,22 +1,21 @@
-layui.define(["table", "form", "util", "api"], function (t) {
+layui.define([ "form", "util", "api"], function (t) {
   var e = layui.$,
     i = layui.table,
     n = layui.form,
     util = layui.util,
     // setter = layui.setter,
-    baseapi = layui.api.baseUrl;
+    baseapi = layui.api.baseUrl;	
   //satrt
   i.render({
     elem: "#LAY-app-content-list",
     url: baseapi + mUrl+"/operator/step/stepList",
     request: {
       pageName: "pageNo", //页码的参数名称，默认：page
-      limitName: "pageSize",
-      // token:sessionStorage.getItem("token")
+      limitName: "pageSize"
     },
     headers: {},
     where: {
-         taskId: sessionStorage.getItem("typeId"),
+         taskId: sessionStorage.getItem("typeStepId"),
        },
     parseData: function (res) {	
 		
@@ -42,7 +41,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         code: res.status, //解析接口状态
         msg: res.message, //解析提示文本
         count: res.result.count, //解析数据长度
-        data: res.result.list, //解析数据列表
+        data: res.result, //解析数据列表
       };
     },
     cols: [
@@ -51,6 +50,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         //   type: "checkbox",
         //   fixed: "left"
         // },
+		
         {
           field: "id",
           width: 70,
@@ -58,33 +58,35 @@ layui.define(["table", "form", "util", "api"], function (t) {
           sort: !0,
         },
 		{
-		  field: "title",
-		  width: 150,
-		  title: "任务标题"
+		  field: "taskId",
+		  width: 70,
+		  title: "任务id"		 
 		},
 		{
-		  field: "orderCount",
+		  field: "stepNumber",
 		  width: 150,
-		  title: "成单量"
-		}, 			
+		  title: "步骤序号"
+		},
 		{
-		  field: "create_time",
-		  title: "发布时间",
-		  minWidth: 160,
-		  templet: function (d) {
-		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
-		  },
-		}, 				 
+		  field: "detailed",
+		  width: 150,
+		  title: "说明"
+		}, 			
+		// {
+		//   field: "create_time",
+		//   title: "发布时间",
+		//   minWidth: 160,
+		//   templet: function (d) {
+		//     return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+		//   },
+		// }, 				 
         {
-          field: "status",
-          title: "状态",
+          field: "type",
+          title: "类型",
           width: 100,
           templet: function (d) { 
-        	  if(d.status==1){return '已发布'}
-			  else if(d.status==2){return '已完成'}
-			  else if(d.status==3){return '已超时'}
-			  else if(d.status==4){return '待完成'}
-			  else if(d.status==5){return '暂停'}
+        	  if(d.type==1){return '任务步骤'}
+			  else if(d.type==2){return '任务示例'}			  
           },
         },
 		{
@@ -107,16 +109,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
   }),
     i.on("tool(LAY-app-content-list)", function (t) {
       var e = t.data;
-      // "del" === t.event ? layer.confirm("确定删除此文章？", function (e) {
-      //     t.del(), layer.close(e)
-      // }) :
-      // "edit" === t.event && layer.open({
-
-      // })
-
-      // "total" === t.event && layer.open({
-
-      // })
+     
     }),
     t("stepList", {});
 });

@@ -71,7 +71,7 @@
           <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
         </div> -->
         <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增菜单</button>
+          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
         </div>
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
         <!-- <script type="text/html" id="buttonTpl">
@@ -133,6 +133,7 @@
           });
            console.log(sessionStorage.getItem("token"))
           $("#token").val(sessionStorage.getItem("token"));
+		  
           var exporturl =
             baseurl + "/qrcode/admin/user/queryUserList?isExport=1";
           $("#form_submit").attr("action", exporturl);
@@ -149,7 +150,7 @@
 					layer.open({
 												type: 2,
 												title: "发布任务",
-												content: "releaseTask.html",
+												content: "releaseTasks.html",
 												maxmin: true,
 												area: ["100%", "100%"],
 												btn: ["确定", "取消"],
