@@ -46,6 +46,7 @@ function bankInfo()
 			  token: token
 			},	
 			success: function(data){
+				$(".userName").html(data.result.userName)
 				$(".idC").html(data.result.idCard)
 				$(".bankC").html(data.result.bankCode)
 				$(".bankN").html(data.result.bankName)

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+	</head>
+	
+	<script>	
+		var parpam ={}
+		parpam.token =$.session.get('token');
+		parpam.phone = $.session.get('phone');	
+		if($.session.get('token')!="")
+		{}
+		else
+		{
+			$(location).attr('href', 'login.html');			
+		}
+			 
+	    
+		function getToDate(time)
+		{	
+			var data = new Date(time);
+			    var year = data.getFullYear();  //获取年
+			    var month = data.getMonth() + 1;    //获取月
+			    var day = data.getDate(); //获取日
+			    var hours = data.getHours();
+			    var minutes = data.getMinutes();
+			    var seconds = data.getSeconds();
+			 
+			    /**
+			     * 与当前时间比较，显示 今天 10:10:10
+			     */
+			    //var date=new Date();
+			    /*if (date.getFullYear()==year&&date.getMonth() + 1==month){
+			        if (date.getDate()==day){
+			            time = "今天" + " " + hours + ":" + minutes + ":" + seconds;
+			            return time;
+			        }
+			        if ((parseInt(date.getDate())-1)==day){
+			            time = "昨天" + " " + hours + ":" + minutes + ":" + seconds;
+			            return time;
+			        }
+			    }*/
+			 
+			    time = year + "/" + month + "/" + day + "/" + " " + hours + ":" + minutes + ":" + seconds;
+			    return time;
+	
+		}
+		
+		function getP(id)
+		{	
+			var parpam ={}
+			parpam.id = id;
+			$.ajax({
+					type: 'Get',
+					url: "http://101.200.129.62:8082/ty/incrementHf/commonproblemCon/commonproblemConById",
+					data: parpam,					
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{							
+							alert(data.result.title);
+						}
+						else
+						{
+							alert(data.message);
+						}						
+					}
+			});			
+	    }
+	$.ajax({
+		type: 'Get',
+		url: "http://101.200.129.62:8082/ty/incrementHf/commonproblemCon/commonproblemConList",
+		data: parpam,									
+		success: function(data){
+			$.each(data.result.list,function(i,val){
+				$(".list").append('<div onclick=getP("'+val.id+'") class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2"><div class="p-2 bd-highlight">'+val.title+':'+getToDate(val.createTime)+'</div></div>');
+			});
+		}
+	});	
+	</script>
+	<body style="background-color: #F7F7F7;color: #343434;">	
+		<div  class="list mt-2" style="background-color: #FFFFFF;"></div>	
+	</body>
+</html>

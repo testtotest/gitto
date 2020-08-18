@@ -16,6 +16,15 @@ app.get('/', function (req, res) {
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/user/login.html'));     
 })
+
+app.get('/reg', function (req, res) {	
+     res.writeHead(200,{"Content-Type":"text/html"});
+     res.end(fs.readFileSync(__dirname + '/views/user/reg.html'));     
+})
+app.get('/forget', function (req, res) {	
+     res.writeHead(200,{"Content-Type":"text/html"});
+     res.end(fs.readFileSync(__dirname + '/views/user/forget.html'));     
+})
 app.get('/pdxx', function (req, res) {	
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/pd/pd_xx.html'));     

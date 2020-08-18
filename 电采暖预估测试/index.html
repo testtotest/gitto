@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
+		<script src="/dist/js/jquery.min.js"></script>
+		<script src="/dist/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="/dist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="/dist/css/sign.css" >
+		<link rel="stylesheet" href="/dist/css/pub.css" > 
+		<title>新能源供暖用电预估测试</title> 
+	</head>
+	<body>
+		<style>
+			.btn{font-size: 1rem}
+		</style>
+		<form class="form-signin"  action="" method="post">
+			  <h4 class="font-weight-normal t-center pt-2 pb-2">新能源供暖用电预估测试</h4>
+			  <div class="bg-f p-2">
+				    <p>1.您需要供暖的房屋使用面积</p>				  
+					<div class="d-flex justify-content-start bd-highlight mt-2 mb-2">			
+							<div class=" bd-highlight">
+							<input type="text"  class="form-control login-input" placeholder="请输入使用面积" >
+							</div>
+							<div class=" bd-highlight pl-2 pt-2">
+							㎡
+							</div>										
+					</div>
+			  </div>
+			  <div class="bg-f p-2 mt-2">		  		
+					<div class="pl-2 mt-3 mb-2">2.您家房屋的保温效果</div>
+			  		<div>
+			  			<div>			  				
+			  				<button  type="button" class="btn-light flag btn  pl-4 pr-4 w-100 t-left">较差</button>
+			  			</div>
+			  			<div>
+			  				<button  type="button" class="btn-light flag btn pl-4 pr-4 w-100 t-left mt-1">一般</button>
+			  			</div>
+			  			<div>
+			  				<button  type="button" class="btn-light flag btn  pl-4 pr-4 w-100 t-left mt-1">良好</button>
+			  			</div>
+						<div>
+							<button  type="button" class="btn-light flag btn  pl-4 pr-4 w-100 t-left mt-1">非常好</button>
+						</div>
+						
+			  		</div>
+			  </div>
+			  
+			 <div class="bg-f p-2 mt-2">		
+				      <div class="pl-2 mt-3 mb-2">3.您供暖的房屋类型</div>
+					  <div class="d-flex d-flex justify-content-between bd-highlight ">
+					  	<div class="p-2 bd-highlight">
+					  		<input class="set_txt" type="hidden"/>
+					  		<button onclick=getP(this,'5') type="button" class="btn-light flag btn  pl-4 pr-4">平层</button>
+					  	</div>
+					  	<div class="p-2 bd-highlight">
+					  		<button onclick=getP(this,'10') type="button" class="btn-light flag btn pl-4 pr-4">多层</button>
+					  	</div>
+					  	<div class="p-2 bd-highlight">
+					  		<button onclick=getP(this,'30') type="button" class="btn-light flag btn  pl-4 pr-4">厂房</button>
+					  	</div>
+					  </div>
+			  </div>
+			  
+			 <div class="bg-f p-2 mt-2">
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 		<div class=" bd-highlight w-17 pt-2">手机号</div>
+				 		<div class=" bd-highlight">
+				 		<input   type="text"  class="form-control login-input" placeholder="请输入手机号" >	
+				 		</div>			  					
+				 </div>
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 		<div class=" bd-highlight w-17 pt-2">姓名</div>
+				 		<div class=" bd-highlight">
+				 		<input   type="text"  class="form-control login-input" placeholder="请输入姓名" >	
+				 		</div>			  					
+				 </div>
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 					<div class=" bd-highlight w-17 pt-2">验证码</div>
+				 					<div class=" bd-highlight">
+				 						<input    type="text"  class="form-control login-input" placeholder="请输入密码" >	
+				 					</div>
+				 					<div class="bd-highlight pt-2">获取验证码</div>
+				 </div>
+			 </div>
+			  <button class="btn btn-lg btn-warning btn-block mt-3" type="button">提 交</button> 
+		</form>
+	</body>
+</html>

@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>派单中心</title>
+		<title>公告/消息列表</title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
@@ -13,13 +13,7 @@
 		<link rel="stylesheet" href="bdist/css/pub.css" >
 	</head>
 	<style>		
-		 p{padding: 0 0 5px 0;}		
-		.form-signin {
-		  width: 100%;
-		  max-width: 380px;
-		  padding: 15px;
-		  margin: auto;
-		}	
+		 p{padding: 0 0 5px 0;}			
 	</style>
 	<body>
 	<div class="tab">
@@ -32,8 +26,8 @@
 			$('.tab .item').on('click',function(){
 				var $this = $(this);
 				itemIndex = $this.index();					
-				$this.addClass('cur').siblings('.item').removeClass('cur');	
-				list(1)
+				$this.addClass('cur').siblings('.item').removeClass('cur');				
+				list(itemIndex)
 			})	
 		});	
 		list()
@@ -42,7 +36,7 @@
 			
 			var parpam ={}
 			parpam.userId = $.session.get('uid');
-			parpam.messageId = id;
+			parpam.messageId = id;			
 			$.ajax({
 					type: 'POST',
 					url: url+"/ty/incrementHf/obf/messageRead",
@@ -66,12 +60,13 @@
 		}
 	    function list(tid)
 		{
-			 $(".listno").remove();
-			var parpam ={}
-			parpam.token =$.session.get('token');
-			parpam.userId = $.session.get('uid');
-			if(tid==1) parpam.noticeStatus=1;
 			
+			 $(".listno").remove();
+			 var parpam ={}
+			 parpam.token =$.session.get('token');
+			 parpam.userId = $.session.get('uid');
+			 if(tid==1) parpam.noticeStatus=1;
+		    
 			$.ajax({
 				type: 'Get',
 				url: url+"/ty/incrementHf/obf/announcementList",

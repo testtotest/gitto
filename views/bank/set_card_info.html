@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>修改银行卡信息</title>
+		<title>银行卡信息</title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
@@ -28,21 +28,50 @@
 						  token: token
 						},	
 						success: function(data){
+							$(".userName").val(data.result.userName)
 							$(".idC").val(data.result.idCard)
 							$(".bankC").val(data.result.bankCode)
 							$(".bankN").val(data.result.bankName)
 							$(".bankB").val(data.result.bankBranch)   							
 						}
 				});	
-				
+				function bbin(txt)
+				{
+					var parpamb ={}
+					parpamb.cardNu = txt
+					$.ajax({
+						type: 'Get',
+						url: url+"/ty/incrementHf/bank/carkByBin",
+						data: parpamb,						
+						headers: {
+						  token: token
+						},	
+						success: function(data){
+							if(data.status=="0000")
+							{
+								$(".bankN").val(data.result)
+							}
+							else
+							    alert(data.message)								
+						}
+					 });	
+				}
 				$(document).ready(function(){
+					 $('.bankC').on('input propertychange', function() {//监听文本框
+					       var bc=$('.bankC').val()
+						  if (bc.length > 17) {
+						         bbin(bc)   
+						   }
+					 })
+
 					$("button").click(function(){	
 						var parpam ={}
 						parpam.userId = uid
+						parpam.userName=$(".userName").val()
 						parpam.idCard=$(".idC").val()
 						parpam.bankCode=$(".bankC").val()
 						parpam.bankName=$(".bankN").val()
-						parpam.bankBranch=$(".bankB").val()				
+						parpam.bankBranch=$(".bankB").val()							
 						$.ajax({
 								type: 'POST',
 								url: url+"/ty/incrementHf/bank/upBankInfo",
@@ -63,9 +92,9 @@
 	
 		<div class="mt-2 bg-f">
 				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
-					<div class="p-2 bd-highlight">当前密码</div>		   
+					<div class="p-2 bd-highlight">持卡人</div>		   
 					<div class="p-2 bd-highlight fc">
-						<input type="text"/>
+						<input class="userName"/>
 					</div>			
 				</div> 
 		     <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">

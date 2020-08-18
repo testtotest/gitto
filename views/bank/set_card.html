@@ -26,8 +26,9 @@
 				headers: {
 				  token: token
 				},	
-				success: function(data){
+				success: function(data){					
 					$("#id").val(data.result.id)
+					$(".userName").val(data.result.userName)
 					$(".idC").val(data.result.idCard)
 					$(".bankC").val(data.result.bankCode)
 					$(".bankN").val(data.result.bankName)
@@ -39,6 +40,7 @@
 			$("button").click(function(){
 				var parpam ={}
 				parpam.userId = uid
+				parpam.userName=$(".userName").val()
 				parpam.idCard=$(".idC").val()
 				parpam.bankCode=$(".bankC").val()
 				parpam.bankName=$(".bankN").val()
@@ -53,28 +55,19 @@
 						  token: token
 						},	
 						success: function(data){
-						    alert(data.message);
-							// if(data.status=="0000")
-							// {								
-								
-							// }
-							// else
-							// {
-							// 	alert(data.message);
-							// }
-							
+						    alert(data.message);							
 						}
 				});				
 			})
 		});
 	</script>
 	<body>		
-	
+	   <input type="hidden" id="id" />
 		<div class="mt-2 bg-f">
 				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
-					<div class="p-2 bd-highlight">当前密码</div>		   
+					<div class="p-2 bd-highlight">持卡人</div>		   
 					<div class="p-2 bd-highlight fc">
-						<input type="text" id="id" />
+						<input class="userName" />
 					</div>			
 				</div> 
 		     <div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
