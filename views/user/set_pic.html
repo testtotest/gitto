@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/pub.css" >		
+	</head>	
+	<script>	
+		var parpam ={}
+		parpam.token =$.session.get('token');
+		parpam.phone = $.session.get('phone');			
+	    
+		function getP(pic)
+		{	
+			var parpam ={}			 
+			 parpam.phone = $.session.get('phone');
+			 parpam.headPortrait = pic;
+			$.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/user/changeHeadPortrait",
+					data: JSON.stringify(parpam),
+					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{
+							$.session.set('pic',pic)
+							$(location).attr('href', 'set_pwd');
+						}
+						else
+						{
+							alert(data.message);
+						}						
+					}
+			});					
+		}
+	$.ajax({
+		type: 'Get',
+		url: url+"/ty/incrementHf/user/headPortraitList",
+		data: parpam,									
+		success: function(data){
+			$.each(data.result,function(i,val){
+				$(".list").append('<div onclick=getP("'+val.headUrl+'") class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2"><div class="p-2 bd-highlight"><img width="50" height="50" src="'+val.headUrl+'" /></div></div>');
+			});
+		}
+	});	
+	</script>
+	<body >	
+		<div  class="list mt-2 bg-f"></div>	
+	</body>
+</html>

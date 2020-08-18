@@ -34,6 +34,10 @@ app.get('/set_pwd', function (req, res) {
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/user/set_pwd.html'));     
 })
+app.get('/set_pic', function (req, res) {	
+     res.writeHead(200,{"Content-Type":"text/html"});
+     res.end(fs.readFileSync(__dirname + '/views/user/set_pic.html'));     
+})
 app.get('/e_pwd', function (req, res) {	
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/user/e_pwd.html'));     
@@ -47,6 +51,9 @@ app.get('/set_wtfk', function (req, res) {
 app.get('/set_cjwt_list', function (req, res) {	
      res.writeHead(200,{"Content-Type":"text/html"});
      res.end(fs.readFileSync(__dirname + '/views/user/set_cjwt_list.html'));     
+})
+app.get('/cjwt_info', function (req, res) {	
+	 res.render('user/set_cjwt_info.ejs',{id:req.query.id});	
 })
 app.get('/set_zh_tx', function (req, res) {	
      res.writeHead(200,{"Content-Type":"text/html"});

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="bdist/css/pub.css" >
+	</head>	
+	<body>	
+	      <input type="hidden" class="id" value="<%=id%>"/>
+		  <h5 class="font-weight-normal t-center p-3 bg-f title"></h5>
+		  <div class="cont p-2 bg-f"></div>
+	</body>
+</html>
+<script>
+   var parpam ={}
+   parpam.id = $(".id").val();
+   $.ajax({
+   		type: 'Get',
+   		url: url+"/ty/incrementHf/commonproblemCon/commonproblemConById",
+   		data: parpam,					
+   		headers: {
+   		  token: $.session.get('token')
+   		},	
+   		success: function(data){
+   			if(data.status=="0000")
+   			{	
+			    $(".title").html(data.result.title)
+   			    $(".cont").html(data.result.content)
+   			}
+   			else
+   			{
+   				alert(data.message);
+   			}						
+   		}
+   });			
+</script>

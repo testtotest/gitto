@@ -6,11 +6,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title></title>
 		<script src="bdist/js/jquery.min.js"></script>
-		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>		
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
-		<link rel="stylesheet" href="bdist/css/sign.css" > 
-		 
+		<link rel="stylesheet" href="bdist/css/sign.css" > 		 
 	</head>
 	<body>
 		<form class="form-signin"  action="" method="post">
@@ -27,17 +27,6 @@
 </html>
 <script type="text/javascript">
 
-function isPhoneNo(phone) { 
-	
- var pattern = /^1[34578]\d{9}$/; 
- return pattern.test(phone); 
-}
-function checkNumber(obj){ 
-     var reg = /^[0-9]+$/; 
-      if(obj!=""&&!reg.test(obj)){            
-          return false; 
-     } 
-} 
 
 
 $("button").click(function(){
@@ -60,7 +49,7 @@ $("button").click(function(){
 		  //console.log(JSON.stringify(parpam))			 
 		  $.ajax({
 		  			type: 'POST',
-		  			url: "http://101.200.129.62:8082/ty/incrementHf/user/resetPasswordOnline",
+		  			url: url+"/ty/incrementHf/user/resetPasswordOnline",
 		  			data: JSON.stringify(parpam),	
 		  			contentType: "application/json",	
 		  			dataType: "json",
@@ -70,7 +59,7 @@ $("button").click(function(){
 		  			success: function(data){
 		  				if(data.status=="0000")
 						{
-							$(location).attr('href', 'login.html');
+							$(location).attr('href', '/');
 						}
 						else
 						{

@@ -8,6 +8,7 @@
 		<script src="dist/js/jquery.min.js"></script>
 		<script src="dist/js/bootstrap.min.js"></script>
 		<script src="dist/js/jquerysession.js"></script>
+		<script src="dist/js/app.js"></script>
 		<link rel="stylesheet" href="dist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="dist/css/pub.css">		
 	</head>	
@@ -20,19 +21,19 @@
 		<div class="mt-2 ml-2 mr-2 bg-f">			
 			<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight">推荐您使用</div>
-				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1"  id="uphone">8kw</div>
+				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1"  id="s1"></div>
 			</div>	
 			<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight">预估每天电费</div>
-				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1" id="uphone">5.22元</div>
+				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1" ><span id="s2"></span>元</div>
 			</div>	
 			<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight">预估每月电费</div>
-				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1" id="uphone">5.22元</div>
+				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1"><span id="s3"></span>元</div>
 			</div>	
 			<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight">预估采暖季电费</div>
-				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1" id="uphone">5.22元</div>
+				<div class="pl-1 pr-1 pt-3 pb-3 bd-highlight c1"><span id="s4"></span>元</div>
 			</div>	
 		</div>
 			
@@ -49,16 +50,15 @@
 		 
 	</body>
 </html>
-<script>
-		$(document).ready(function(){
-	  $("button").click(function(){
-	   //    $.session.set('uid', null);
-	   //    $.session.set('token', null);	
-		  // $.session.set('phone', null);		  
-		  // $(location).attr('href', 'login.html');	
-	  });
-	  // $("#uphone").text(uphone);
-	  // $("img").attr('src',pic);
-	});
-	
-	</script>
+<script>	
+
+	$(document).ready(function(){
+		
+	    $("#s1").text(getUrlParam('reco'));
+		$("#s2").text(getUrlParam('dBill'));
+		$("#s3").text(getUrlParam('mBill'));
+		$("#s4").text(getUrlParam('aBill'));
+			  
+	    //$("img").attr('src',pic);
+	});	
+</script>

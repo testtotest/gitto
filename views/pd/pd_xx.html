@@ -36,7 +36,8 @@
 			
 			var parpam ={}
 			parpam.userId = $.session.get('uid');
-			parpam.messageId = id;			
+			parpam.messageId = id;	
+			
 			$.ajax({
 					type: 'POST',
 					url: url+"/ty/incrementHf/obf/messageRead",
@@ -65,6 +66,8 @@
 			 var parpam ={}
 			 parpam.token =$.session.get('token');
 			 parpam.userId = $.session.get('uid');
+			 parpam.pageNo=1;
+			 parpam.pageSize=5;
 			 if(tid==1) parpam.noticeStatus=1;
 		    
 			$.ajax({

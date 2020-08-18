@@ -69,7 +69,7 @@
 					{
 						$(".support-num").html(data.result.count);
 						$.each(data.result.list,function(i,val){
-							 $(".list").append('<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2"><div><h5>'+val.title+'</h5></div><div class="pb-2">'+val.detailed+'</div><div><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.moneyReward+'元</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">秒审核</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.missionTime+'小时内完成</button></div></div></a>');
+							 $(".list").append('<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2"><div><h5>'+val.title+'</h5></div><div class="pb-2">'+val.detailed+'</div><div><button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+val.moneyReward+'元</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">秒审核</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.missionTime+'小时内完成</button></div></div></a>');
 						});							
 					}
 					else

@@ -8,13 +8,14 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bdist/css/pub.css">
-		<script src="bdist/js/app.js"></script>
+		
 	</head>	
 	<body>
 		<div class="mt-2" style="background-color: #FFFFFF;">
-			<a href="set_pic.html">
+			<a href="set_pic">
 				<div class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2">
 					<div class="p-2 bd-highlight">头像</div>
 					<div class="p-2 bd-highlight"><img src="bdist/img/moren.png" width="30" /></div>
@@ -41,15 +42,15 @@
 	</body>
 </html>
 <script>
-		$(document).ready(function(){
-	  $("button").click(function(){
-	      $.session.set('uid', null);
-	      $.session.set('token', null);	
-		  $.session.set('phone', null);		  
-		  $(location).attr('href', 'login.html');	
-	  });
-	  $("#uphone").text(uphone);
-	  $("img").attr('src',pic);
+	$(document).ready(function(){
+	   $("button").click(function(){
+	       $.session.set('uid', null);
+	       $.session.set('token', null);	
+		   $.session.set('phone', null);		  
+		   $(location).attr('href', '/');	
+	    });
+	    $("#uphone").text(uphone);
+	    $("img").attr('src',pic);
 	});
 	
 	</script>
