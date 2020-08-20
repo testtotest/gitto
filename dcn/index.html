@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
+		<script src="dist/js/jquery.min.js"></script>
+		<script src="dist/swal.js"></script>
+		<link rel="stylesheet" href="dist/swal.css">
+		<script src="dist/js/bootstrap.min.js"></script>
+		<script src="dist/js/app.js"></script>
+		<link rel="stylesheet" href="dist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="dist/css/sign.css" >
+		<link rel="stylesheet" href="dist/css/pub.css" > 
+		
+		<title>新能源供暖用电预估测试</title> 
+	</head>
+	<body>		
+		<style>
+			.btn{font-size: 1rem}
+			.t-a-c{text-align: center;}
+			.b-f-s{font-size: inherit;}
+			.btn-warning-e {
+			    color: #FFFFFF;
+			    background-color: #28a745;
+			    border-color: #28a745;
+			}
+			.btn-light-e {
+			    color: #212529;
+			    background-color: #f8f9fa;
+			    border-color: #f8f9fa;
+			}	
+			.btn:hover{color: #FFFFFF;}
+			input[type=number], input[type=url] {
+			    height: 45px;   
+			    box-shadow: none!important;
+			    outline: 0!important;
+				padding: 0;
+			}
+		</style>
+		<form class="form-signin"  action="" method="post">
+			  <h4 class="font-weight-normal t-center pt-2 pb-2">新能源供暖用电预估测试</h4>
+			  <div class="bg-f p-2">
+				    <p><b>1.您需要供暖的房屋使用面积</b></p>				  
+					<div class="d-flex justify-content-start bd-highlight mt-2 mb-2">			
+							<div class=" bd-highlight">
+							<input id="measureArea" type="text"  class="form-control login-input" placeholder="请输入使用面积" >
+							</div>
+							<div class=" bd-highlight pl-2 pt-2">
+							㎡
+							</div>										
+					</div>
+			  </div>
+			  <div class="bg-f p-2 mt-2">		  		
+					<div class="pl-2 mt-3 mb-2"><b>2.您家房屋的保温效果</b></div>
+			  		<div><input type="hidden" class="btn-2-s">
+			  			<div>			  				
+			  				<button   type="button" class=" flag btn  pl-4 pr-4 w-100 t-left btn-2" data-id="8">较差</button>
+			  			</div>
+			  			<div>
+			  				<button  type="button" class=" flag btn pl-4 pr-4 w-100 t-left mt-1 btn-2" data-id="7">一般</button>
+			  			</div>
+			  			<div>
+			  				<button  type="button" class=" flag btn  pl-4 pr-4 w-100 t-left mt-1 btn-2" data-id="6">良好</button>
+			  			</div>
+						<div>
+							<button  type="button" class=" flag btn  pl-4 pr-4 w-100 t-left mt-1 btn-2" data-id="5">非常好</button>
+						</div>
+						
+			  		</div>
+			  </div>
+			  
+			 <div class="bg-f p-2 mt-2">		
+				      <div class="pl-2 mt-3 mb-2"><b>3.您供暖的房屋类型</b></div>
+					  <div class="d-flex d-flex justify-content-between bd-highlight ">
+					  	<div class="p-2 bd-highlight">
+					  		<input type="hidden" class="btn-3-s">
+					  		<button  type="button" class="btn-3  flags btn  pl-4 pr-4" data-id="1">平层</button>
+					  	</div>
+					  	<div class="p-2 bd-highlight">
+					  		<button  type="button" class="btn-3  flags btn pl-4 pr-4" data-id="2">多层</button>
+					  	</div>
+					  	<div class="p-2 bd-highlight">
+					  		<button  type="button" class="btn-3  flags btn  pl-4 pr-4" data-id="3">厂房</button>
+					  	</div>
+					  </div>
+			  </div>
+			  
+			 <div class="bg-f p-2 mt-2">				
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 		<div class=" bd-highlight w-17 pt-2">姓名</div>
+				 		<div class=" bd-highlight w-50">
+				 		<input name="inputN" id="inputN"    type="text"  class="form-control login-input" placeholder="请输入姓名"  >	
+				 		</div>			  					
+				 </div>
+				 
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 		<div class=" bd-highlight w-17 pt-2">手机号</div>
+				 		<div class=" bd-highlight w-50">
+				 		<input name="inputM" id="inputM"   type="number"  class="form-control login-input" placeholder="请输入手机号" >	
+				 		</div>			  					
+				 </div>
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2" >
+				 		<div class=" bd-highlight w-17 pt-2">验证码</div>
+				 		<div class=" bd-highlight w-50">
+				 		<input name="inputC" id="inputC" type="number"  class="form-control login-input" placeholder="请输入验证码" ></div>
+				 		<div class="bd-highlight pt-2" id="gcode" >获取验证码</div>
+				 </div>
+				 <div class="d-flex justify-content-start bd-highlight mt-2 mb-2">
+				 		<div class=" bd-highlight w-17 pt-2">地区</div>
+				 		<div class=" bd-highlight w-50">
+							<input id="picker" placeholder="选择地区"   type="text"  class="form-control login-input">	
+				 	
+				 		</div>			  					
+				 </div>
+			 </div>
+			  <button class="btn  btn-success btn-block mt-3 btn-form" type="button">提 交</button> 
+		</form>
+	</body>
+</html>
+
+		<script src="dist/picker.min.js"></script>
+		<script type="text/javascript" src="dist/city.js"></script>
+		<script type="text/javascript" src="dist/index.js"></script>
+<script type="text/javascript">
+$('#gcode').on('touchstart',function(e) {
+	 var str = '';
+	 if($.trim($('#inputM').val()).length == 0) {
+	     str += '手机号码没有输入\n';
+	     $('#inputM').focus();
+	  }else {
+	 	if(isPhoneNo($.trim($('#inputM').val()))== false){
+	 		   str += '手机号码不正确\n';
+	 		   $('#inputM').focus();
+	 	}
+	 }
+	 if(str != '') {
+	   swal("", str, "error");
+	    return false;
+	 }
+	 else
+	 {
+	 	 var parpam ={}
+	 	 parpam.phone=$('#inputM').val()	
+		 $.post("https://tyh.tongyunzn.com/ty/heatingHf/sedSms/electricityTestSms",parpam, function(data) {
+		     swal(data.message);
+		 });
+		
+		// var parpam ={}
+		// parpam.token ="Mi0xODI0OTAwMjk5My0xNTk3ODI2NzYwOTAyLWQ3YjRlN2Q3YmJjYTQzMjI4YTkwNjczNGQ3YTZiODFi";
+		// parpam.phone = "18249002993";	
+		// $.ajax({
+		// 	type: 'Get',
+		// 	url: "http://101.200.129.62:8082/ty/incrementHf/user/headPortraitList",
+		// 	data: parpam,									
+		// 	success: function(data){
+		// 		alert(data.message)
+		// 	}
+		// });	
+		
+	 }	
+});
+$("#gcodes").click(function(){})
+	
+	
+
+
+ $(function () {
+	
+						var collection = $(".flag");
+						$.each(collection, function () {						
+							$(this).addClass("btn-light-e");
+						});
+						var collection = $(".flags");
+						$.each(collection, function () {						
+							$(this).addClass("btn-light-e");
+						});
+						
+				});
+				
+$(".btn-2").click(function(){	
+	$(".btn-2-s").val($(this).data("id"))	
+	var collection = $(".flag");	
+	$.each(collection, function () {
+		 $(this).removeClass("btn-warning-e");
+		 $(this).addClass("btn-light-e");
+	});
+	$(this).removeClass("btn-light-e");
+	$(this).addClass("btn-warning-e");
+})	
+$(".btn-3").click(function(){
+	$(".btn-3-s").val($(this).data("id"))
+	var collection = $(".flags");
+	$.each(collection, function () {
+		 $(this).removeClass("btn-warning-e");
+		 $(this).addClass("btn-light-e");
+	});
+	$(this).removeClass("btn-light-e");
+	$(this).addClass("btn-warning-e");
+})	
+	
+	$('.btn-form').on('touchstart',function(e) {	
+		var str = '';
+		if($.trim($('#inputM').val()).length == 0) {
+		  str += '手机号码没有输入\n';
+		  $('#inputM').focus();
+		 }else {
+			if(isPhoneNo($.trim($('#inputM').val()))== false){
+				   str += '手机号码不正确\n';
+				   $('#inputM').focus();
+			}
+		 }
+		 if($.trim($('.btn-2-s').val()).length == 0) {
+		     str += '保温效果没有选择\n';		  
+		 }
+		 if($.trim($('.btn-3-s').val()).length == 0) {
+		     str += '房屋类型没有选择\n';		  
+		 }
+		 
+		 if($.trim($('#inputN').val()).length == 0) {
+		     str += '姓名没有输入\n';
+		     $('#inputN').focus();
+		  }
+		  if($.trim($('#inputC').val()).length == 0) {
+		     str += '验证码没有输入\n';
+		     $('#inputC').focus();
+		   }else {
+		  			if(checkNumber($.trim($('#inputC').val()))== false){
+		  				   str += '验证码不正确\n';
+		  				   $('#inputC').focus();
+		  			}
+		   }
+		 if(str != '') {
+			 swal("", str, "error");					 
+		     return false;
+		 }else
+		 {
+				var parpam ={}		
+				parpam.phone = $.trim($('#inputM').val());
+				parpam.name = $.trim($('#inputN').val());	
+				parpam.verificationCode = $.trim($('#inputC').val());	
+				parpam.measureArea = $.trim($('#measureArea').val());
+				parpam.preservation = $.trim($('.btn-2-s').val());
+				parpam.houseType = $.trim($('.btn-3-s').val());
+				parpam.address = $.trim($('#picker').val());
+				
+				//alert(JSON.stringify(parpam))
+				
+				$.ajax({
+							type: 'POST',
+							url: "https://tyh.tongyunzn.com/ty/heatingHf/electricityTest/addElectricityTest",
+							data: JSON.stringify(parpam),	
+							contentType: "application/json",	
+							dataType: "json",
+							success: function(data){
+								if(data.status=="0000")
+								{									
+									$(location).attr('href', 'info.html?reco='+data.result.recommend+'&dBill='+data.result.dailyBill+'&mBill='+data.result.monthlyBill+'&aBill='+data.result.annualBill+'');
+								}
+								else
+								swal(data.message)								
+							}
+				});			
+		 }
+	})
+</script>

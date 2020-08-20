@@ -1,0 +1,53 @@
+html,
+body {
+  height: 100%;
+ 
+}
+.form-signin {
+  width: 100%;
+  max-width: 380px;
+  padding: 15px;
+  margin: auto;
+}
+
+input[type=text], input[type=url] {
+    height: 45px;   
+    box-shadow: none!important;
+    outline: 0!important;
+	padding: 0;
+}
+input[type=password], input[type=url] {
+    height: 45px;   
+    box-shadow: none!important;
+    outline: 0!important;
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+label{margin-bottom:0px;margin-top: .0rem;color: #d3d3d3;}
+.login-input {
+    border: none!important;
+    border-radius: 0!important;
+    border-bottom: solid 1px #d3d3d3!important;
+    background: 0 0;
+}
+.input-group-texts {   
+    display: flex;   
+    align-items: center;
+    padding: .0rem .0rem;
+    margin-top: 15px;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #5f8de9;
+    text-align: center;
+    white-space: nowrap;  
+    border-radius: .25rem;
+}
+.pull-left {
+  float: left !important;
+}
+.pull-right {
+  float: right !important;
+}
