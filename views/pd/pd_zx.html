@@ -8,6 +8,8 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
+		<script src="bdist/js/app.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/pub.css">
 	</head>
@@ -54,7 +56,7 @@
 	</div>	
 	<script>		
 	   
-		var url="http://101.200.129.62:8082"
+	
 		var parpam ={}
 		parpam.userId = $.session.get('uid');		
 		$.ajax({
@@ -69,12 +71,12 @@
 					{
 						$(".support-num").html(data.result.count);
 						$.each(data.result.list,function(i,val){
-							 $(".list").append('<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2"><div><h5>'+val.title+'</h5></div><div class="pb-2">'+val.detailed+'</div><div><button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+val.moneyReward+'元</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">秒审核</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.missionTime+'小时内完成</button></div></div></a>');
+							 $(".list").append('<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2"><div><h5>'+val.title+'</h5></div><div class="pb-2">'+val.detailed+'</div><div><button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+val.moneyReward+'元</button><button type="button" class="btn btn-warning p-0 pl-1 pr-1">'+val.missionTime+'分钟内完成</button></div></div></a>');
 						});							
 					}
 					else
 					{
-						alert(data.message);
+						swal(data.message);	
 					}
 					
 				}
@@ -82,7 +84,7 @@
 	</script>
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">
 			<div class="d-flex justify-content-between">
-				<a href="pd_zx">
+				<a href="pai">
 				<div class=" bd-highlight t-center">
 					<p><img src="bdist/img/paidan.png" /></p>
 					<p>派单中心</p>

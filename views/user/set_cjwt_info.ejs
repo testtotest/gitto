@@ -8,7 +8,10 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
 		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/pub.css" >
 	</head>	
@@ -36,7 +39,7 @@
    			}
    			else
    			{
-   				alert(data.message);
+   				swal(data.message);
    			}						
    		}
    });			

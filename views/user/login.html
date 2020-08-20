@@ -8,6 +8,9 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/sign.css" > 
 		<link rel="stylesheet" href="bdist/css/pub.css" > 
@@ -28,20 +31,8 @@
 		 </form>
 	</body>
 </html>
-<script type="text/javascript">
+<script type="text/javascript">		   
 
-		   
-function isPhoneNo(phone) { 
-	
- var pattern = /^1[34578]\d{9}$/; 
- return pattern.test(phone); 
-}
-function checkNumber(obj){ 
-     var reg = /^[0-9]+$/; 
-      if(obj!=""&&!reg.test(obj)){            
-          return false; 
-     } 
-} 
 $("button").click(function(){
 	
 	var str = '';
@@ -58,7 +49,7 @@ $("button").click(function(){
 	       str += '密码没有输入\n';	  
 	  }
 	  if(str != '') {
-	      alert(str);
+	      swal("", str, "error");
 	      return false;
 	  }
 	  else
@@ -81,8 +72,8 @@ $("button").click(function(){
 						$.session.set('pic', data.result.headPortrait);					
 						$(location).attr('href', 'set');
 					}	
-					else	
-					    alert(data.message)				
+					else
+						swal(data.message);					   			
 		   		}
 		   });
 	   }

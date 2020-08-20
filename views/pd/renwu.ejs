@@ -8,6 +8,7 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
 		<script src="bdist/js/app.js"></script>
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
 		<link rel="stylesheet" href="bdist/css/sign.css">	
@@ -132,7 +133,7 @@
 		{
 			
 			  $(".listno").remove(); 
-			var url="http://101.200.129.62:8082"
+			
 			var parpam ={}
 			parpam.userId = $.session.get('uid');
 			parpam.status = status;
@@ -162,7 +163,7 @@
 								}
 								else if(val.status==3)
 								{    status="审核驳回"
-								    txt='<div class="pb-3"><button type="button" onclick="" class="btn btn-outline-warning mr-2 ">审核驳回</button>'
+								    txt='<div class="pb-3"><button type="button"  class="btn btn-outline-warning mr-2 w-100">审核驳回</button>'
 								}
 								
 								else if(val.status==4)

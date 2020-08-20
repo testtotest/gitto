@@ -8,11 +8,14 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/pub.css">
 	</head>
-	<style>
-		body{background-color: #F7F7F7;color: #343434;}	
+	<style>		
 			.fc{
 				color: #9C9C9C;
 			}			
@@ -31,7 +34,7 @@
 			         //alert($(this).data(""));	
 					 if($(".form-control").val().length==0)
 					 {
-						 alert("问题不能为空!");  
+						 swal("", "问题不能为空!", "error");
 					 }
 					 else
 					 {
@@ -40,7 +43,7 @@
                           parpam.content = $(".form-control").val();						  
                          $.ajax({
                          		type: 'POST',
-                         		url: "http://101.200.129.62:8082/ty/incrementHf/obf/userFeedback",
+                         		url: url+"/ty/incrementHf/obf/userFeedback",
                          		data: JSON.stringify(parpam),
                          		contentType: "application/json",
                          		headers: {
@@ -54,7 +57,7 @@
                          			}
                          			else
                          			{
-                         				alert(data.message);
+                         				swal(data.message);
                          			}
                          			
                          		}

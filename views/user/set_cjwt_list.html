@@ -8,7 +8,10 @@
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
 		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/pub.css" >
 	</head>
@@ -23,7 +26,7 @@
 		parpam.phone = $.session.get('phone');		
 	$.ajax({
 		type: 'Get',
-		url: "http://101.200.129.62:8082/ty/incrementHf/commonproblemCon/commonproblemConList",
+		url: url+"/ty/incrementHf/commonproblemCon/commonproblemConList",
 		data: parpam,									
 		success: function(data){
 			$.each(data.result.list,function(i,val){

@@ -6,6 +6,9 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">		
 		<script src="/bdist/js/jquery.min.js"></script>
 		<script src="/bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>		
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="/bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="/bdist/css/sign.css" > 
 		<title>注册</title> 
@@ -31,17 +34,6 @@
 </html>
 <script type="text/javascript">
 
-function isPhoneNo(phone) { 
-	
- var pattern = /^1[34578]\d{9}$/; 
- return pattern.test(phone); 
-}
-function checkNumber(obj){ 
-     var reg = /^[0-9]+$/; 
-      if(obj!=""&&!reg.test(obj)){            
-          return false; 
-     } 
-} 
 $("#gcode").click(function(){
 	var str = '';
 	if($.trim($('#inputM').val()).length == 0) {
@@ -54,7 +46,7 @@ $("#gcode").click(function(){
 		}
 	}
 	if(str != '') {
-	   alert(str);
+	   swal("", str, "error");
 	   return false;
 	}
 	else
@@ -62,7 +54,7 @@ $("#gcode").click(function(){
 	   /////////////
 	   var parpam ={}
 	   parpam.phone=$('#inputM').val();	
-	    $.post("http://101.200.129.62:8082/ty/incrementAdmin/sedSms/installationApplyForH5",parpam,function(data){
+	    $.post(url+"/ty/incrementAdmin/sedSms/installationApplyForH5",parpam,function(data){
 	       alert(data.message)
 	     }, "json");
 	  
@@ -101,7 +93,7 @@ $("button").click(function(){
 			}
 	    }
 	if(str != '') {
-	  alert(str);
+	  swal("", str, "error");
 	  return false;
 	 }
 	 else
@@ -112,7 +104,7 @@ $("button").click(function(){
 		 parpam.password = $.trim($('#inputPs').val());	
 		 $.ajax({
 		 			type: 'POST',
-		 			url: "http://101.200.129.62:8082/ty/incrementHf/user/register",
+		 			url: url+"/ty/incrementHf/user/register",
 		 			data: JSON.stringify(parpam),	
 		 			contentType: "application/json",	
 		 			//dataType: "json",

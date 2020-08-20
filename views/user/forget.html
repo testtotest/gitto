@@ -4,10 +4,13 @@
 		<meta charset="utf-8">
 		 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title></title>
+		<title>忘记密码</title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/sign.css" > 
 		 
@@ -33,17 +36,6 @@
 </html>
 <script type="text/javascript">
 
-function isPhoneNo(phone) { 
-	
- var pattern = /^1[34578]\d{9}$/; 
- return pattern.test(phone); 
-}
-function checkNumber(obj){ 
-     var reg = /^[0-9]+$/; 
-      if(obj!=""&&!reg.test(obj)){            
-          return false; 
-     } 
-} 
 
 $("#gcode").click(function(){
 	var str = '';
@@ -57,7 +49,7 @@ $("#gcode").click(function(){
 		}
 	}
 	if(str != '') {
-	   alert(str);
+	   swal("", str, "error");
 	   return false;
 	}
 	else
@@ -65,8 +57,8 @@ $("#gcode").click(function(){
 	   /////////////
 	   var parpam ={}
 	   parpam.phone=$('#inputM').val();	
-	    $.post("http://101.200.129.62:8082/ty/incrementAdmin/sedSms/installationApplyForH5",parpam,function(data){
-	       alert(data.message)
+	    $.post(url+"/ty/incrementAdmin/sedSms/installationApplyForH5",parpam,function(data){
+	        swal(data.message);
 	     }, "json");
 	  
 	   /////////////
@@ -88,7 +80,7 @@ $("button").click(function(){
 	      str += '密码没有输入\n';	  
 	  }
 	  if(str != '') {
-		  alert(str);
+		   swal("", str, "error");
 		  return false;
 	  }
 	  else
@@ -99,18 +91,18 @@ $("button").click(function(){
 		  parpam.newPassword = $.trim($('#inputPs').val());		 
 		  $.ajax({
 		  			type: 'POST',
-		  			url: "http://101.200.129.62:8082/ty/incrementHf/user/resetPassword",
+		  			url: url+"/ty/incrementHf/user/resetPassword",
 		  			data: JSON.stringify(parpam),	
 		  			contentType: "application/json",	
 		  			//dataType: "json",
 		  			success: function(data){
 		  				if(data.status=="0000")
 						{
-							$(location).attr('href', 'login.html');
+							$(location).attr('href', '/');
 						}
 						else
 						{
-							alert(data.message)
+							 swal(data.message);
 						}
 		  			}
 		  });
