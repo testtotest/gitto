@@ -113,6 +113,7 @@
             //预读本地文件示例，不支持ie8
             obj.preview(function (index, file, result) {
               $("#photo2-img").attr("src", result); //图片链接（base64）
+			  
             });
           },
           data: {
@@ -147,8 +148,10 @@
           url: imgurl,
           before: function (obj) {
             //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-              $("#photo1-img").attr("src", result); //图片链接（base64）
+			
+            obj.preview(function (index, file, result) {				
+                $("#photo1-img").attr("src", result); //图片链接（base64）
+			    $("#photo1").val(result);
             });
           },
           data: {
@@ -190,14 +193,15 @@
 			param.stepNumber = field.stepNumber
 			param.exampleDiagram = field.photo1	
 			param.id = field.id //修改	
+			alert(JSON.stringify(param))
 			$.ajax({
 					type: "POST",
 					url: baseUrl+mUrl+subUrl,
 					data: JSON.stringify(param),
 					contentType: "application/json",
 					headers: {
-									 token: "ZjViYzMxYjYyZDQ3NDM1Yzg3NTk0MTBjYTg2NDk5OTMtc3lzdGVtLTE1OTc2NDM5NTc5ODQtMTExLjQyLjE1NS4yMDctMg==",
-								},
+										 token: sessionStorage.getItem("token")
+					},
 								dataType: "json",
 								success: function (data) {
 									if (data.status == "0000") {

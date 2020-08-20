@@ -25,7 +25,8 @@
 			<a href="javascript:;" class="item s4">已完成</a>
 			<a href="javascript:;" class="item s5">已取消</a>
 		</div>
-		<div class="w-95  m-auto renwu f-size-09 pt-2 list pb-6"></div>		
+		<div class="w-95  m-auto renwu f-size-09 pt-2 list pb-6"></div>	
+		<div class="nomsg w-100 t-center p-4" style="display:none;">暂无消息</div>	
 		<input type="hidden" class="upid" value="<%=id%>"/> 
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">
 			<div class="d-flex justify-content-between">				
@@ -148,6 +149,15 @@
 						if(data.status=="0000")
 						{
 							
+							if(data.result.list.length==0)
+							{
+								$(".nomsg").show();
+							}
+							else
+							{
+								$(".nomsg").hide();
+							}
+							
 							$.each(data.result.list,function(i,val){
 								var status=""
 								var txt=""
@@ -178,7 +188,7 @@
 								{    status="超时"}	
 								
 								
-								 $(".list").append('<div class="mb-2 rounded bg-f listno"><a href="paiinfo?type=1&id='+val.recieveId+'"><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight"><b>'+val.title+'('+val.recieveId+')</b></div><div class="p-2 bd-highlight" style="color: #FFD46F;">'+status+'</div></div><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight">赏金</div><div class="p-2 bd-highlight">'+val.moneyReward+'</div></div><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight">接单时间</div><div class="p-2 bd-highlight">1分钟</div></div><div class="d-flex justify-content-between bd-highlight mb-3"><div class="p-2 bd-highlight">最晚提交时间</div><div class="p-2 bd-highlight">0</div></div></a>'+txt+'</div>');
+								 $(".list").append('<div class="mb-2 rounded bg-f listno"><a href="paiinfo?type=1&id='+val.recieveId+'"><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight"><b>'+val.title+'</b></div><div class="p-2 bd-highlight" style="color: #FFD46F;">'+status+'</div></div><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight">赏金</div><div class="p-2 bd-highlight">'+val.moneyReward+'</div></div><div class="d-flex justify-content-between bd-highlight"><div class="p-2 bd-highlight">接单时间</div><div class="p-2 bd-highlight">1分钟</div></div><div class="d-flex justify-content-between bd-highlight mb-3"><div class="p-2 bd-highlight">最晚提交时间</div><div class="p-2 bd-highlight">0</div></div></a>'+txt+'</div>');
 							});							
 						}
 						else

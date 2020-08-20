@@ -150,10 +150,10 @@
         fieldObj.sysUser.password = field.password
         fieldObj.sysUser.agentLevel = field.agentLevel
         if (field.id) {
-          var url = '/ty/heatingAdmin/system/updateSysUser'; //修改
+          var url = mUrl+'/system/updateSysUser'; //修改
           fieldObj.sysUser.id = field.id
         } else {
-          var url = '/ty/heatingAdmin/system/addSysUser'; //新增
+          var url = mUrl+'/system/addSysUser'; //新增
         }
         fieldObj = JSON.stringify(fieldObj);
         $.ajax({

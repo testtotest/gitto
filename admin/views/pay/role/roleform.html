@@ -101,6 +101,7 @@
         },
         dataType: "json",
         success: function (data) {
+			
           //1、最基础的用法 - 直接绑定json
           var xtree1 = new layuiXtree({
             elem: 'xtree1'   //(必填) 放置xtree的容器，样式参照 .xtree_contianer
@@ -119,9 +120,9 @@
 
             if ($('#roleId').attr('disabled')) { //修改
              // var url = '/qrcode/system/updateRoleMenu'
-              var url ='/ty/heatingAdmin/system/updateRoleMenu'
+              var url =mUrl+'/system/updateRoleMenu'
             } else { //新增
-              var url = '/ty/heatingAdmin/system/addRole'
+              var url = mUrl+'/system/addRole'
             }
 
             field.menuArrayString = temArr.join(',')

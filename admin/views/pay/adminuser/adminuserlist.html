@@ -95,7 +95,7 @@
       //seach  所属角色  roleId
       $.ajax({
         type: "POST",
-        url: baseurl + "/ty/heatingAdmin/admin/roleList",
+        url: baseurl + mUrl +"/admin/roleList",
         data: {
           pageSize: 1000,
         },
@@ -160,7 +160,7 @@
           layer.confirm(desc, function (e) {
             $.ajax({
               type: "POST",
-              url: baseurl + "/ty/heatingAdmin/system/updateStatus",
+              url: baseurl + mUrl + "/system/updateStatus",
               data: param,
               headers: {
                 token: sessionStorage.getItem("token")
@@ -194,7 +194,7 @@
           layer.confirm(desc, function (e) {
             $.ajax({
               type: "POST",
-              url: baseurl + "/ty/heatingAdmin/system/resetPassword",
+              url: baseurl + mUrl + "/system/resetPassword",
               data: param,
               headers: {
                 token: sessionStorage.getItem("token")
@@ -224,7 +224,7 @@
           $.ajax({
             type: "get",
             // url: baseurl + "/ledger/admin/sysUserInfo",
-            url: baseurl + "/ty/heatingAdmin/admin/sysUserInfo",
+            url: baseurl + mUrl + "/admin/sysUserInfo",
             data: {
               id: t.data.id,
             },
@@ -252,7 +252,7 @@
                 $.ajax({
                   type: "POST",
                   // url: baseurl + "/ledger/admin/roleList",
-                  url: baseurl + "/ty/heatingAdmin/admin/roleList",
+                  url: baseurl + mUrl + "/admin/roleList",
                   data: param,
                   headers: {
                     token: sessionStorage.getItem("token")
@@ -330,10 +330,6 @@
 
       })
 
-
-
-
-
       var $ = layui.$, active = {
 
         add: function () {
@@ -346,7 +342,7 @@
           //调用角色列表
           $.ajax({
             type: "POST",
-            url: baseurl + "/ty/heatingAdmin/admin/roleList",
+            url: baseurl + mUrl + "/admin/roleList",
             data: param,
             headers: {
               token: sessionStorage.getItem("token")

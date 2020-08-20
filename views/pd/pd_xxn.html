@@ -20,8 +20,8 @@
 	</style>
 	<body>
 	<div class="tab">
-		<a href="javascript:;" class="item cur">全部</a>
-		<a href="/pdxxn" class="item">未读消息</a>		
+		<a href="pdxx" class="item ">全部</a>
+		<a href="javascript:;" class="item cur">未读消息</a>		
 	</div>	
 	
     <div class="content">
@@ -33,11 +33,11 @@
 <script>
 $(function(){
 	$('.tab .item').on('click',function(){
-		// var $this = $(this);
-		// itemIndex = $this.index();					
-		// $this.addClass('cur').siblings('.item').removeClass('cur');				
-		//  $(".listno").remove()
-		//  lists(itemIndex)
+		var $this = $(this);
+		itemIndex = $this.index();					
+		$this.addClass('cur').siblings('.item').removeClass('cur');				
+		 $(".listno").remove()
+		
 	})	
     list()
 });
@@ -56,7 +56,7 @@ function list(tid)
 			++counter;
 			parpam.pageNo=counter;
 			parpam.pageSize=8;
-			if(tid==1) parpam.noticeStatus=1;	
+			parpam.noticeStatus=1;	
 			
 	        $.ajax({
 	            type: 'GET',
@@ -65,8 +65,7 @@ function list(tid)
 	            dataType: 'json',
 	            success: function(data){
 					 var arrLen = data.result.list.length;
-					 pages = Math.ceil(data.result.count / parpam.pageSize);
-				
+					 pages = Math.ceil(data.result.count / parpam.pageSize);				   
 	                 if(arrLen > 0){
 						 $.each(data.result.list,function(i,val){
 						 	if(val.noticeStatus==1)	

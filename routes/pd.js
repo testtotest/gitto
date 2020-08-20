@@ -15,4 +15,7 @@ module.exports = app => {
 		 app.get('/pdxx', function (req, res) {
 			  test.test(req, res,'pd/pd_xx.html');	          
 		 })
+		 app.get('/pdxxn', function (req, res) {
+		 			  test.test(req, res,'pd/pd_xxn.html');	          
+		 })
 }

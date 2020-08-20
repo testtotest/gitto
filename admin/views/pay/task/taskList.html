@@ -22,42 +22,78 @@
     <div class="layui-card">
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item">         
+        <div class="layui-inline">
+          <label class="layui-form-label">状态</label>
+          <div class="layui-input-inline">
+            <select name="status">
+                <option value="">请选择</option>
+                <option value="">全部</option>
+                <option value="0">系统生成</option>
+                <option value="1">已发布</option>
+        		<option value="2">已完成</option>
+        		<option value="3">已超时</option>
+        		<option value="4">待完成</option>
+				<option value="5">暂停</option>
+            </select>
+          </div>
+		   <label class="layui-form-label">发布类型</label>
+		  <div class="layui-input-inline">
+		    <select name="status">
+		        <option value="">请选择</option>
+		        <option value="">全部</option>
+		        <option value="1">按总金额</option>
+		        <option value="2">按单量</option>		         
+		    </select>
+		  </div>
+        </div>	
+        	<div class="layui-inline">
+        	  <label class="layui-form-label">id</label>
+        	  <div class="layui-input-inline">
+        	    <input type="text" name="id" id="id" placeholder="请输入" autocomplete="off" class="layui-input" />
+        	  </div>
+        	</div>	 
           <div class="layui-inline">
-            <label class="layui-form-label">id</label>
+            <label class="layui-form-label">用户id</label>
             <div class="layui-input-inline">
               <input type="text" name="userId" id="userId" placeholder="请输入" autocomplete="off" class="layui-input" />
             </div>
           </div>
-		  <div class="layui-inline">
-		      <label class="layui-form-label">注册开始时间</label>
-		      <div
-		        class="layui-input-inline"
-		        style="display: flex; flex-direction: row;"
-		      >
-		        <input
-		          type="text"
-		          class="layui-input"
-		          name="beginDate"
-		          id="beginDate"
-		          placeholder="yyyyMMdd"
-		        />
-		      </div>
-		    </div>
-			<div class="layui-inline">
-			    <label class="layui-form-label">注册结束时间</label>
-			    <div
-			      class="layui-input-inline"
-			      style="display: flex; flex-direction: row;"
-			    >
-			      <input
-			        type="text"
-			        class="layui-input"
-			        name="endDate"
-			        id="endDate"
-			        placeholder="yyyyMMdd"
-			      />
-			    </div>
-			  </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">任务id</label>
+            <div class="layui-input-inline">
+              <input type="text" name="taskId" id="taskId" placeholder="请输入" autocomplete="off" class="layui-input" />
+            </div>
+          </div>
+          <div class="layui-inline">
+              <label class="layui-form-label">注册开始时间</label>
+              <div
+                class="layui-input-inline"
+                style="display: flex; flex-direction: row;"
+              >
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="beginDate"
+                  id="beginDate"
+                  placeholder="yyyyMMdd"
+                />
+              </div>
+            </div>
+        	<div class="layui-inline">
+        	    <label class="layui-form-label">注册结束时间</label>
+        	    <div
+        	      class="layui-input-inline"
+        	      style="display: flex; flex-direction: row;"
+        	    >
+        	      <input
+        	        type="text"
+        	        class="layui-input"
+        	        name="endDate"
+        	        id="endDate"
+        	        placeholder="yyyyMMdd"
+        	      />
+        	    </div>
+        	  </div>
           <div class="layui-inline">
             <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>

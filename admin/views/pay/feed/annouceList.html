@@ -21,39 +21,8 @@
   <div class="layui-fluid">
     <div class="layui-card">
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item"> 
-		<div class="layui-inline">
-		  <label class="layui-form-label">员工状态</label>
-		  <div class="layui-input-inline">
-		    <select name="status">
-		        <option value="">请选择</option>
-		        <option value="">全部</option>
-		        <option value="1">已发布</option>
-		        <option value="2">已完成</option>
-				<option value="3">已超时</option>
-				<option value="4">待完成</option>
-				<option value="5">暂停</option>
-		    </select>
-		  </div>
-		</div>	
-			<div class="layui-inline">
-			  <label class="layui-form-label">id</label>
-			  <div class="layui-input-inline">
-			    <input type="text" name="id" id="id" placeholder="请输入" autocomplete="off" class="layui-input" />
-			  </div>
-			</div>	 
-          <div class="layui-inline">
-            <label class="layui-form-label">用户id</label>
-            <div class="layui-input-inline">
-              <input type="text" name="userId" id="userId" placeholder="请输入" autocomplete="off" class="layui-input" />
-            </div>
-          </div>
-		  <div class="layui-inline">
-		    <label class="layui-form-label">任务id</label>
-		    <div class="layui-input-inline">
-		      <input type="text" name="taskId" id="taskId" placeholder="请输入" autocomplete="off" class="layui-input" />
-		    </div>
-		  </div>
+        <div class="layui-form-item">         
+         
 		  <div class="layui-inline">
 		      <label class="layui-form-label">注册开始时间</label>
 		      <div
@@ -93,9 +62,9 @@
       </div>
 
       <div class="layui-card-body">
-        <!-- <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
-        </div> -->
+        <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-list" data-type="add">发布公告</button>
+        </div>
 
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
         <!-- <script type="text/html" id="buttonTpl">
@@ -105,12 +74,7 @@
             <button class="layui-btn layui-btn-primary layui-btn-xs">已推送</button>
           {{#  } }}
         </script> -->
-        <script type="text/html" id="table-content-list">
-		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskReceiveDetails"><i
-		    class="layui-icon layui-icon-edit"></i>任务详情</a>	
-        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskReceiveAudit"><i
-            class="layui-icon layui-icon-edit"></i>任务审核</a>
-        </script><!--  -->
+       
       </div>
     </div>
   </div>
@@ -127,7 +91,7 @@
         index: "lib/index", //主入口模块
       })
       .use(
-        ["index", "taskReceiveList", "table", "api", "laydate", "function", "helper"],
+        ["index", "annouceList", "table", "api", "laydate", "function", "helper"],
         function () {
           var table = layui.table,
             form = layui.form,
@@ -167,15 +131,15 @@
           table.on("tool(LAY-app-content-list)", function (t) {			
                 var e = t.data; 
 	            
-				if ("taskReceiveDetails" == t.event) {
+				if ("detailUser" == t.event) {
 				    ////////////
 					layer.open({
 							type: 2,
-							title: "任务详情",
-							content: "taskReceiveDetails.html",
+							title: "发布公告",
+							content: "annouce.html",
 							maxmin: true,
 							area: ["100%", "100%"],
-							//btn: ["确定", "取消"],
+							btn: ["确定", "取消"],
 							yes: function (index, layero) {
 							  //点击确认触发 iframe 内容中的按钮提交
 							 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
@@ -184,55 +148,9 @@
 							success: function (layero, index) {
 								var body = layer.getChildFrame("body", index);
 								body.contents().find("#id").val(e.id);
-								body.contents().find("#userId").val(e.userId);
-								body.contents().find("#taskId").val(e.taskId);
-								body.contents().find("#moneyOrder").val(e.moneyOrder);
-								body.contents().find("#moneyReward").val(e.moneyReward);
-								body.contents().find("#missionTime").val(e.missionTime);
-								body.contents().find("#lastTime").val(util.toDateString(e.lastTime, "yyyy-MM-dd HH:mm:ss"));
-								if(e.status==1)
-								    status="已领取"
-								else if(e.status==2)
-									status="已提交"
-								else if(e.status==3)
-									status="审核驳回"
-								else if(e.status==4)
-									status="审核通过"
-								else if(e.status==5)
-									status="已取消"
-								else if(e.status==6)
-									status="超时"
-								body.contents().find("#status").val(status);
-								body.contents().find("#createTime").val(util.toDateString(e.createTime, "yyyy-MM-dd HH:mm:ss"));
-								body.contents().find("#subTime").val(util.toDateString(e.subTime, "yyyy-MM-dd HH:mm:ss"));
-								body.contents().find("#sysUserId").val(e.sysUserId);
-								body.contents().find("#auditTime").val(util.toDateString(e.auditTime, "yyyy-MM-dd HH:mm:ss"));
-								body.contents().find("#remark").val(e.remark);
-								body.contents().find("#pheone").val(e.pheone);
-								
 							}
 				   });
 				   /////////
-				}
-				if ("taskReceiveAudit" == t.event) {
-					layer.open({
-												type: 2,
-												title: "任务审核",
-												content: "taskReceiveAudit.html",
-												maxmin: true,
-												area: ["100%", "100%"],
-												btn: ["确定", "取消"],
-												yes: function (index, layero) {
-												  //点击确认触发 iframe 内容中的按钮提交
-												 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
-												 submit.click();
-												},
-												success: function (layero, index) {
-												var body = layer.getChildFrame("body", index);
-												body.contents().find("#id").val(e.id);
-													
-												}
-					});
 				}
           });
 
@@ -257,25 +175,25 @@
 
           var $ = layui.$,
             active = {
-              // batchdel: function(){
-              //   // alert('2')
-              //   var checkStatus = table.checkStatus('LAY-app-content-list')
-              //   ,checkData = checkStatus.data; //得到选中的数据
-              //   if(checkData.length === 0){
-              //     return layer.msg('请选择数据');
-              //   }
-              //   layer.confirm('确定删除吗？', function(index) {
-              //     //执行 Ajax 后重载
-              //     /*
-              //     admin.req({
-              //       url: 'xxx'
-              //       //,……
-              //     });
-              //     */
-              //     table.reload('LAY-app-content-list');
-              //     layer.msg('已删除');
-              //   });
-              // },
+              add: function(){
+                layer.open({
+                							type: 2,
+                							title: "发布公告",
+                							content: "annouce.html",
+                							maxmin: true,
+                							area: ["100%", "100%"],
+                							btn: ["确定", "取消"],
+                							yes: function (index, layero) {
+                							  //点击确认触发 iframe 内容中的按钮提交
+                							 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                							 submit.click();
+                							},
+                							success: function (layero, index) {
+                								var body = layer.getChildFrame("body", index);
+                								body.contents().find("#id").val(e.id);
+                							}
+                });
+              },
             };
 
           $(".layui-btn.layuiadmin-btn-list").on("click", function () {

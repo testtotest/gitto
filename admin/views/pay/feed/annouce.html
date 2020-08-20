@@ -43,14 +43,16 @@
    </div> -->
     <input type="hidden" name="id" id="id" />
     <input type="hidden" name="tId" id="tId" value="1"/>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">内容</label>
-      <div class="layui-input-inline">
-        <input type="text" name="content" id="content"  class="layui-input">
-      </div>
-    </div>  
-    <div class="layui-form-item">
-      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
+	<div class="layui-form-item">
+	  <label class="layui-form-label layui-form-label-dry">内容<span class="red">*</span></label>
+	  <div class="layui-input-inline">
+	    <textarea name="content" id="content" lay-verify="required" style="width: 300px; height: 150px;" autocomplete="off"
+	      class="layui-textarea"></textarea>
+	  </div>
+	</div>
+
+    <div class="layui-form-item layui-hide">
+     <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
         value="确认添加">
     <!--  <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑"> -->
     </div>
@@ -71,14 +73,14 @@
       //监听提交
       form.on('submit(layuiadmin-app-form-submit)', function (data) {      
 			var field = data.field; //获取提交的字段
-			//var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+			var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 			var msg = ' '
 			var subUrl = '/operator/obf/annouce'
-			//alert(field.tId)
 			 var param = {}
 			 param.type = field.tId
 			 param.content = field.content
-			 if(param.type==2 && field.id.length>0) param.userId = field.id			
+			 if(param.type==2 && field.id.length>0) param.userId = field.id	
+			alert(JSON.stringify(param))
 			 $.ajax({
 					type: "POST",
 					url: baseUrl+mUrl+subUrl,
@@ -89,7 +91,17 @@
 					},
 					dataType: "json",
 					success: function (data) {
-						alert(data.message);			 
+						
+						if (data.status == "0000") {
+						  layer.msg(data.message);
+						 
+						} else if (data.status == "4031") {
+						  layer.msg(data.message);
+						 
+						} else {
+						  layer.msg('失败' + data.message)
+						}
+								 
 					},
 			 });
          

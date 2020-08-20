@@ -94,7 +94,7 @@
 
 
     <!-- layui-hide -->
-    <div class="layui-form-item ">
+    <div class="layui-form-item layui-hide">
       <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
         value="确认添加" />
       <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit"
@@ -212,8 +212,8 @@
 					data: JSON.stringify(param),
 					contentType: "application/json",
 					headers: {
-									 token: "ZjViYzMxYjYyZDQ3NDM1Yzg3NTk0MTBjYTg2NDk5OTMtc3lzdGVtLTE1OTc2NDM5NTc5ODQtMTExLjQyLjE1NS4yMDctMg==",
-								},
+										 token: sessionStorage.getItem("token")
+					},
 								dataType: "json",
 								success: function (data) {
 									if (data.status == "0000") {

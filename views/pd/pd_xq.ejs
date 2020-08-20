@@ -152,8 +152,12 @@ function directTurnIntoBase64(fileObj,callback){
 				success: function(data){
 					
 					$.each(data.result.list, function (i,val) {
+						if(val.exampleDiagram!="示例图位置,需要配置")
+						   var pics='<p class="mb-4"><img src='+val.exampleDiagram+' width=100%></p>'
+						else
+						    pics=""
 						
-						$(".list").append('<div class="font-weight-bold pt-1 pb-1" ><span style="min-width:40px;border-radius:50px 0px 50px 50px;background-color:#212121;padding:10px;line-height:30px;color:#fff">'+val.stepNumber+'</span></div><div class="mb-2 mt-2">'+val.detailed+'</div>')
+						$(".list").append('<div class="font-weight-bold pt-1 pb-1" ><span style="min-width:40px;border-radius:50px 0px 50px 50px;background-color:#212121;padding:10px;line-height:30px;color:#fff">'+val.stepNumber+'</span></div><div class="mb-2 mt-2">'+val.detailed+'</div>'+pics)
 					});	
 					//$(".list").append('<div class="rounded pt-5 pb-5 " style="background-color: #F6F7F8;text-align: center;width: 40%;"><p align="center"><img src="bdist/img/tpan.png"/></p><label  >上传截图</label></div>')
 					$(".title").html(data.result.title)

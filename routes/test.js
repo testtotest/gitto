@@ -7,10 +7,6 @@ module.exports.test = function (req, res,txt) {
 module.exports.etest = function (req, res) {		
      res.render('pd/renwu.ejs',{id:req.query.id});
 };
-
-
-
-
 module.exports.ptest = function (req, res) {
 	var parpam ={};
 	parpam.phone = req.body.phone;
