@@ -1,0 +1,48 @@
+$(window).scroll(function () {
+		var scrollTop = $(this).scrollTop();
+		var scrollHeight = $(document).height();
+		var windowHeight = $(this).height();
+		// 下拉
+		if (scrollTop + windowHeight == scrollHeight) {
+			if(page >= maxPage){
+				$.ajax({
+					type : "post",
+					url : url,
+					data : 'page=' + (page + 1),
+					dataType: 'json',
+					async : false,
+					success : function(data){
+						var html = template('j-product', data);
+						$('#j-product-box').append(html);
+						//rug
+						if(!isEmpty(data.list)){
+							page++;
+							localData.set('cat_{$id}_page', page);
+							if(page > maxPage){
+								localData.set('cat_{$id}_page_max', page);
+							}
+						}
+					}
+				});
+			}
+		}
+		// 上拉
+		if(scrollTop == 0 && minPage > 1){
+			$.ajax({
+				type : "post",
+				url : url,
+				data : 'page=' + (page - 1),
+				dataType: 'json',
+				async : false,
+				success : function(data){
+					var html = template('j-product', data);
+					$('#j-product-box').prepend(html);
+					page--;
+					localData.set('cat_{$id}_page', page);
+					if(page < minPage){
+						localData.set('cat_{$id}_page_min', page);
+					}
+				}
+			});
+		}
+	});
