@@ -22,6 +22,10 @@
 				  token: token
 				},	
 				success: function(data){
+					if(data.status=="4030")
+					{
+						noto()
+					}
 					$(".txt").html(data.result)				 							
 				}
 		});	

@@ -15,7 +15,7 @@ layui.define(["table", "form", "util"], function (t) {
     //  baseUrl = "http://123.166.198.210:8080"
     // baseUrl = "http://101.200.129.62:8080",
     imgurl = "http://101.200.129.62:8082/ty/incrementAdmin/operator/step/stepList";
-  imgBaseUrl = "http://101.200.129.62:8082/tyapplet/",
+  imgBaseUrl = "https://img.tongyunzn.com/increment/",
   	mUrl="/ty/incrementAdmin",
     t("api", {
       baseUrl,

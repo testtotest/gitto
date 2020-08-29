@@ -56,8 +56,8 @@ layui.define(["table", "form", "util", "api"], function (t) {
         },
 		{
 		  field: "userId",
-		  width: 100,
-		  title: "反馈ID"
+		  width: 120,
+		  title: "反馈用户ID"
 		}, 
 		
 		{
@@ -68,7 +68,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		{
 		  field: "create_time",
 		  title: "反馈时间",
-		  minWidth: 160,
+		  minWidth: 140,
 		  templet: function (d) {
 		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
 		  },
@@ -78,7 +78,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "状态",
           minWidth: 120,
           templet: function (d) { 
-        	  if(d.status==1){return '正常'}else if(d.status==2){return '不可登陆'}
+        	  if(d.status==1){return '未处理'}else if(d.status==2){return '已处理'}
           },
         },
 		{

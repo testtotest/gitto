@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>公告/消息列表</title>
+		<title></title>
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
@@ -15,10 +15,23 @@
 		<link rel="stylesheet" href="bdist/dropload.css">
 		<script src="bdist/dropload.min.js"></script>
 	</head>
-	<style>		
-		 p{padding: 0 0 5px 0;}			
+	<style>
+		
+		p{
+		    display: inline-block;
+		    vertical-align: middle;
+		}		 
 	</style>
 	<body>
+		<div class="d-flex justify-content-between bg-f">
+			<div class="p-2 bd-highlight" >
+					<a href="pai"><img src="bdist/img/fanhui.png" /></a>
+			</div>
+			<div class="p-2 bd-highlight t-center f-size-1">消息</div>
+			<div class="p-2 bd-highlight ">
+				<img src="bdist/img/qingli.png" style="vertical-align: middle;" /><p class="pl-2 toR">全部已读</p>
+			</div>
+		</div>
 	<div class="tab">
 		<a href="pdxx" class="item ">全部</a>
 		<a href="javascript:;" class="item cur">未读消息</a>		
@@ -32,6 +45,39 @@
 </html>
 <script>
 $(function(){
+	$('.toR').on('click',function(){
+		var parpam ={}
+		parpam.userId = $.session.get('uid');
+		parpam.messageId = 0;	
+		
+		$.ajax({
+				type: 'POST',
+				url: url+"/ty/incrementHf/obf/messageRead",
+				data: JSON.stringify(parpam),
+				contentType: "application/json",
+				headers: {
+				   token: $.session.get('token')
+				},	
+				success: function(data){
+					if(data.status=="0000")
+					{			 				
+						$(location).attr('href', 'pdxx');
+					}
+					else
+					{
+						 if(data.status=="4030")
+						 {
+						 	noto()
+						 }
+						 else
+						 {
+						 	swal(data.message);
+						 }	
+					}
+					
+				}
+		});			
+	})	
 	$('.tab .item').on('click',function(){
 		var $this = $(this);
 		itemIndex = $this.index();					
@@ -72,7 +118,7 @@ function list(tid)
 						 	bj="bdist/img/tixing.png" 
 						 	else	
 						 	bj=""					
-						 	result +='<div onclick=getP("'+val.id+'") class="bg-f p-2 mb-2 listno"><div class="d-flex justify-content-between bd-highlight "><div class="p-2 bd-highlight"><b>公告</b></div><div class="p-2 bd-highlight"><img src="'+bj+'" class="w-100"/></div></div>	<div class="pl-2 m-set" style="color: #999999;">'+val.content+''+val.id+'</div></div>	';
+						 	result +='<div onclick=getP("'+val.id+'") class="bg-f p-2 mb-2 listno"><div class="d-flex justify-content-between bd-highlight "><div class="p-2 bd-highlight"><b>公告</b></div><div class="p-2 bd-highlight"><img src="'+bj+'" class="w-100"/></div></div>	<div class="pl-2 m-set" style="color: #999999;">'+val.content+'</div></div>	';
 							
 						 });
 						

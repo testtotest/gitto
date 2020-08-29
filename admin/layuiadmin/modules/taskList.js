@@ -61,7 +61,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		},
 		{
 		  field: "orderCount",
-		  width: 150,
+		  width: 100,
 		  title: "成单量"
 		}, 			
 		{

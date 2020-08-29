@@ -80,7 +80,7 @@
 			 param.type = field.tId
 			 param.content = field.content
 			 if(param.type==2 && field.id.length>0) param.userId = field.id	
-			alert(JSON.stringify(param))
+			
 			 $.ajax({
 					type: "POST",
 					url: baseUrl+mUrl+subUrl,
@@ -93,14 +93,21 @@
 					success: function (data) {
 						
 						if (data.status == "0000") {
-						  layer.msg(data.message);
+						  layer.msg(data.message);				 
+						 setTimeout(function () {
+						   parent.layui.table.reload('LAY-app-content-list'); //重载表格
+						   parent.layer.close(index); //再执行关闭 
+						 }, 1000)
 						 
 						} else if (data.status == "4031") {
 						  layer.msg(data.message);
-						 
+						  setTimeout(function () {
+						    window.parent.parent.location.href = '../../user/login.html';
+						  }, 2000)
 						} else {
 						  layer.msg('失败' + data.message)
 						}
+						 parent.layer.closeAll("loading");		
 								 
 					},
 			 });

@@ -53,19 +53,14 @@
         	  </div>
         	</div>	 
           <div class="layui-inline">
-            <label class="layui-form-label">用户id</label>
+            <label class="layui-form-label">任务标题</label>
             <div class="layui-input-inline">
-              <input type="text" name="userId" id="userId" placeholder="请输入" autocomplete="off" class="layui-input" />
+              <input type="text" name="title" id="title" placeholder="请输入" autocomplete="off" class="layui-input" />
             </div>
           </div>
+        
           <div class="layui-inline">
-            <label class="layui-form-label">任务id</label>
-            <div class="layui-input-inline">
-              <input type="text" name="taskId" id="taskId" placeholder="请输入" autocomplete="off" class="layui-input" />
-            </div>
-          </div>
-          <div class="layui-inline">
-              <label class="layui-form-label">注册开始时间</label>
+              <label class="layui-form-label">开始时间</label>
               <div
                 class="layui-input-inline"
                 style="display: flex; flex-direction: row;"
@@ -80,7 +75,7 @@
               </div>
             </div>
         	<div class="layui-inline">
-        	    <label class="layui-form-label">注册结束时间</label>
+        	    <label class="layui-form-label">结束时间</label>
         	    <div
         	      class="layui-input-inline"
         	      style="display: flex; flex-direction: row;"
@@ -118,6 +113,8 @@
           {{#  } }}
         </script> -->
         <script type="text/html" id="table-content-list">
+	<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="TaskListinfo"><i
+		    class="layui-icon layui-icon-edit"></i>详情</a>		
 		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskReceiveDetails"><i
 		    class="layui-icon layui-icon-edit"></i>发布</a>	
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskAudit"><i
@@ -202,6 +199,43 @@
 					});
 				   /////////
 				}
+				if ("TaskListinfo" == t.event) {
+					layer.open({
+												type: 2,
+												title: "详情",
+												content: "taskListinfo.html",
+												maxmin: true,
+												area: ["100%", "100%"],
+												btn: [ "关闭"],
+												yes: function (index, layero) {
+												  //点击确认触发 iframe 内容中的按钮提交
+												 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+												 submit.click();
+												},
+												success: function (layero, index) {
+													var body = layer.getChildFrame("body", index);
+				body.contents().find("#id").val(e.id);
+				body.contents().find("#pid").val(e.pid);
+				body.contents().find("#title").val(e.title);
+				
+				body.contents().find("#detailed").val(e.detailed);
+				body.contents().find("#label").val(e.label);
+				body.contents().find("#missionTime").val(e.missionTime+"分钟");
+				body.contents().find("#completionTime").val(e.completionTime);
+				body.contents().find("#moneyReward").val(e.moneyReward+'元');
+				body.contents().find("#maxAmount").val(e.maxAmount+'元');
+				body.contents().find("#tId").val(e.status);
+				
+				body.contents().find("#minAmount").val(e.minAmount);
+				body.contents().find("#alreadyAmount").val(e.alreadyAmount);
+				body.contents().find("#frequencyLimit").val(e.frequencyLimit);
+				body.contents().find("#createTime").val(util.toDateString(e.createTime, "yyyy-MM-dd HH:mm:ss"));
+				body.contents().find("#orderCount").val(e.orderCount);
+													
+												}
+					});
+				}
+				
 				if ("taskAudit" == t.event) {
 					layer.open({
 												type: 2,
@@ -239,7 +273,7 @@
 					  							},
 					  							success: function (layero, index) {
 					  								var body = layer.getChildFrame("body", index);
-					  								body.contents().find("#id").val(e.id);
+					  								//body.contents().find("#id").val(e.id);
 					  								body.contents().find("#tId").val(e.status);
 					  								
 					  							}

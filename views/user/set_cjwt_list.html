@@ -29,6 +29,10 @@
 		url: url+"/ty/incrementHf/commonproblemCon/commonproblemConList",
 		data: parpam,									
 		success: function(data){
+			if(data.status=="4030")
+			{
+				noto()
+			}
 			$.each(data.result.list,function(i,val){
 				$(".list").append('<a href="cjwt_info?id='+val.id+'"><div  class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2"><div class="p-2 bd-highlight">'+val.title+':'+getToDate(val.createTime)+'</div></div></a>');
 			});
@@ -36,6 +40,6 @@
 	});	
 	</script>
 	<body style="background-color: #F7F7F7;color: #343434;">	
-		<div  class="list mt-2" style="background-color: #FFFFFF;"></div>	
+		<div  class="list mt-2 bg-f"></div>	
 	</body>
 </html>

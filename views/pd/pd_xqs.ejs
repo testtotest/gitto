@@ -3,77 +3,607 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
 		<title>派单中心</title>
+		
 		<script src="bdist/js/jquery.min.js"></script>
 		<script src="bdist/js/bootstrap.min.js"></script>
 		<script src="bdist/js/jquerysession.js"></script>
 		<script src="bdist/js/sess.js"></script>
 		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >		
-		<link rel="stylesheet" href="bdist/css/pub.css">
+		<link rel="stylesheet" href="bdist/css/pub.css?s=0">
+		<link rel="stylesheet prefetch" href="bdist/css/default-skin.css">
+		<link rel="stylesheet prefetch" href="bdist/css/photoswipe.css">	
+		<script src="bdist/js/photoswipe.js"></script>
+		<script src="bdist/js/photoswipe-ui-default.min.js"></script>
 	</head>
 	<style>		
 		p{padding: 3px;}		
-		.bd-callout {		 
-		    border: 1px #fff dashed;
-		    border-left-width: .13rem;		   
-		}
-		.bd-callout-warning {
-		    border-left-color: #f0ad4e;
-		}		
 	</style>
 	
 	<body>
 	 	
 	   <div class="bg-f p-3">
-		    <p class="font-weight-bold title"></p>
-		    <p style="color: #FFCB4F;">任务时间 <span class="timeTote"></span></p>
-			<p class="mt-3 font-weight-bold">任务金额</p>
-			<p class="moneyReward" style="color: #F66A52;"><label></label><label>元</label></p>
+		    <p class="font-weight-bold f-size-22 title"></p>
+		    <p class="f-size-13 st-t"> <span class="timeTote"></span><span class="taskTime"></span></p>
+			<p class="mt-3 font-weight-bold f-size-15">任务金额</p>
+			<p class="st-p f-size-22"><label class="moneyReward "></label><label class="f-size-12s">元</label></p>
 			<p class="mt-1 font-weight-bold ">任务说明</p>
-			<p class="mb-3 detailed" style="color: #666666;"></p>
+			<p class="mb-3 detailed f-size-13 renwu"></p>
 	   </div>
-	   <div class="bg-f mt-2 p-3">
-		   <div class="bd-callout bd-callout-warning p-2 list"></div>		   
-		   <input type="hidden" id="taskId" value="<%=id%>" />
-		   <div class="views_but"></div>
+	   <div class="bg-f mt-2 p-2" id="imgshow">
+		   <div class="pt-4 list"></div>
+			<div>
+				<div class="st-bia" ><span class="st ml-4">示例图</span></div>					
+			</div>	   
+		    <div class="bd-callout bd-callout-warning p-2 d-flex flex-wrap bd-highlight pic_list" ></div>
+			<div class="pl-3">
+				 <div class="d-flex justify-content-start bd-highlight">
+				 	<div class="bd-highlight w-50 mr-2 up-pic" >
+				 		<figure>
+				 		<p class="img-dv" >
+							<a  id="shangchuanimg_a" data-size="680x408"><img   id="shangchuanimg" class="w-100"/>	</a>
+						</p>
+						</figure>
+				 	</div>
+				 	<div class="bd-highlight w-50 up-pic-btn">
+						<!---->
+						<div class="upload-wrap  "  >
+											<input id="input-file" class="file-ele" type="file" file-model="image" name="image" accept="image/*" nv-file-select uploader="uploader" multiple />					
+												<div class="rounded pt-5 pb-5 img-btn">
+													<p align="center"><img src="bdist/img/tpan.png"/></p>
+													<label  >上传截图</label></div>					
+						</div>		
+						<!---->
+					</div>
+				 	
+				 </div>
+				 
+					   
+			</div>	  
+			
+			
+			
+		   <input type="hidden" id="taskId" value="<%=id%>" />		   
+		   <div class="views_but"></div>		  
 	   </div>
+	  <!---->
+	  
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="pswp__bg"></div>
+<div class="pswp__scroll-wrap">
+<div class="pswp__container">
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
+<div class="pswp__item"></div>
+</div>
+<div class="pswp__ui pswp__ui--hidden">
+<div class="pswp__top-bar">
+	<div class="pswp__counter"></div>
+<button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+<button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+<button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+ <div class="pswp__preloader">
+<div class="pswp__preloader__icn">
+<div class="pswp__preloader__cut">
+<div class="pswp__preloader__donut"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+<div class="pswp__share-tooltip"></div>
+</div>
+<button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button>
+<button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button>
+<div class="pswp__caption">
+<div class="pswp__caption__center"></div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    var initPhotoSwipeFromDOM = function(gallerySelector) {
+
+    
+    // (children of gallerySelector)
+    var parseThumbnailElements = function(el) {
+        var thumbElements = el.childNodes,
+            numNodes = thumbElements.length,
+            items = [],
+            figureEl,
+            linkEl,
+            size,
+            item,
+            divEl;
+
+        for(var i = 0; i < numNodes; i++) {
+
+            figureEl = thumbElements[i]; // <figure> element
+
+          
+            if(figureEl.nodeType !== 1) {
+                continue;
+            }
+            divEl = figureEl.children[0];
+            linkEl = divEl.children[0]; // <a> element
+            
+            size = linkEl.getAttribute('data-size').split('x');
+
+           
+            item = {
+                src: linkEl.getAttribute('href'),
+                w: parseInt(size[0], 10),
+                h: parseInt(size[1], 10)
+            };
+
+
+
+            if(figureEl.children.length > 1) {
+                // <figcaption> content
+                item.title = figureEl.children[1].innerHTML; 
+            }
+
+            if(linkEl.children.length > 0) {
+               
+                item.msrc = linkEl.children[0].getAttribute('src');
+            } 
+
+            item.el = figureEl; // 淇濆瓨閾炬帴鍏冪礌 for getThumbBoundsFn
+            items.push(item);
+        }
+
+        return items;
+    };
+
+  
+    var closest = function closest(el, fn) {
+        return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+    };
+
+  
+    var onThumbnailsClick = function(e) {
+		
+        e = e || window.event;
+		
+        //e.preventDefault ? e.preventDefault() : e.returnValue = false;
+
+        var eTarget = e.target || e.srcElement;
+
+        // find root element of slide
+        var clickedListItem = closest(eTarget, function(el) {
+            return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+        });
+
+        if(!clickedListItem) {
+            return;
+        }
+
+        // find index of clicked item by looping through all child nodes
+        // alternatively, you may define index via data- attribute
+        var clickedGallery = clickedListItem.parentNode,
+            childNodes = clickedListItem.parentNode.childNodes,
+            numChildNodes = childNodes.length,
+            nodeIndex = 0,
+            index;
+
+        for (var i = 0; i < numChildNodes; i++) {
+            if(childNodes[i].nodeType !== 1) { 
+                continue; 
+            }
+
+            if(childNodes[i] === clickedListItem) {
+                index = nodeIndex;
+                break;
+            }
+            nodeIndex++;
+        }
+
+
+
+        if(index >= 0) {
+            // open PhotoSwipe if valid index found
+            openPhotoSwipe( index, clickedGallery );
+        }
+        return false;
+    };
+
+    // parse picture index and gallery index from URL (#&pid=1&gid=2)
+    var photoswipeParseHash = function() {
+        var hash = window.location.hash.substring(1),
+        params = {};
+
+        if(hash.length < 5) {
+            return params;
+        }
+
+        var vars = hash.split('&');
+        for (var i = 0; i < vars.length; i++) {
+            if(!vars[i]) {
+                continue;
+            }
+            var pair = vars[i].split('=');  
+            if(pair.length < 2) {
+                continue;
+            }           
+            params[pair[0]] = pair[1];
+        }
+
+        if(params.gid) {
+            params.gid = parseInt(params.gid, 10);
+        }
+
+        return params;
+    };
+
+    var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+        var pswpElement = document.querySelectorAll('.pswp')[0],
+            gallery,
+            options,
+            items;
+
+        items = parseThumbnailElements(galleryElement);
+
+       
+        options = {
+          barsSize: { 
+            top: 100,
+            bottom: 100
+          }, 
+           fullscreenEl : false,
+            shareButtons: [
+            {id:'wechat', label:'鍒嗕韩寰俊', url:'jcgengduo1.html?id=weibo'},
+            {id:'weibo', label:'鏂版氮寰崥', url:'#'},
+            {id:'download', label:'淇濆瓨鍥剧墖', url:'{{raw_image_url}}', download:true}
+            ],
+
+            // define gallery index (for URL)
+            galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+
+            getThumbBoundsFn: function(index) {
+                // See Options -> getThumbBoundsFn section of documentation for more info
+                var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+                    pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+                    rect = thumbnail.getBoundingClientRect(); 
+
+                return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+            }
+
+        };
+
+        // PhotoSwipe opened from URL
+        if(fromURL) {
+            if(options.galleryPIDs) {
+                // parse real index when custom PIDs are used 
+                for(var j = 0; j < items.length; j++) {
+                    if(items[j].pid == index) {
+                        options.index = j;
+                        break;
+                    }
+                }
+            } else {
+                // in URL indexes start from 1
+                options.index = parseInt(index, 10) - 1;
+            }
+        } else {
+            options.index = parseInt(index, 10);
+        }
+
+        // exit if index not found
+        if( isNaN(options.index) ) {
+            return;
+        }
+
+        if(disableAnimation) {
+            options.showAnimationDuration = 0;
+        }
+
+        // Pass data to PhotoSwipe and initialize it
+        gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+        gallery.init();
+    };
+
+    // loop through all gallery elements and bind events
+    var galleryElements = document.querySelectorAll( gallerySelector );
+
+    for(var i = 0, l = galleryElements.length; i < l; i++) {
+        galleryElements[i].setAttribute('data-pswp-uid', i+1);
+        galleryElements[i].onclick = onThumbnailsClick;
+    }
+
+    // Parse URL and open gallery if it contains #&pid=3&gid=1
+    var hashData = photoswipeParseHash();
+    if(hashData.pid && hashData.gid) {
+        openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+    }
+    };
+
+    // execute above function
+    initPhotoSwipeFromDOM('#imgshow');
+
+    
+    $("#imgshow>figure>div").each(function(){
+        $(this).height($(this).width());
+    });
+</script>
 	</body>
 </html>
 <script>
 var parpam ={};		
-		parpam.receiveId =$("#taskId").val();			
+		parpam.recdiveId =$("#taskId").val();	
+		
 		$.ajax({
 				type: 'Get',
-				url: "http://101.200.129.62:8082/ty/incrementHf/task/taskDetails",	
+				url: url+"/ty/incrementHf/task/myTaskDetails",	
 				data: parpam,	
 				headers: {
-				  token: $.session.get('token')
+				    token: $.session.get('token')
 				},		
-				success: function(data){					    
+				success: function(data){
+						if(data.status=="4030")
+						{
+							noto()
+						}
+				       if(data.result.exampleDiagramList.length>=1)
+					   {
+						  
+							$.each(data.result.exampleDiagramList, function (i,val) {
+								$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><a  href="'+imgUrl+val.exampleDiagram+'" data-size="280x508"><img  src="'+imgUrl+val.exampleDiagram+'" width="50%" /></a></p></figure></div>')
+							});
+					   }
+						
+						
 						$.each(data.result.list, function (i,val) {
-							//alert(JSON.stringify(val))
-							$(".list").append('<div class="font-weight-bold pt-1 pb-1" >'+val.stepNumber+'</div><div class="mb-3">'+val.detailed+'</div>')
-						});					
+						if(val.exampleDiagram!="示例图位置,需要配置")
+						   var pics='<figure><p class="pt-2 img-dv"><a  href="'+imgUrl+val.exampleDiagram+'" data-size="680x408"><img src='+imgUrl+val.exampleDiagram+'  width="50%"/></a></p></figure>'
+						else
+						    pics=""
+							$(".list").append('<div class="st-bia"><span class="st ml-4">第 '+val.stepNumber+' 步</span></div><div class="f-size-15 pl-4 pt-2 pb-3 st-bib">'+val.detailed+''+pics+'</div>')
+						});	
+								
 						$(".title").html(data.result.title)
 						$(".moneyReward").html(data.result.moneyReward)	
 						$(".detailed").html(data.result.detailed)	
-						$(".timeTote").html(data.result.timeTote)									               
-						$("#idtxt").val(data.result.taskId)
+						$(".timeTote").html(data.result.timeTote)
+						$(".taskTime").html(data.result.taskTime)						               
+						$("#idtxt").val(data.result.taskId)		
+					  
+						if(data.result.userUploadList!=null)
+						{
+							$(".up-pic").show();
+							$("#shangchuanimg").attr("src",imgUrls+data.result.userUploadList[0]);
+							$("#shangchuanimg_a").attr("href",imgUrls+data.result.userUploadList[0]);
+						}	
+						
 						if(data.result.status==1)
-						$(".views_but").html('<button type="button" onclick="btnup()"  class=" btn btn-warning w-100 mt-4 disabled">领取任务</button>')
+						{
+							$(".up-pic-btn").show();
+						}
+						else
+						{
+							$(".up-pic-btn").hide();
+						}
+						
+						if(data.result.status==1)
+						$(".views_but").html('<div class="pb-3 mt-3"><button type="button" onclick="nobtn()" class="btn btn-outline-warning mr-2 " style="width: 47%;">放弃任务</button><button onclick="upbtn()" type="button" class="upbtn btn btn-warning" style="width: 47%;">提交审核</button></div>')
 						else if(data.result.status==2)
-						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已领取未提交</button>')
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核中</button>')	
 						else if(data.result.status==3)
-						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">待审核</button>')
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核驳回</button>')	
 						else if(data.result.status==4)
 						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已完成</button>')
 						else if(data.result.status==5)
-						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已超时</button>')
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已取消</button>')
 						else if(data.result.status==6)
-						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已放弃</button>')
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">超时</button>')
+						else if(data.result.status==7)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已打款</button>')								
+						
+						
 				}
-		});	
+		});
+/////////////////////////////////////////////////////
+$("#input-file").on("change",function(){
+	var filePath = $(this).val(),         //获取到input的value，里面是文件的路径  
+	fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),  
+	imgBase64 = '',      //存储图片的imgBase64  
+	fileObj = document.getElementById('input-file').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象  
+			              
+	// 检查是否是图片  
+	if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {  
+		alert('上传错误,文件格式必须为：png/jpg/jpeg');  
+		return;    
+	}  			        
+	// 调用函数，对图片进行压缩  
+	compress(fileObj,function(imgBase64){  
+		imgBase64 = imgBase64;//存储转换后的base64编码  
+	    $("#shangchuanimg").attr("src",imgBase64);
+        console.log(imgBase64)
+	});
+});
+function compress(fileObj, callback){
+	if ( typeof (FileReader) === 'undefined') {    
+			console.log("当前浏览器内核不支持base64图标压缩");    
+			//调用上传方式不压缩    
+			directTurnIntoBase64(fileObj,callback);  
+		} else {       
+		        var reader = new FileReader();    
+			        reader.onload = function (e) { //这是个异步事件               	
+					var image = new Image();  
+					image.src=e.target.result;
+					image.onload = function(){ 
+					var originWidth = this.width;
+					var originHeight = this.height;	
+					 // 最大尺寸限制
+					        var maxWidth = 300, maxHeight = 300;
+					        // 目标尺寸
+					        var targetWidth = originWidth, targetHeight = originHeight;
+					        // 图片尺寸超过300x300的限制
+					        if (originWidth > maxWidth || originHeight > maxHeight) {
+					            if (originWidth / originHeight > maxWidth / maxHeight) {
+					                targetWidth = maxWidth;
+					                targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+					            } else {
+					                targetHeight = maxHeight;
+					                targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+					            }
+					        }
+					            
+					        // canvas对图片进行缩放
+					      
+			        // square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
+			            canvas = document.createElement('canvas'), //创建canvas元素  
+			            context = canvas.getContext('2d'),  
+			        //  imageWidth = Math.round(square*image.width),    //压缩图片的大小  
+			        //  imageHeight = Math.round(square*image.height), 
+			        //  data = ''; 		  						
+					    canvas.width = targetWidth;
+					    canvas.height = targetHeight; 
+						 
+						context.fillStyle = "#fff";
+						context.fillRect(0, 0, targetWidth, targetHeight);
+						
+					   // context.clearRect(0, 0, targetWidth, targetHeight);  // 
+					    context.drawImage(this, 0, 0, targetWidth, targetHeight);    
+						var data = canvas.toDataURL('image/jpeg');    
+						// //压缩完成执行回调   
+						upimg(data)
+						callback(data);    
+		            };      
+	        };    
+		    reader.readAsDataURL(fileObj);    
+				            
+		}  
+
+}
+function directTurnIntoBase64(fileObj,callback){  
+	var r = new FileReader();  
+	// 转成base64  
+	r.onload = function(){  
+		//变成字符串  
+		imgBase64 = r.result;  
+		//console.log(imgBase64);  
+		callback(imgBase64);  
+	}  
+	r.readAsDataURL(fileObj);    //转成Base64格式  
+}  	
+function upimg(imgurl)
+		{
+			$("img").show();
+			 var parpamp ={}
+			 parpamp.img=imgurl;//$("#shangchuanimg").attr("src");
+			 parpamp.userId = uid;
+			 parpamp.receiveId = $("#taskId").val();
+            console.log(JSON.stringify(parpamp))
+			 $.ajax({
+			 		type: 'POST',
+			 		url: url+"/ty/incrementHf/task/insertUserStep",
+			 		data: JSON.stringify(parpamp),
+			 		contentType: "application/json",					
+			 		headers: {
+			 		    token: token
+			 		},	
+			 		success: function(data){						    						
+			 				swal({
+			 				  title: "",
+			 				  text: data.message,
+			 				  type: "",	       
+			 				  confirmButtonColor: "#FFCB4F",
+			 				  confirmButtonText: "知道了",
+			 				  closeOnConfirm: false
+			 				 }
+			 				);		
+			 		}
+			 });		
+		}
+		function upbtn()
+		{
+			var parpam ={}
+			parpam.recieveId =  $("#taskId").val();				 
+			$.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/task/submitTask",
+					data: JSON.stringify(parpam),
+					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{						
+							$(location).attr('href', 'paiinfo?type=1&id='+parpam.recieveId);
+						}
+						else
+						{
+							if(data.status="7022")
+							{
+								swal({
+								  title: "",
+								  text: data.message,
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
+								
+							}   
+							else
+							{
+								swal({
+								  title: "",
+								  text: data.message,
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
+							}
+						}
+									
+					}
+			});			
+		}
+		function nobtn()
+		{
+			var parpam ={}
+			parpam.recieveId = $("#taskId").val();			 
+			$.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/task/giveUpTask",
+					data: JSON.stringify(parpam),
+					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{
+							$(location).attr('href', 'paiinfo?type=1&id='+parpam.recieveId);
+						}
+						else
+						{
+							swal({
+							  title: "",
+							  text: data.message,
+							  type: "",	       
+							  confirmButtonColor: "#FFCB4F",
+							  confirmButtonText: "知道了",
+							  closeOnConfirm: false
+							 }
+							);		
+							
+						}
+						
+					}
+			});				
+		}	
+		$(document).ready(function(){	
+			$(".btn-img").click(function(){});	
+			$(".up-pic").hide();
+		});			
 </script>

@@ -11,8 +11,14 @@
 		<script src="bdist/js/jquerysession.js"></script>
 		<script src="bdist/js/sess.js"></script>
 		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >		
-		<link rel="stylesheet" href="bdist/css/pub.css">
+		<link rel="stylesheet" href="bdist/css/pub.css?s=0">
+		<link rel="stylesheet prefetch" href="bdist/css/default-skin.css">
+		<link rel="stylesheet prefetch" href="bdist/css/photoswipe.css">	
+		<script src="bdist/js/photoswipe.js"></script>
+		<script src="bdist/js/photoswipe-ui-default.min.js"></script>
 	</head>
 	<style>		
 		p{padding: 3px;}		
@@ -20,36 +26,288 @@
 		    border: 1px #fff dashed;
 		    border-left-width: .13rem;		   
 		}
-		.bd-callout-warning {
-		    border-left-color: #f0ad4e;
-		}		
+
 		
 	</style>
 	
 	<body>
 	 	
-	   <div class="bg-f p-3">
-		    
-		    <p class="font-weight-bold title"></p>		
-		    <p style="color: #FFCB4F;">任务时间 <span class="timeTote"></span></p>
-			<p class="mt-3 font-weight-bold">任务金额</p>
-			<p class="moneyReward" style="color: #F66A52;"><label></label><label>元</label></p>
+	   <div class="bg-f p-3">		    
+            <p class="font-weight-bold f-size-22 title"></p>
+		    <p class="f-size-13 st-t"> <span class="timeTote"></span><span class="taskTime"></span></p>
+			<p class="mt-3 font-weight-bold f-size-15">任务金额</p>
+			<p class="st-p f-size-22"><label class="moneyReward "></label><label class="f-size-12s">元</label></p>
 			<p class="mt-1 font-weight-bold ">任务说明</p>
-			<p class="mb-3 detailed" style="color: #666666;"></p>
+			<p class="mb-3 detailed f-size-13 renwu"></p>
 	   </div>
-	   <div class="bg-f mt-2 p-3">
-		   <div class="bd-callout bd-callout-warning p-2 list"></div>
-		   <div>
-			        <img  width="100" id="shangchuanimg" />	 
-			        <div class="upload-wrap anticon ml-2" nv-file-drop="" uploader="uploader">
-					<input id="input-file" class="file-ele" type="file" file-model="image" name="image" accept="image/*" nv-file-select uploader="uploader" multiple /><div class="file-open">
-					<em class="icon icon-upload"></em>&nbsp;上传截图
-					</div>
-			</div>			   
-		   </div>
-		   <input type="hidden" id="taskId" value="<%=id%>" />
+	   <div class="bg-f mt-2 p-2" id="imgshow">
+		  <div class="pt-4 list"></div>
+		  			<div >
+		  				<div class="st-bia" ><span class="st ml-4">示例图</span></div>					
+		  			</div>	 
+		  
+		  
+		     <div class="bd-callout bd-callout-warning p-2 d-flex flex-wrap bd-highlight pic_list" style="border-top: 1px #fff dashed;"></div>
+			  <input type="hidden" id="taskId" value="<%=id%>" />
 		   <div class="views_but"></div>
 	   </div>
+	   <!---->
+	   	  
+	   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+	   <div class="pswp__bg"></div>
+	   <div class="pswp__scroll-wrap">
+	   <div class="pswp__container">
+	   <div class="pswp__item"></div>
+	   <div class="pswp__item"></div>
+	   <div class="pswp__item"></div>
+	   </div>
+	   <div class="pswp__ui pswp__ui--hidden">
+	   <div class="pswp__top-bar">
+	   	<div class="pswp__counter"></div>
+	   <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+	   <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+	   <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+	    <div class="pswp__preloader">
+	   <div class="pswp__preloader__icn">
+	   <div class="pswp__preloader__cut">
+	   <div class="pswp__preloader__donut"></div>
+	   </div>
+	   </div>
+	   </div>
+	   </div>
+	   <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+	   <div class="pswp__share-tooltip"></div>
+	   </div>
+	   <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button>
+	   <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button>
+	   <div class="pswp__caption">
+	   <div class="pswp__caption__center"></div>
+	   </div>
+	   </div>
+	   </div>
+	   </div>
+	   <script type="text/javascript">
+	       var initPhotoSwipeFromDOM = function(gallerySelector) {
+	   
+	       // 瑙ｆ瀽鏉ヨ嚜DOM鍏冪礌骞荤伅鐗囨暟鎹紙URL锛屾爣棰橈紝澶у皬...锛�
+	       // (children of gallerySelector)
+	       var parseThumbnailElements = function(el) {
+	           var thumbElements = el.childNodes,
+	               numNodes = thumbElements.length,
+	               items = [],
+	               figureEl,
+	               linkEl,
+	               size,
+	               item,
+	               divEl;
+	   
+	           for(var i = 0; i < numNodes; i++) {
+	   
+	               figureEl = thumbElements[i]; // <figure> element
+	   
+	               // 浠呭寘鎷厓绱犺妭鐐�
+	               if(figureEl.nodeType !== 1) {
+	                   continue;
+	               }
+	               divEl = figureEl.children[0];
+	               linkEl = divEl.children[0]; // <a> element
+	               
+	               size = linkEl.getAttribute('data-size').split('x');
+	   
+	              
+	               item = {
+	                   src: linkEl.getAttribute('href'),
+	                   w: parseInt(size[0], 10),
+	                   h: parseInt(size[1], 10)
+	               };
+	   
+	   
+	   
+	               if(figureEl.children.length > 1) {
+	                   // <figcaption> content
+	                   item.title = figureEl.children[1].innerHTML; 
+	               }
+	   
+	               if(linkEl.children.length > 0) {
+	                   // <img> 缂╃暐鍥捐妭鐐�, 妫€绱㈢缉鐣ュ浘缃戝潃
+	                   item.msrc = linkEl.children[0].getAttribute('src');
+	               } 
+	   
+	               item.el = figureEl; // 淇濆瓨閾炬帴鍏冪礌 for getThumbBoundsFn
+	               items.push(item);
+	           }
+	   
+	           return items;
+	       };
+	   
+	       // 鏌ユ壘鏈€杩戠殑鐖惰妭鐐�
+	       var closest = function closest(el, fn) {
+	           return el && ( fn(el) ? el : closest(el.parentNode, fn) );
+	       };
+	   
+	       // 褰撶敤鎴风偣鍑荤缉鐣ュ浘瑙﹀彂
+	       var onThumbnailsClick = function(e) {
+	           e = e || window.event;
+	           e.preventDefault ? e.preventDefault() : e.returnValue = false;
+	   
+	           var eTarget = e.target || e.srcElement;
+	   
+	           // find root element of slide
+	           var clickedListItem = closest(eTarget, function(el) {
+	               return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
+	           });
+	   
+	           if(!clickedListItem) {
+	               return;
+	           }
+	   
+	           // find index of clicked item by looping through all child nodes
+	           // alternatively, you may define index via data- attribute
+	           var clickedGallery = clickedListItem.parentNode,
+	               childNodes = clickedListItem.parentNode.childNodes,
+	               numChildNodes = childNodes.length,
+	               nodeIndex = 0,
+	               index;
+	   
+	           for (var i = 0; i < numChildNodes; i++) {
+	               if(childNodes[i].nodeType !== 1) { 
+	                   continue; 
+	               }
+	   
+	               if(childNodes[i] === clickedListItem) {
+	                   index = nodeIndex;
+	                   break;
+	               }
+	               nodeIndex++;
+	           }
+	   
+	   
+	   
+	           if(index >= 0) {
+	               // open PhotoSwipe if valid index found
+	               openPhotoSwipe( index, clickedGallery );
+	           }
+	           return false;
+	       };
+	   
+	       // parse picture index and gallery index from URL (#&pid=1&gid=2)
+	       var photoswipeParseHash = function() {
+	           var hash = window.location.hash.substring(1),
+	           params = {};
+	   
+	           if(hash.length < 5) {
+	               return params;
+	           }
+	   
+	           var vars = hash.split('&');
+	           for (var i = 0; i < vars.length; i++) {
+	               if(!vars[i]) {
+	                   continue;
+	               }
+	               var pair = vars[i].split('=');  
+	               if(pair.length < 2) {
+	                   continue;
+	               }           
+	               params[pair[0]] = pair[1];
+	           }
+	   
+	           if(params.gid) {
+	               params.gid = parseInt(params.gid, 10);
+	           }
+	   
+	           return params;
+	       };
+	   
+	       var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
+	           var pswpElement = document.querySelectorAll('.pswp')[0],
+	               gallery,
+	               options,
+	               items;
+	   
+	           items = parseThumbnailElements(galleryElement);
+	   
+	          
+	           options = {
+	             barsSize: { 
+	               top: 100,
+	               bottom: 100
+	             }, 
+	              fullscreenEl : false,
+	               shareButtons: [
+	               {id:'wechat', label:'鍒嗕韩寰俊', url:'jcgengduo1.html?id=weibo'},
+	               {id:'weibo', label:'鏂版氮寰崥', url:'#'},
+	               {id:'download', label:'淇濆瓨鍥剧墖', url:'{{raw_image_url}}', download:true}
+	               ],
+	   
+	               // define gallery index (for URL)
+	               galleryUID: galleryElement.getAttribute('data-pswp-uid'),
+	   
+	               getThumbBoundsFn: function(index) {
+	                   // See Options -> getThumbBoundsFn section of documentation for more info
+	                   var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
+	                       pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
+	                       rect = thumbnail.getBoundingClientRect(); 
+	   
+	                   return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
+	               }
+	   
+	           };
+	   
+	           // PhotoSwipe opened from URL
+	           if(fromURL) {
+	               if(options.galleryPIDs) {
+	                   // parse real index when custom PIDs are used 
+	                   for(var j = 0; j < items.length; j++) {
+	                       if(items[j].pid == index) {
+	                           options.index = j;
+	                           break;
+	                       }
+	                   }
+	               } else {
+	                   // in URL indexes start from 1
+	                   options.index = parseInt(index, 10) - 1;
+	               }
+	           } else {
+	               options.index = parseInt(index, 10);
+	           }
+	   
+	           // exit if index not found
+	           if( isNaN(options.index) ) {
+	               return;
+	           }
+	   
+	           if(disableAnimation) {
+	               options.showAnimationDuration = 0;
+	           }
+	   
+	           // Pass data to PhotoSwipe and initialize it
+	           gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
+	           gallery.init();
+	       };
+	   
+	       // loop through all gallery elements and bind events
+	       var galleryElements = document.querySelectorAll( gallerySelector );
+	   
+	       for(var i = 0, l = galleryElements.length; i < l; i++) {
+	           galleryElements[i].setAttribute('data-pswp-uid', i+1);
+	           galleryElements[i].onclick = onThumbnailsClick;
+	       }
+	   
+	       // Parse URL and open gallery if it contains #&pid=3&gid=1
+	       var hashData = photoswipeParseHash();
+	       if(hashData.pid && hashData.gid) {
+	           openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
+	       }
+	       };
+	   
+	       // execute above function
+	       initPhotoSwipeFromDOM('#imgshow');
+	   
+	       
+	       $("#imgshow>figure>div").each(function(){
+	           $(this).height($(this).width());
+	       });
+	   </script>
 	</body>
 </html>
 <script>
@@ -127,15 +385,7 @@ function compress(fileObj, callback){
 
 }
 function directTurnIntoBase64(fileObj,callback){  
-	var r = new FileReader();  
-	// 转成base64  
-	r.onload = function(){  
-		//变成字符串  
-		imgBase64 = r.result;  
-		//console.log(imgBase64);  
-		callback(imgBase64);  
-	}  
-	r.readAsDataURL(fileObj);    //转成Base64格式  
+	
 }  		
 ///////////////////////////////////////////////////////////////////////////////////////////
 		
@@ -151,50 +401,70 @@ function directTurnIntoBase64(fileObj,callback){
 				},		
 				success: function(data){
 					
+					if(data.result.exampleDiagramList.length>=1)
+					{
+											$.each(data.result.exampleDiagramList, function (i,val) {
+												
+											$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><a  href="'+imgUrl+val.exampleDiagram+'" data-size="680x408"><img  src="'+imgUrl+val.exampleDiagram+'" width="50%" /></a></p></figure></div>')
+											});
+					}
 					$.each(data.result.list, function (i,val) {
-						if(val.exampleDiagram!="示例图位置,需要配置")
-						   var pics='<p class="mb-4"><img src='+val.exampleDiagram+' width=100%></p>'
-						else
-						    pics=""
 						
-						$(".list").append('<div class="font-weight-bold pt-1 pb-1" ><span style="min-width:40px;border-radius:50px 0px 50px 50px;background-color:#212121;padding:10px;line-height:30px;color:#fff">'+val.stepNumber+'</span></div><div class="mb-2 mt-2">'+val.detailed+'</div>'+pics)
+						if(val.exampleDiagram!="示例图位置,需要配置")
+						   var pics='<figure><p class="pt-2 img-dv"><a  href="'+imgUrl+val.exampleDiagram+'" data-size="680x408"><img src='+imgUrl+val.exampleDiagram+' id="ejiao" width="50%"/></a></p></figure>'
+						else
+						    pics=""						
+						$(".list").append('<div class="st-bia"><span class="st ml-4">第 '+val.stepNumber+' 步</span></div><div class="f-size-15 pl-4 pt-2 pb-3 st-bib">'+val.detailed+''+pics+'</div>')
 					});	
-					//$(".list").append('<div class="rounded pt-5 pb-5 " style="background-color: #F6F7F8;text-align: center;width: 40%;"><p align="center"><img src="bdist/img/tpan.png"/></p><label  >上传截图</label></div>')
+					
 					$(".title").html(data.result.title)
 					$(".moneyReward").html(data.result.moneyReward)	
 					$(".detailed").html(data.result.detailed)	
-					$(".timeTote").html(data.result.timeTote)									
+					$(".timeTote").html(data.result.timeTote)	
+					$(".taskTime").html(data.result.taskTime)								
 					$("#idtxt").val(data.result.taskId)
 					
 					if(data.result.status==1)
 					$(".views_but").html('<button type="button" onclick="btnup()"  class=" btn btn-warning w-100 mt-4 disabled">领取任务</button>')
 					else if(data.result.status==2)
-					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已领取未提交</button>')
+					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核中</button>')
 					else if(data.result.status==3)
-					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">待审核</button>')
+					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核驳回</button>')
 					else if(data.result.status==4)
 					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已完成</button>')
 					else if(data.result.status==5)
-					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已超时</button>')
+					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已取消</button>')
 					else if(data.result.status==6)
-					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已放弃</button>')
+					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">超时</button>')
+					else if(data.result.status==7)
+					$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已打款</button>')
 				}
 		});	
 		function btnup()
 		{
 			 var parpams ={};
 			 parpams.userId = $.session.get('uid');	
-			 // $.ajax({
-			 // 		type: 'get',
-			 // 		url: "http://101.200.129.62:8082/ty/incrementHf/task/myTaskList",	
-			 // 		data: parpams,
-			 // 		headers: {
-			 // 		  token: $.session.get('token')
-			 // 		},								
-			 // 		success: function(data){
-			 // 			alert(JSON.stringify(data.result));							
-			 // 		}
-			 // });	
+			 parpams.taskId = $("#taskId").val();
+			 //alert(JSON.stringify(parpams))
+			 $.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/task/recieveTask",
+					data: JSON.stringify(parpams),
+					contentType: "application/json",					
+					headers: {
+					    token: token
+					},	
+					success: function(data){							
+							if(data.status=="0000")
+							{
+								$(location).attr('href', 'paiinfo?type=1&id='+data.result);
+							}
+							else
+							{
+								swal(data.message);
+							}							
+					}
+			 });		
 		}
 		
 		function upimg(imgurl)
@@ -220,6 +490,6 @@ function directTurnIntoBase64(fileObj,callback){
 		}
 		$(document).ready(function(){	
 			$(".btn-img").click(function(){});	
-			$("img").hide();
+			//$("img").hide();
 		});
 	</script>

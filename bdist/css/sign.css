@@ -9,6 +9,12 @@ body {
   padding: 15px;
   margin: auto;
 }
+input[type=number], input[type=url] {
+    height: 45px;   
+    box-shadow: none!important;
+    outline: 0!important;
+	padding: 0;
+}
 input[type=text], input[type=url] {
     height: 45px;   
     box-shadow: none!important;
@@ -24,12 +30,12 @@ input[type=password], input[type=url] {
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
-label{margin-bottom:0px;margin-top: .0rem;color: #d3d3d3;}
+label{color: #d3d3d3;}
 .login-input {
     border: none!important;
     border-radius: 0!important;
-    //border-bottom: solid 1px #d3d3d3!important;
-    background: 0 0;
+    border-bottom: solid 1px #F2F2F2!important;
+   // background: 0 0;
 }
 .input-group-texts {   
     display: flex;   

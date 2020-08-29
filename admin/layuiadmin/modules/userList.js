@@ -64,16 +64,16 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "获得金额",
           width:90,
           templet: function (d) {
-            return util.numberFormat(d.balance / 100, 3);
+            return d.amount+"元";
           },
         },
         {
           field: "taskCount",
           title: "完成任务",
           width:90,
-          templet: function (d) {
-            return util.numberFormat(d.frozen / 100, 3);
-          },
+          // templet: function (d) {
+          //   return util.numberFormat(d.frozen / 100, 3);
+          // },
         },
         {
           field: "status",
@@ -121,6 +121,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
       // "total" === t.event && layer.open({
 
       // })
+	  
     }),
     t("userList", {});
 });

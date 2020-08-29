@@ -22,19 +22,43 @@
 				<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 					<div class="layui-form-item">
 						<div class="layui-inline">
-							<label class="layui-form-label">反馈用户id</label>
+							<label class="layui-form-label">id</label>
 							<div class="layui-input-inline">
-								<input type="text" name="userId" id="userId" placeholder="请输入" autocomplete="off" class="layui-input" />
+								<input type="text" name="id" id="id" placeholder="请输入" autocomplete="off" class="layui-input" />
+							</div>
+						</div>						
+						<div class="layui-inline">
+							<label class="layui-form-label">状态</label>
+							<div class="layui-input-inline">
+								<select name="status">
+								    <option value="">请选择</option>
+								    <option value="0">系统生成</option>
+								    <option value="1">已发布</option>
+								    <option value="2">已完成</option>	
+									<option value="3">已超时</option>
+									<option value="4">待完成</option>	
+									<option value="5">暂停</option>		 
+								</select>
 							</div>
 						</div>
 						<div class="layui-inline">
-							<label class="layui-form-label">注册开始时间</label>
+							<label class="layui-form-label">发布类型</label>
+							<div class="layui-input-inline">
+								<select name="sdtype">
+								    <option value="">请选择</option>
+								    <option value="1">按总金额</option>
+								    <option value="2">按单量</option>					     
+								</select>
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">开始时间</label>
 							<div class="layui-input-inline" style="display: flex; flex-direction: row;">
 								<input type="text" class="layui-input" name="beginDate" id="beginDate" placeholder="yyyyMMdd" />
 							</div>
 						</div>
 						<div class="layui-inline">
-							<label class="layui-form-label">注册结束时间</label>
+							<label class="layui-form-label">结束时间</label>
 							<div class="layui-input-inline" style="display: flex; flex-direction: row;">
 								<input type="text" class="layui-input" name="endDate" id="endDate" placeholder="yyyyMMdd" />
 							</div>
@@ -61,6 +85,8 @@
           {{#  } }}
         </script> -->
 					<script type="text/html" id="table-content-list">
+						<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="TaskListinfo"><i
+							    class="layui-icon layui-icon-edit"></i>详情</a>	
 						<a  class="layui-btn layui-btn-normal layui-btn-xs" ><iclass="layui-icon layui-icon-edit" lay-event="stepList"></i>步骤</a>	
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskAudit"><i
             class="layui-icon layui-icon-edit"></i>状态</a>		
@@ -189,6 +215,47 @@
 								});
 								/////////
 							}
+							
+							if ("TaskListinfo" == t.event) {
+								layer.open({
+															type: 2,
+															title: "详情",
+															content: "taskListinfos.html",
+															maxmin: true,
+															area: ["100%", "100%"],
+															btn: ["确定", "取消"],
+															yes: function (index, layero) {
+															  //点击确认触发 iframe 内容中的按钮提交
+															 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+															 submit.click();
+															},
+															success: function (layero, index) {
+																var body = layer.getChildFrame("body", index);
+							body.contents().find("#id").val(e.id);
+							body.contents().find("#pid").val(e.pid);
+							body.contents().find("#title").val(e.title);
+							
+							body.contents().find("#detailed").val(e.detailed);
+							body.contents().find("#label").val(e.label);
+							body.contents().find("#missionTime").val(e.missionTime+"分钟");
+							body.contents().find("#completionTime").val(e.completionTime);
+							body.contents().find("#moneyReward").val(e.moneyReward+'元');
+							body.contents().find("#maxAmount").val(e.maxAmount+'元');
+							body.contents().find("#tId").val(e.status);
+							
+							body.contents().find("#minAmount").val(e.minAmount);
+							body.contents().find("#alreadyAmount").val(e.alreadyAmount);
+							body.contents().find("#frequencyLimit").val(e.frequencyLimit);
+							body.contents().find("#createTime").val(util.toDateString(e.createTime, "yyyy-MM-dd HH:mm:ss"));
+							body.contents().find("#couponAmount").val(e.couponAmount);
+							body.contents().find("#sdtype").val(e.sdtype);
+							body.contents().find("#orderQuantity").val(e.orderQuantity);
+							body.contents().find("#orderCount").val(e.orderCount);
+																
+															}
+								});
+							}
+							
 							if ("taskAudit" == t.event) {
 								layer.open({
 									type: 2,
@@ -236,6 +303,7 @@
 
 						//监听搜索
 						form.on("submit(LAY-app-contlist-search)", function(data) {
+							
 							var field = data.field;
 							// $("#nickName2").val(field.nickName);
 							// $("#id2").val(field.id);

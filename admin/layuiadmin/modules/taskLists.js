@@ -38,6 +38,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
       //     msg: "未查询到相关数据",
       //   };
       // }
+	  
       return {
         code: res.status, //解析接口状态
         msg: res.message, //解析提示文本
@@ -76,7 +77,8 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "状态",
           width: 100,
           templet: function (d) { 
-        	  if(d.status==1){return '已发布'}
+        	  if(d.status==0){return '待发布'}
+			  else if(d.status==1){return '已发布'}
 			  else if(d.status==2){return '已完成'}
 			  else if(d.status==3){return '已超时'}
 			  else if(d.status==4){return '待完成'}

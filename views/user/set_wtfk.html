@@ -20,6 +20,12 @@
 				color: #9C9C9C;
 			}			
 			.b-center{width: 96%; margin: auto;}
+			.form-control{
+				border: none;
+				resize: none;
+				cursor: pointer;
+			}
+			
 	</style>
 	<body>		
 		<div class=" bg-f p-2">                      
@@ -29,7 +35,7 @@
 			 <button  class="btn btn-lg btn-warning w-100" style="font-size: inherit;" type="button">提交反馈</button>
 		 </div>
 		  <script>
-			  
+			  walletInfo()	
 			     $("button").click(function(){
 			         //alert($(this).data(""));	
 					 if($(".form-control").val().length==0)
@@ -53,7 +59,7 @@
                          									
                          			if(data.status=="0000")
                          			{                         				
-                         				$(location).attr('href', 'set_wtfk_list.html');
+                         				$(location).attr('href', 'set');
                          			}
                          			else
                          			{

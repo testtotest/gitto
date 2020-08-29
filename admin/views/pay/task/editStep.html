@@ -120,10 +120,9 @@
             "oldFilePath": $("#photo2").val()
           },
           done: function (res) {
-            console.log("res", res.result);
+           
             if (res.status == "0000") {
-              $("#photo2").val(res.result);
-
+              $("#photo2").val(res.result);              
               return layer.msg("图片上传成功");
             } else {
               return layer.msg("图片上传失败");
@@ -158,14 +157,11 @@
             "oldFilePath": temImg1
           },
           done: function (res) {
-            console.log("res", res);
+           
             if (res.status == "0000") {
               $("#photo1").val(res.result);
-              temImg1 = res.result;
-              return layer.msg("图片上传成功");
-            } else {
-              return layer.msg("图片上传失败");
-            }
+              temImg1 = res.result;            
+            } 
           },
           error: function () {
             //演示失败状态，并实现重传
@@ -193,7 +189,7 @@
 			param.stepNumber = field.stepNumber
 			param.exampleDiagram = field.photo1	
 			param.id = field.id //修改	
-			alert(JSON.stringify(param))
+			
 			$.ajax({
 					type: "POST",
 					url: baseUrl+mUrl+subUrl,
@@ -205,7 +201,7 @@
 								dataType: "json",
 								success: function (data) {
 									if (data.status == "0000") {
-									  layer.msg(msg);					 
+									  layer.msg(data.message);			 
 									 setTimeout(function () {
 									   parent.layui.table.reload('LAY-app-content-list'); //重载表格
 									   parent.layer.close(index); //再执行关闭 

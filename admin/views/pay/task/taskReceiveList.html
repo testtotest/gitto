@@ -23,16 +23,18 @@
       <div class="layui-form layui-card-header layuiadmin-card-header-auto">
         <div class="layui-form-item"> 
 		<div class="layui-inline">
-		  <label class="layui-form-label">员工状态</label>
+		  <label class="layui-form-label">状态</label>
 		  <div class="layui-input-inline">
 		    <select name="status">
 		        <option value="">请选择</option>
 		        <option value="">全部</option>
-		        <option value="1">已发布</option>
-		        <option value="2">已完成</option>
-				<option value="3">已超时</option>
-				<option value="4">待完成</option>
-				<option value="5">暂停</option>
+		        <option value="1">已领取</option>
+		        <option value="2">已提交</option>
+				<option value="3">审核驳回</option>
+				<option value="4">审核通过</option>
+				<option value="5">已取消</option>
+				<option value="6">超时</option>
+				<option value="7">已打款</option>
 		    </select>
 		  </div>
 		</div>	
@@ -55,7 +57,7 @@
 		    </div>
 		  </div>
 		  <div class="layui-inline">
-		      <label class="layui-form-label">注册开始时间</label>
+		      <label class="layui-form-label">开始时间</label>
 		      <div
 		        class="layui-input-inline"
 		        style="display: flex; flex-direction: row;"
@@ -70,7 +72,7 @@
 		      </div>
 		    </div>
 			<div class="layui-inline">
-			    <label class="layui-form-label">注册结束时间</label>
+			    <label class="layui-form-label">结束时间</label>
 			    <div
 			      class="layui-input-inline"
 			      style="display: flex; flex-direction: row;"
@@ -93,9 +95,10 @@
       </div>
 
       <div class="layui-card-body">
-        <!-- <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
-        </div> -->
+        <div style="padding-bottom: 10px;">
+            <button class="layui-btn layuiadmin-btn-list" data-type="add">上传打款excel</button>
+		    <button class="layui-btn layuiadmin-btn-list" data-type="down">下载打款excel</button>
+        </div>
 
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
         <!-- <script type="text/html" id="buttonTpl">
@@ -106,10 +109,17 @@
           {{#  } }}
         </script> -->
         <script type="text/html" id="table-content-list">
+			
 		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskReceiveDetails"><i
-		    class="layui-icon layui-icon-edit"></i>任务详情</a>	
+		    class="layui-icon layui-icon-edit"></i>详情</a>	
+	     {{#  if(d.status ==2){ }}		
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="taskReceiveAudit"><i
-            class="layui-icon layui-icon-edit"></i>任务审核</a>
+            class="layui-icon layui-icon-edit"></i>审核</a>
+		 {{#  } }}
+		  {{#  if(d.status ==4){ }}			 
+		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="updateStatusr"><i
+		    class="layui-icon layui-icon-edit"></i>标记打款</a>	
+		 {{#  } }}	
         </script><!--  -->
       </div>
     </div>
@@ -230,10 +240,29 @@
 												success: function (layero, index) {
 												var body = layer.getChildFrame("body", index);
 												body.contents().find("#id").val(e.id);
-													
+												body.contents().find("#tId").val(e.status);
+												body.contents().find("#remark").val(e.remark);	
 												}
 					});
 				}
+				if ("updateStatusr" == t.event) {					
+					var param = {}
+					param.receiveId = e.id						
+					$.ajax({
+						  type: "POST",
+						  url: layui.api.baseUrl + mUrl + "/manager/task/updateStatus",
+						  data: JSON.stringify(param),
+						  contentType: "application/json",
+						  headers: {
+							token: sessionStorage.getItem("token")
+						  },
+						  dataType: "json",
+						  success: function (data) {
+							   alert(data.message)											
+								  //table.reload("LAY-app-content-list", {});
+						  }
+					});		
+				}	
           });
 
           //监听搜索
@@ -255,28 +284,31 @@
             });
           });
 
-          var $ = layui.$,
-            active = {
-              // batchdel: function(){
-              //   // alert('2')
-              //   var checkStatus = table.checkStatus('LAY-app-content-list')
-              //   ,checkData = checkStatus.data; //得到选中的数据
-              //   if(checkData.length === 0){
-              //     return layer.msg('请选择数据');
-              //   }
-              //   layer.confirm('确定删除吗？', function(index) {
-              //     //执行 Ajax 后重载
-              //     /*
-              //     admin.req({
-              //       url: 'xxx'
-              //       //,……
-              //     });
-              //     */
-              //     table.reload('LAY-app-content-list');
-              //     layer.msg('已删除');
-              //   });
-              // },
-            };
+       var $ = layui.$, active = {
+         //新增菜单
+         add: function () {
+             layer.open({
+             		type: 2,
+             		title: "上传打款excel",
+             		content: "uploadExcel.html",
+             		maxmin: true,
+             		area: ["100%", "100%"],
+             		btn: ["确定", "取消"],
+             		yes: function (index, layero) {
+             							  //点击确认触发 iframe 内容中的按钮提交
+             							 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+             							 submit.click();
+             							},
+             							success: function (layero, index) {
+             								
+             							}
+             });
+         },
+		 down: function () {
+			 window.open('http://101.200.129.62:8082/ty/incrementAdmin/manager/task/downloadPendingPayment?token='+sessionStorage.getItem("token"));
+		    
+		 },
+       };
 
           $(".layui-btn.layuiadmin-btn-list").on("click", function () {
             var type = $(this).data("type");

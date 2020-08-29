@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">		
+		<title>派单中心</title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/sess.js"></script>
+		<script src="bdist/js/app.js"></script>
+		<script src="bdist/js/swal.js"></script>
+		<link rel="stylesheet" href="bdist/css/swal.css">
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >		
+		<link rel="stylesheet" href="bdist/css/pub.css?s=0">
+	</head>
+	<style>		
+		p{padding: 3px;}		
+	</style>
+	
+	<body>
+	 	
+	   <div class="bg-f p-3">
+		    <p class="font-weight-bold f-size-22 title"></p>
+		    <p class="f-size-13 st-t"> <span class="timeTote"></span><span class="taskTime"></span></p>
+			<p class="mt-3 font-weight-bold f-size-15">任务金额</p>
+			<p class="st-p f-size-22"><label class="moneyReward "></label><label class="f-size-12s">元</label></p>
+			<p class="mt-1 font-weight-bold ">任务说明</p>
+			<p class="mb-3 detailed f-size-13 renwu"></p>
+	   </div>
+	   <div class="bg-f mt-2 p-2">
+		   <div class="pt-4 list"></div>
+			<div>
+				<div class="st-bia" ><span class="st ml-4">示例图</span></div>					
+			</div>	   
+		    <div class="bd-callout bd-callout-warning p-2 d-flex flex-wrap bd-highlight pic_list" ></div>
+			<div class="pl-3">
+				 <div class="d-flex justify-content-start bd-highlight">
+				 	<div class="bd-highlight w-50 mr-2 up-pic">
+				 		<img   id="shangchuanimg" class="w-100"/>	
+				 	</div>
+				 	<div class="bd-highlight w-50 up-pic-btn">
+						<!---->
+						<div class="upload-wrap  "  >
+											<input id="input-file" class="file-ele" type="file" file-model="image" name="image" accept="image/*" nv-file-select uploader="uploader" multiple />					
+												<div class="rounded pt-5 pb-5 img-btn">
+													<p align="center"><img src="bdist/img/tpan.png"/></p>
+													<label  >上传截图</label></div>					
+						</div>		
+						<!---->
+					</div>
+				 	
+				 </div>
+				 
+					   
+			</div>	  
+			
+			
+			
+		   <input type="hidden" id="taskId" value="<%=id%>" />		   
+		   <div class="views_but"></div>		  
+	   </div>
+	  
+	</body>
+</html>
+<script>
+var parpam ={};		
+		parpam.recdiveId =$("#taskId").val();	
+		
+		$.ajax({
+				type: 'Get',
+				url: url+"/ty/incrementHf/task/myTaskDetails",	
+				data: parpam,	
+				headers: {
+				    token: $.session.get('token')
+				},		
+				success: function(data){
+						if(data.status=="4030")
+						{
+							noto()
+						}
+				       if(data.result.exampleDiagramList.length>=1)
+					   {
+						  
+							$.each(data.result.exampleDiagramList, function (i,val) {
+								$(".pic_list").append('<div class="p-2 bd-highlight" ><img src="'+imgUrl+val.exampleDiagram+'" width="50%" /></div>')
+							});
+					   }
+						
+						
+						$.each(data.result.list, function (i,val) {
+						if(val.exampleDiagram!="示例图位置,需要配置")
+						   var pics='<p class="pt-2"><img src='+imgUrl+val.exampleDiagram+' width=100%></p>'
+						else
+						    pics=""
+							$(".list").append('<div  ><div class="st-bia"><span class="st ml-4">第 '+val.stepNumber+' 步</span></div><div class="f-size-15 pl-4 pt-2 pb-3 st-bib">'+val.detailed+''+pics+'</div></div>')
+						});	
+								
+						$(".title").html(data.result.title)
+						$(".moneyReward").html(data.result.moneyReward)	
+						$(".detailed").html(data.result.detailed)	
+						$(".timeTote").html(data.result.timeTote)
+						$(".taskTime").html(data.result.taskTime)						               
+						$("#idtxt").val(data.result.taskId)		
+					  
+						if(data.result.userUploadList!=null)
+						{
+							$(".up-pic").show();
+							$("#shangchuanimg").attr("src",imgUrls+data.result.userUploadList[0]);
+						}	
+						
+						if(data.result.status==1)
+						{
+							$(".up-pic-btn").show();
+						}
+						else
+						{
+							$(".up-pic-btn").hide();
+						}
+						
+						if(data.result.status==1)
+						$(".views_but").html('<div class="pb-3 mt-3"><button type="button" onclick="nobtn()" class="btn btn-outline-warning mr-2 " style="width: 47%;">放弃任务</button><button onclick="upbtn()" type="button" class="upbtn btn btn-warning" style="width: 47%;">提交审核</button></div>')
+						else if(data.result.status==2)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核中</button>')	
+						else if(data.result.status==3)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">审核驳回</button>')	
+						else if(data.result.status==4)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已完成</button>')
+						else if(data.result.status==5)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已取消</button>')
+						else if(data.result.status==6)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">超时</button>')
+						else if(data.result.status==7)
+						$(".views_but").html('<button type="button"  class="btn btn-warning w-100 mt-4 disabled">已打款</button>')								
+						
+						
+				}
+		});
+/////////////////////////////////////////////////////
+$("#input-file").on("change",function(){
+	var filePath = $(this).val(),         //获取到input的value，里面是文件的路径  
+	fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),  
+	imgBase64 = '',      //存储图片的imgBase64  
+	fileObj = document.getElementById('input-file').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象  
+			              
+	// 检查是否是图片  
+	if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {  
+		alert('上传错误,文件格式必须为：png/jpg/jpeg');  
+		return;    
+	}  			        
+	// 调用函数，对图片进行压缩  
+	compress(fileObj,function(imgBase64){  
+		imgBase64 = imgBase64;//存储转换后的base64编码  
+	    $("#shangchuanimg").attr("src",imgBase64);
+        console.log(imgBase64)
+	});
+});
+function compress(fileObj, callback){
+	if ( typeof (FileReader) === 'undefined') {    
+			console.log("当前浏览器内核不支持base64图标压缩");    
+			//调用上传方式不压缩    
+			directTurnIntoBase64(fileObj,callback);  
+		} else {       
+		        var reader = new FileReader();    
+			        reader.onload = function (e) { //这是个异步事件               	
+					var image = new Image();  
+					image.src=e.target.result;
+					image.onload = function(){ 
+					var originWidth = this.width;
+					var originHeight = this.height;	
+					 // 最大尺寸限制
+					        var maxWidth = 300, maxHeight = 300;
+					        // 目标尺寸
+					        var targetWidth = originWidth, targetHeight = originHeight;
+					        // 图片尺寸超过300x300的限制
+					        if (originWidth > maxWidth || originHeight > maxHeight) {
+					            if (originWidth / originHeight > maxWidth / maxHeight) {
+					                targetWidth = maxWidth;
+					                targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+					            } else {
+					                targetHeight = maxHeight;
+					                targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+					            }
+					        }
+					            
+					        // canvas对图片进行缩放
+					      
+			        // square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
+			            canvas = document.createElement('canvas'), //创建canvas元素  
+			            context = canvas.getContext('2d'),  
+			        //  imageWidth = Math.round(square*image.width),    //压缩图片的大小  
+			        //  imageHeight = Math.round(square*image.height), 
+			        //  data = ''; 		  						
+					    canvas.width = targetWidth;
+					    canvas.height = targetHeight; 
+						 
+						context.fillStyle = "#fff";
+						context.fillRect(0, 0, targetWidth, targetHeight);
+						
+					   // context.clearRect(0, 0, targetWidth, targetHeight);  // 
+					    context.drawImage(this, 0, 0, targetWidth, targetHeight);    
+						var data = canvas.toDataURL('image/jpeg');    
+						// //压缩完成执行回调   
+						upimg(data)
+						callback(data);    
+		            };      
+	        };    
+		    reader.readAsDataURL(fileObj);    
+				            
+		}  
+
+}
+function directTurnIntoBase64(fileObj,callback){  
+	var r = new FileReader();  
+	// 转成base64  
+	r.onload = function(){  
+		//变成字符串  
+		imgBase64 = r.result;  
+		//console.log(imgBase64);  
+		callback(imgBase64);  
+	}  
+	r.readAsDataURL(fileObj);    //转成Base64格式  
+}  	
+function upimg(imgurl)
+		{
+			$("img").show();
+			 var parpamp ={}
+			 parpamp.img=imgurl;//$("#shangchuanimg").attr("src");
+			 parpamp.userId = uid;
+			 parpamp.receiveId = $("#taskId").val();
+            console.log(JSON.stringify(parpamp))
+			 $.ajax({
+			 		type: 'POST',
+			 		url: url+"/ty/incrementHf/task/insertUserStep",
+			 		data: JSON.stringify(parpamp),
+			 		contentType: "application/json",					
+			 		headers: {
+			 		    token: token
+			 		},	
+			 		success: function(data){						    						
+			 				swal(data.message);						
+			 		}
+			 });		
+		}
+		function upbtn()
+		{
+			var parpam ={}
+			parpam.recieveId =  $("#taskId").val();				 
+			$.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/task/submitTask",
+					data: JSON.stringify(parpam),
+					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{						
+							$(location).attr('href', 'paiinfo?type=1&id='+parpam.recieveId);
+						}
+						else
+						{
+							if(data.status="7022")
+							{
+								swal("请点击已领取任务标题,上传任务截图");	
+							}   
+							else
+							swal(data.message);	
+						}
+									
+					}
+			});			
+		}
+		function nobtn()
+		{
+			var parpam ={}
+			parpam.recieveId = $("#taskId").val();			 
+			$.ajax({
+					type: 'POST',
+					url: url+"/ty/incrementHf/task/giveUpTask",
+					data: JSON.stringify(parpam),
+					contentType: "application/json",
+					headers: {
+					  token: $.session.get('token')
+					},	
+					success: function(data){
+						if(data.status=="0000")
+						{
+							$(location).attr('href', 'paiinfo?type=1&id='+parpam.recieveId);
+						}
+						else
+						{
+							swal(data.message);	
+						}
+						
+					}
+			});				
+		}	
+		$(document).ready(function(){	
+			$(".btn-img").click(function(){});	
+			$(".up-pic").hide();
+		});			
+</script>

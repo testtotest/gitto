@@ -24,8 +24,12 @@
 			headers: {
 			  token: token
 			},										
-			success: function(data){	
-				if(data.result.list.length==0)
+			success: function(data){
+				if(data.status=="4030")
+				{
+					noto()
+				}
+				else if(data.result.list.length==0)
 				{
 					$(".msg").show();
 				}

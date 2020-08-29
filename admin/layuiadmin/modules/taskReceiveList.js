@@ -72,11 +72,13 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "状态",
           minWidth: 120,
           templet: function (d) { 
-        	  if(d.status==1){return '已发布'}
-			  else if(d.status==2){return '已完成'}
-			  else if(d.status==3){return '已超时'}
-			  else if(d.status==4){return '待完成'}
-			  else if(d.status==5){return '暂停'}
+        	  if(d.status==1){return '已领取'}
+			  else if(d.status==2){return '已提交'}
+			  else if(d.status==3){return '审核驳回'}
+			  else if(d.status==4){return '审核通过'}
+			  else if(d.status==5){return '已取消'}
+			  else if(d.status==6){return '超时'}
+			  else if(d.status==7){return '已打款'}
           },
         },
 		{

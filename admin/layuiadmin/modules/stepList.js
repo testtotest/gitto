@@ -58,6 +58,14 @@ layui.define([ "form", "util", "api"], function (t) {
           sort: !0,
         },
 		{
+		  field: "exampleDiagram",
+		  width: 100,
+		  title: "图片",
+		  templet: function (d) {
+			  return '<img src="https://img.tongyunzn.com/increment/'+d.exampleDiagram+'"/>'
+		  }
+		},
+		{
 		  field: "taskId",
 		  width: 70,
 		  title: "任务id"		 

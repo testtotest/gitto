@@ -1,11 +1,28 @@
 body{background-color: #F6F7F8;font-size: 0.9rem;}
 p{margin: 0px;padding: 0;}
 a{color: #303030;}	
-a:link {text-decoration: none;}
+a:link {color: #303030;text-decoration: none;}
+a:hover{
+color: #303030;
+}
+a:visited{
+color: #303030;
+}
 .w-95{width: 95%;}
+.w-30{width: 30%;}
+.support-circle5{
+					 border-radius:5px;
+		}	 
 .f-size-09{font-size: 0.9rem;}
+.f-size-1{font-size: 1rem;}
+.f-size-12{font-size: 1.2rem;}
+.f-size-12s{font-size: 12px;}
+.f-size-13{font-size: 13px;}
+.f-size-15{font-size: 15px;}
+.f-size-22{font-size:22px}
 .bg-f{background-color: #FFFFFF;}
 .t-center{text-align: center;}
+.c-b{clear:both;}
 .border-bottom {
 	       border-bottom: 1px solid #F4F5F6!important;
 	   }	
@@ -35,7 +52,7 @@ a:link {text-decoration: none;}
 	       width: 100%;
 	       font-size: 14px;
 	       text-align: center;
-	       color: #999999;
+	       color: #9A9A9A;
 	       text-decoration: none;
 	   }
 	   .tab .cur{
@@ -52,14 +69,18 @@ a:link {text-decoration: none;}
 	     padding: 15px;
 	     margin: auto;
 	   }
-	   .upload-wrap{
-	       position: relative;
-	       display: inline-block;
-	       overflow: hidden;
-	       border:1px solid #2d78f4;
-	       border-radius: 3px;
+	   .form-signins {
+	     width: 100%;
+	     max-width: 380px;
+	     padding: 0px 15px 10px 15px;
+	     margin: auto;
 	   }
-	   .upload-wrap .file-ele{
+	   .upload-wrap{
+	       position: relative;	      
+	       overflow: hidden;	     
+		   width: 70%;
+	   }
+	    .file-ele{
 	       position: absolute;
 	       top:0;
 	       right:0;
@@ -76,3 +97,13 @@ a:link {text-decoration: none;}
 	       color:#fff;
 	       background: #3385ff;
 	   }
+	   
+	.st{
+		min-width:40px;border-radius:50px 0px 50px 50px;background-color:#212121;padding:10px;line-height:30px;color:#fff;
+	}
+	.st-t{color: #FFCB4F;}
+	.st-p{color: #F66A52;}
+	.st-bia{background:url('../img/yuan.png') 0px  no-repeat;background-size:8px 8px}
+	.st-bib{background:url('../img/b2.png') ;background-repeat: repeat-y;}
+	.img-btn{background-color: #F6F7F8;text-align: center;width: 100%;}
+	  

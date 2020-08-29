@@ -32,6 +32,7 @@
 		 </div>
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>    
         <script type="text/html" id="table-content-list">
+			
 		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="editStep"><i
 		    class="layui-icon layui-icon-edit"></i>修改</a>	
         <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="delStep"><i
@@ -114,8 +115,8 @@
 								body.contents().find("#taskId").val(e.taskId);
 								body.contents().find("#tId").val(e.type);
 								body.contents().find("#stepNumber").val(e.stepNumber);
-								body.contents().find("#description").val(e.detailed);		
-								body.contents().find("#photo1-img").attr("src", e.exampleDiagram);
+								body.contents().find("#description").val(e.detailed);		                       
+								body.contents().find("#photo1-img").attr("src", "https://img.tongyunzn.com/increment/"+e.exampleDiagram);
 								body.contents().find("#photo1").val(e.exampleDiagram);
 							}
 					});

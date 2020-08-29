@@ -175,10 +175,8 @@
             if (res.status == "0000") {
               $("#photo1").val(res.result);
               temImg1 = res.result;
-              //return layer.msg("图片上传成功");
-            } else {
-              //return layer.msg("图片上传失败");
-            }
+              
+            } 
           },
           error: function () {
             //演示失败状态，并实现重传
@@ -217,7 +215,7 @@
 								dataType: "json",
 								success: function (data) {
 									if (data.status == "0000") {
-									  layer.msg(msg);					 
+									  layer.msg(data.message);				 
 									 setTimeout(function () {
 									   parent.layui.table.reload('LAY-app-content-list'); //重载表格
 									   parent.layer.close(index); //再执行关闭 

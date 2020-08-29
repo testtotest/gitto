@@ -16,7 +16,7 @@
 		var parpam ={}
 		parpam.token =$.session.get('token');
 		parpam.phone = $.session.get('phone');			
-	    console.log($.session.get('token'))
+	   
 		function getP(pic)
 		{	
 			var parpam ={}			 
@@ -49,12 +49,16 @@
 		data: parpam,									
 		success: function(data){
 			$.each(data.result,function(i,val){
-				$(".list").append('<div onclick=getP("'+val.headUrl+'") class="d-flex justify-content-between bd-highlight border-bottom ml-2 mr-2"><div class="p-2 bd-highlight"><img width="50" height="50" src="'+val.headUrl+'" /></div></div>');
+				$(".list").append('<div class="p-2 bd-highlight" onclick=getP("'+val.headUrl+'")><img src="'+val.headUrl+'" width="43" /></div>')
+				
 			});
 		}
 	});	
 	</script>
 	<body >	
-		<div  class="list mt-2 bg-f"></div>	
+		<div  class=" mt-2 ">
+			<div class="d-flex flex-wrap bd-highlight list">			    
+			 </div>
+		</div>	
 	</body>
 </html>

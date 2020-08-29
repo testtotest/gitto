@@ -88,9 +88,10 @@
       </div>
 
       <div class="layui-card-body">
-        <!-- <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
-        </div> -->
+         <div style="padding-bottom: 10px;">
+          <button type="button" lay-submit="" class="layui-btn layui-btn-warm" lay-filter="uploadImg">
+    <i class="layui-icon"></i>导出Excel</button>
+        </div> 
 
         <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
         <!-- <script type="text/html" id="buttonTpl">
@@ -112,9 +113,10 @@
     </div>
   </div>
 
-  <!-- <script src="../../../layuiadmin/layui/layui.js"></script>   -->
+  <script src="../../../layuiadmin/layui/layui.js"></script>  
   <script src="../../../layuiadmin/lib/jquery.js"></script>
   <script src="../../../layuiadmin/lib/layui.js"></script>
+  <script src="../../../layuiadmin/lib/excel.js"></script>
   <script>
     layui
       .config({
@@ -124,7 +126,7 @@
         index: "lib/index", //主入口模块
       })
       .use(
-        ["index", "userList", "table", "api", "laydate", "function", "helper"],
+        ['layer',"index", "userList", "table", "api", "laydate", "function", "helper"],
         function () {
           var table = layui.table,
             form = layui.form,
@@ -133,6 +135,7 @@
             baseurl = layui.api.baseUrl,
             helper = layer.helper,
             laydate = layui.laydate,
+			table = layui.table;
             channelList = layui.function.channelList;
           console.log('helper_______', helper)
           //channelList("#cid");
@@ -327,7 +330,28 @@
               where: field,
             });
           });
-
+		  
+		  form.on('submit(uploadImg)', function(data){			
+			  window.open(layui.api.baseUrl+mUrl+'/operator/user/userList?isExport=1&token='+sessionStorage.getItem("token"));
+			  // var param = {}
+			  // param.isExport = 1
+			  // param.token = sessionStorage.getItem("token")
+			  //  $.ajax({
+			  //  					type: "Get",
+			  //  		url: layui.api.baseUrl+mUrl+'/operator/user/userList',			
+			   					
+					// 			data: param,
+			  //  					headers: {
+			  //  						 token: sessionStorage.getItem("token"),
+			  //  					},
+			  //  					dataType: "json",
+			  //  					success: function (data) {
+			   						
+			  //  						alert(data.message)	
+			   								 
+			  //  					},
+			  //  });
+          });
           var $ = layui.$,
             active = {
               // batchdel: function(){

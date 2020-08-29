@@ -90,22 +90,28 @@
 	<div class="layui-form-item">
 	  <label class="layui-form-label layui-form-label-dry">任务截止时间<span class="red">*</span></label>
 	  <div class="layui-input-inline">
-	    <input type="text" name="deadline" id="deadline"  lay-verify="required"  maxlength="30"  placeholder="yyyyMMdd"
-	      autocomplete="off" class="layui-input" /> 
+	   
+		  <input
+		    type="text"
+		    class="layui-input"
+		    name="deadlineString"
+		    id="deadlineString"
+		    placeholder=""
+		  />
 	  </div>
 	</div>
 	
  <div class="layui-form-item">
      <label class="layui-form-label layui-form-label-dry">发布类型</label>
      <div class="layui-input-inline">
-       <select name="sdtype" id="sdtype" lay-filter="tId">
+       <select name="sdtype" id="sdtype" lay-filter="sdtype">		
          <option value="1">按总金额</option>
 		 <option value="2">按单量</option>
        </select>
      </div>
    </div>
    
-   <div class="layui-form-item">
+   <div class="layui-form-item  "  >
      <label class="layui-form-label layui-form-label-dry">刷单次数限制<span class="red">*</span></label>
      <div class="layui-input-inline">
        <input type="text" name="frequencyLimit" id="frequencyLimit" lay-verify="required" value="0"  maxlength="30" placeholder="请输入"
@@ -113,7 +119,7 @@
      </div>
    </div>
    
-   <div class="layui-form-item">
+   <div class="layui-form-item  " id="tb" >
      <label class="layui-form-label layui-form-label-dry">总金额<span class="red">*</span></label>
      <div class="layui-input-inline">
        <input type="text" name="totleAmount" id="totleAmount" lay-verify="required" value="0"  maxlength="30" placeholder="请输入"
@@ -121,8 +127,8 @@
      </div>
    </div>
    
-   <div class="layui-form-item">
-     <label class="layui-form-label layui-form-label-dry">订单量(发布类型2必填)</label>
+   <div class="layui-form-item" id="ta" style="display: none;">
+     <label class="layui-form-label layui-form-label-dry">订单量</label>
      <div class="layui-input-inline">
        <input type="text" name="orderQuantity" id="orderQuantity" lay-verify="required" value="0"  maxlength="30" placeholder="请输入"
          autocomplete="off" class="layui-input" /> 
@@ -134,11 +140,12 @@
      <div class="layui-input-inline">
        <input type="text" name="missionTime" id="missionTime" lay-verify="required" value="0"  maxlength="30" placeholder="请输入"
          autocomplete="off" class="layui-input" /> 
+		 
      </div>
    </div>
    
 <!-- layui-hide -->
-    <div class="layui-form-item ">
+    <div class="layui-form-item layui-hide">
       <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
         value="确认添加">
       <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
@@ -147,7 +154,7 @@
   <script src="../../../layuiadmin/lib/jquery.js"></script>
   <script src="../../../layuiadmin/layui/layui.js"></script>
   <script>
-
+  
     layui.config({
       base: '../../../layuiadmin/' //静态资源所在路径
     }).extend({
@@ -159,13 +166,30 @@
 		, laydate = layui.laydate
         , baseUrl = layui.api.baseUrl;
 		laydate.render({
-		  elem: "#deadline",
+		  elem: "#deadlineString",
+		  type: 'datetime'
 		});
-      //监听提交
+	 form.on('select(sdtype)', function (data) { 
+		  if(data.value==1)
+		  {
+			  
+			   $("#tb").show()
+			   $("#ta").hide()
+			 
+		  }
+		    
+		  if(data.value==2)
+		  {
+			  $("#ta").show()
+			  $("#tb").hide()
+		  }
+		    
+	 });	
+      //监听提交	  
       form.on('submit(layuiadmin-app-form-submit)', function (data) {
-      
+         
             var field = data.field; //获取提交的字段     
-			//var index = parent.layer.getFrameIndex(window.name); 	  
+			var index = parent.layer.getFrameIndex(window.name); 	  
 			var msg = ' '
 			var subUrl = '/operator/task/releaseTask'
 			if (field.id) {
@@ -181,25 +205,25 @@
 			param.couponAmount = field.couponAmount
 			param.maxAmount = field.maxAmount
 			param.moneyReward = field.moneyReward
-			param.deadline = field.deadline
+			param.deadlineString = field.deadlineString
 			param.sdtype = field.sdtype
 			param.frequencyLimit = field.frequencyLimit
 			param.totleAmount = field.totleAmount
 			param.orderQuantity = field.orderQuantity
 			param.missionTime = field.missionTime
-		   
+		  
 			$.ajax({
 				  type: "POST",
 				  url: baseUrl + mUrl + subUrl,
 				  data: JSON.stringify(param),
 				  contentType: "application/json",
 				  headers: {
-					 token: "ZWQzOWZjYmViYzMwNGE0YWJhOGNiM2RlMjc0ODdkOWQtc3lzdGVtLTE1OTc2Mjc3OTAxODYtMTExLjQyLjE1NS4yMDctMg=="
+					 token: sessionStorage.getItem("token")
 				  },
 				  dataType: "json",
 				  success: function (data) {
 						if (data.status == "0000") {
-						    layer.msg(msg);					 
+						    layer.msg(data.message);			 
 						 setTimeout(function () {
 						    parent.layui.table.reload('LAY-app-content-list'); //重载表格
 						    parent.layer.close(index); //再执行关闭 
