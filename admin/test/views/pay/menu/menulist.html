@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>菜单管理</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+</head>
+
+<body>
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增菜单</button>
+        </div>
+        <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
+
+        <script type="text/html" id="table-content-list">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+        </script>
+      </div>
+    </div>
+  </div>
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/lib/layui.js"></script>
+  <script>
+    layui.config({
+      base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'menulist', 'table', 'api'], function () {
+      var table = layui.table
+        , form = layui.form,
+        baseurl = layui.api.baseUrl;
+      //监听
+      table.on("tool(LAY-app-content-list)", function (t) {
+        var e = t.data
+        //监听   修改    查看详情 
+        if ("edit" === t.event) {
+          var param = {}
+          var sortTemp = '<option value="-1">请选择</option>'
+          param.pId = 0;
+          param.token = sessionStorage.getItem("token")
+          $.ajax({
+            type: "GET",
+            // url: baseurl + "/ledger/admin/menuListByPid",
+            //url: baseurl + "/qrcode/admin/menuListByPid?pId=0&token=" + sessionStorage.getItem("token"),
+            url: baseurl + "/ty/heatingAdmin/admin/menuListByPid?pId=0&token=" + sessionStorage.getItem("token"),
+            //   data: param,
+            dataType: "json",
+            success: function (data) {
+              if (data.status == "0000") {
+                for (var i = 0; i < data.result.list.length; i++) {
+                  sortTemp += '<option value="' + data.result.list[i].id + '">' + data.result.list[i].name + '</option>'
+                }
+                $.ajax({
+                  type: "get",
+                 // url: baseurl + "/qrcode/admin/menuDeatail",
+                  url:baseurl+"/ty/heatingAdmin/admin/menuDeatail",
+                  data: {
+                    id: t.data.id,
+                    token: sessionStorage.getItem("token")
+                  },
+                  dataType: "json",
+                  success: function (data) {
+                    if (data.status == "4031") {
+                      layer.msg(data.message);
+                      setTimeout(function () {
+                        window.parent.parent.location.href = '../../user/login.html';
+                      }, 2000)
+                      return false;
+                    }
+                    if (data.status == "0000") {
+
+                      var data = data.result
+                      layer.open({
+                        type: 2
+                        , title: '菜单编辑'
+                        , content: 'menulistform.html?id =' + t.data.id
+                        , maxmin: true
+                        , area: ['100%', '100%']
+                        , btn: ['确定', '取消']
+                        , yes: function (index, layero) {
+                          //点击确认触发 iframe 内容中的按钮提交
+                          var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                          submit.click();
+                        }
+                        , success: function (layero, index) {
+                          var body = layer.getChildFrame('body', index);
+                          body.contents().find("#pId").html(sortTemp);
+                          body.contents().find("#pId").val(data.pid);
+                          body.contents().find("#id").val(data.id);
+                          body.contents().find("#name").val(data.name);
+                          body.contents().find("#menuUrl").val(data.menuUrl);
+                          body.contents().find("#icon").val(data.icon);
+                          body.contents().find("#remark").val(data.remark);
+                        }
+                      });
+                    }
+                  }
+                });
+              } else if (data.status == "4031") {
+                layer.msg(data.message);
+                setTimeout(function () {
+                  window.parent.parent.location.href = '../../user/login.html';
+                }, 2000)
+              } else {
+                layer.msg('接口调用失败' + data.message)
+              }
+            }
+          });
+
+        }
+
+      })
+
+
+
+
+
+      var $ = layui.$, active = {
+        //新增菜单
+        add: function () {
+          var param = {}
+          var sortTemp = '<option value="-1">请选择</option>'
+          param.pId = 0;
+          // param.token = sessionStorage.getItem("token")
+          $.ajax({
+            type: "GET",
+           // url: baseurl + "/qrcode/admin/menuListByPid?pId=0",
+           url:baseurl+"/ty/heatingAdmin/admin/menuListByPid?pId=0",
+            // data: param,
+            headers: {
+              token: sessionStorage.getItem("token")
+            },
+            dataType: "json",
+            success: function (data) {
+              if (data.status == "0000") {
+                for (var i = 0; i < data.result.list.length; i++) {
+                  sortTemp += '<option value="' + data.result.list[i].id + '">' + data.result.list[i].name + '</option>'
+                }
+                layer.open({
+                  type: 2
+                  , title: '新增菜单'
+                  , content: 'menulistform.html'
+                  , maxmin: true
+                  , area: ['100%', '100%']
+                  , btn: ['确定', '取消']
+                  , yes: function (index, layero) {
+                    //点击确认触发 iframe 内容中的按钮提交
+                    var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                    submit.click();
+                  },
+                  success: function (layero, index) {
+                    var body = layer.getChildFrame('body', index);
+                    body.contents().find("#pId").html(sortTemp);
+                  }
+                });
+              } else if (data.status == "4031") {
+                layer.msg(data.message);
+                setTimeout(function () {
+                  window.parent.parent.location.href = '../../user/login.html';
+                }, 2000)
+              } else {
+                layer.msg('接口调用失败' + data.message)
+              }
+            }
+          });
+
+
+        },
+      };
+
+      $('.layui-btn.layuiadmin-btn-list').on('click', function () {
+        var type = $(this).data('type');
+        active[type] ? active[type].call(this) : '';
+      });
+
+    });
+  </script>
+</body>
+
+</html>

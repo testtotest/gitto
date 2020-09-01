@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>菜单编辑</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <style>
+    .layui-form-label-dry {
+      width: 150px;
+    }
+
+    .layui-form-item .layui-input-inline {
+      width: 300px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
+    style="padding: 20px 30px 0 0;">
+    <input type="hidden" name="id" id="id" value="">
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">一级菜单</label>
+      <div class="layui-input-inline">
+        <select name="pId" id="pId" lay-filter="pId">
+          <option value="">请选择</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">菜单名称</label>
+      <div class="layui-input-inline">
+        <input type="text" name="name" id="name" lay-verify="required" maxlength="30" placeholder="" autocomplete="off"
+          class="layui-input">
+      </div>
+    </div>
+
+
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">菜单地址</label>
+      <div class="layui-input-inline">
+        <textarea name="menuUrl" id="menuUrl" maxlength="100" placeholder="" style="width: 300px; height: 150px;"
+          autocomplete="off" class="layui-textarea"></textarea>
+      </div>
+    </div>
+    <div class="layui-form-item" >
+      <label class="layui-form-label layui-form-label-dry">备注</label>
+      <div class="layui-input-inline">
+        <textarea name="remark" id="remark" maxlength="100" placeholder="" style="width: 300px; height: 150px;"
+          autocomplete="off" class="layui-textarea"></textarea>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">菜单icon图标</label>
+      <div class="layui-input-inline">
+        <input type="text" name="icon" id="icon" placeholder="" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
+        value="确认添加">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+    </div>
+  </div>
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+
+    layui.config({
+      base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'laydate', 'upload', 'api'], function () {
+      var $ = layui.$
+        , form = layui.form
+        , upload = layui.upload
+        , baseurl = layui.api.baseUrl;
+
+      //监听提交
+      form.on('submit(layuiadmin-app-form-submit)', function (data) {
+        var field = data.field; //获取提交的字段
+        var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引  
+        field.menuUrl = field.menuUrl.trim()
+        // field.token = sessionStorage.getItem("token")
+        if ($('#pId').val() == '-1') {
+          field.pId = 0;
+        }
+       // var url = '/qrcode/system/updateMenu';
+       var url='/ty/heatingAdmin/system/updateMenu';
+        $.ajax({
+          type: "POST",
+          url: baseurl + url,
+          data: field,
+          headers: {
+            token: sessionStorage.getItem("token")
+          },
+          dataType: "json",
+          success: function (data) {
+            if (data.status == "0000") {
+              layer.msg(data.message);
+              setTimeout(function () {
+                parent.layui.table.reload('LAY-app-content-list'); //重载表格
+                parent.layer.close(index); //再执行关闭 
+              }, 1000)
+            } else if (data.status == "4031") {
+              layer.msg(data.message);
+              setTimeout(function () {
+                window.parent.parent.location.href = '../../user/login.html';
+              }, 2000)
+            } else {
+              layer.msg('失败' + data.message)
+            }
+
+          }
+        });
+      });
+    })
+  </script>
+</body>
+
+</html>

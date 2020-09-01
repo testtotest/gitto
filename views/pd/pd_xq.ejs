@@ -15,10 +15,9 @@
 		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >		
 		<link rel="stylesheet" href="bdist/css/pub.css?s=0">
-		<link rel="stylesheet prefetch" href="bdist/css/default-skin.css">
-		<link rel="stylesheet prefetch" href="bdist/css/photoswipe.css">	
-		<script src="bdist/js/photoswipe.js"></script>
-		<script src="bdist/js/photoswipe-ui-default.min.js"></script>
+		
+		
+		
 	</head>
 	<style>		
 		p{padding: 3px;}		
@@ -52,262 +51,61 @@
 		   <div class="views_but"></div>
 	   </div>
 	   <!---->
-	   	  
-	   <div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
-	   <div class="pswp__bg"></div>
-	   <div class="pswp__scroll-wrap">
-	   <div class="pswp__container">
-	   <div class="pswp__item"></div>
-	   <div class="pswp__item"></div>
-	   <div class="pswp__item"></div>
-	   </div>
-	   <div class="pswp__ui pswp__ui--hidden">
-	   <div class="pswp__top-bar">
-	   	<div class="pswp__counter"></div>
-	   <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-	   <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-	   <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-	    <div class="pswp__preloader">
-	   <div class="pswp__preloader__icn">
-	   <div class="pswp__preloader__cut">
-	   <div class="pswp__preloader__donut"></div>
-	   </div>
-	   </div>
-	   </div>
-	   </div>
-	   <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-	   <div class="pswp__share-tooltip"></div>
-	   </div>
-	   <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"> </button>
-	   <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)"> </button>
-	   <div class="pswp__caption">
-	   <div class="pswp__caption__center"></div>
-	   </div>
-	   </div>
-	   </div>
-	   </div>
-	   <script type="text/javascript">
-	       var initPhotoSwipeFromDOM = function(gallerySelector) {
-	   
-	       // 瑙ｆ瀽鏉ヨ嚜DOM鍏冪礌骞荤伅鐗囨暟鎹紙URL锛屾爣棰橈紝澶у皬...锛�
-	       // (children of gallerySelector)
-	       var parseThumbnailElements = function(el) {
-	           var thumbElements = el.childNodes,
-	               numNodes = thumbElements.length,
-	               items = [],
-	               figureEl,
-	               linkEl,
-	               size,
-	               item,
-	               divEl;
-	   
-	           for(var i = 0; i < numNodes; i++) {
-	   
-	               figureEl = thumbElements[i]; // <figure> element
-	   
-	               // 浠呭寘鎷厓绱犺妭鐐�
-	               if(figureEl.nodeType !== 1) {
-	                   continue;
-	               }
-	               divEl = figureEl.children[0];
-	               linkEl = divEl.children[0]; // <a> element
-	               
-	               size = linkEl.getAttribute('data-size').split('x');
-	   
-	              
-	               item = {
-	                   src: linkEl.getAttribute('href'),
-	                   w: parseInt(size[0], 10),
-	                   h: parseInt(size[1], 10)
-	               };
-	   
-	   
-	   
-	               if(figureEl.children.length > 1) {
-	                   // <figcaption> content
-	                   item.title = figureEl.children[1].innerHTML; 
-	               }
-	   
-	               if(linkEl.children.length > 0) {
-	                   // <img> 缂╃暐鍥捐妭鐐�, 妫€绱㈢缉鐣ュ浘缃戝潃
-	                   item.msrc = linkEl.children[0].getAttribute('src');
-	               } 
-	   
-	               item.el = figureEl; // 淇濆瓨閾炬帴鍏冪礌 for getThumbBoundsFn
-	               items.push(item);
-	           }
-	   
-	           return items;
-	       };
-	   
-	       // 鏌ユ壘鏈€杩戠殑鐖惰妭鐐�
-	       var closest = function closest(el, fn) {
-	           return el && ( fn(el) ? el : closest(el.parentNode, fn) );
-	       };
-	   
-	       // 褰撶敤鎴风偣鍑荤缉鐣ュ浘瑙﹀彂
-	       var onThumbnailsClick = function(e) {
-	           e = e || window.event;
-	           e.preventDefault ? e.preventDefault() : e.returnValue = false;
-	   
-	           var eTarget = e.target || e.srcElement;
-	   
-	           // find root element of slide
-	           var clickedListItem = closest(eTarget, function(el) {
-	               return (el.tagName && el.tagName.toUpperCase() === 'FIGURE');
-	           });
-	   
-	           if(!clickedListItem) {
-	               return;
-	           }
-	   
-	           // find index of clicked item by looping through all child nodes
-	           // alternatively, you may define index via data- attribute
-	           var clickedGallery = clickedListItem.parentNode,
-	               childNodes = clickedListItem.parentNode.childNodes,
-	               numChildNodes = childNodes.length,
-	               nodeIndex = 0,
-	               index;
-	   
-	           for (var i = 0; i < numChildNodes; i++) {
-	               if(childNodes[i].nodeType !== 1) { 
-	                   continue; 
-	               }
-	   
-	               if(childNodes[i] === clickedListItem) {
-	                   index = nodeIndex;
-	                   break;
-	               }
-	               nodeIndex++;
-	           }
-	   
-	   
-	   
-	           if(index >= 0) {
-	               // open PhotoSwipe if valid index found
-	               openPhotoSwipe( index, clickedGallery );
-	           }
-	           return false;
-	       };
-	   
-	       // parse picture index and gallery index from URL (#&pid=1&gid=2)
-	       var photoswipeParseHash = function() {
-	           var hash = window.location.hash.substring(1),
-	           params = {};
-	   
-	           if(hash.length < 5) {
-	               return params;
-	           }
-	   
-	           var vars = hash.split('&');
-	           for (var i = 0; i < vars.length; i++) {
-	               if(!vars[i]) {
-	                   continue;
-	               }
-	               var pair = vars[i].split('=');  
-	               if(pair.length < 2) {
-	                   continue;
-	               }           
-	               params[pair[0]] = pair[1];
-	           }
-	   
-	           if(params.gid) {
-	               params.gid = parseInt(params.gid, 10);
-	           }
-	   
-	           return params;
-	       };
-	   
-	       var openPhotoSwipe = function(index, galleryElement, disableAnimation, fromURL) {
-	           var pswpElement = document.querySelectorAll('.pswp')[0],
-	               gallery,
-	               options,
-	               items;
-	   
-	           items = parseThumbnailElements(galleryElement);
-	   
-	          
-	           options = {
-	             barsSize: { 
-	               top: 100,
-	               bottom: 100
-	             }, 
-	              fullscreenEl : false,
-	               shareButtons: [
-	               {id:'wechat', label:'鍒嗕韩寰俊', url:'jcgengduo1.html?id=weibo'},
-	               {id:'weibo', label:'鏂版氮寰崥', url:'#'},
-	               {id:'download', label:'淇濆瓨鍥剧墖', url:'{{raw_image_url}}', download:true}
-	               ],
-	   
-	               // define gallery index (for URL)
-	               galleryUID: galleryElement.getAttribute('data-pswp-uid'),
-	   
-	               getThumbBoundsFn: function(index) {
-	                   // See Options -> getThumbBoundsFn section of documentation for more info
-	                   var thumbnail = items[index].el.getElementsByTagName('img')[0], // find thumbnail
-	                       pageYScroll = window.pageYOffset || document.documentElement.scrollTop,
-	                       rect = thumbnail.getBoundingClientRect(); 
-	   
-	                   return {x:rect.left, y:rect.top + pageYScroll, w:rect.width};
-	               }
-	   
-	           };
-	   
-	           // PhotoSwipe opened from URL
-	           if(fromURL) {
-	               if(options.galleryPIDs) {
-	                   // parse real index when custom PIDs are used 
-	                   for(var j = 0; j < items.length; j++) {
-	                       if(items[j].pid == index) {
-	                           options.index = j;
-	                           break;
-	                       }
-	                   }
-	               } else {
-	                   // in URL indexes start from 1
-	                   options.index = parseInt(index, 10) - 1;
-	               }
-	           } else {
-	               options.index = parseInt(index, 10);
-	           }
-	   
-	           // exit if index not found
-	           if( isNaN(options.index) ) {
-	               return;
-	           }
-	   
-	           if(disableAnimation) {
-	               options.showAnimationDuration = 0;
-	           }
-	   
-	           // Pass data to PhotoSwipe and initialize it
-	           gallery = new PhotoSwipe( pswpElement, PhotoSwipeUI_Default, items, options);
-	           gallery.init();
-	       };
-	   
-	       // loop through all gallery elements and bind events
-	       var galleryElements = document.querySelectorAll( gallerySelector );
-	   
-	       for(var i = 0, l = galleryElements.length; i < l; i++) {
-	           galleryElements[i].setAttribute('data-pswp-uid', i+1);
-	           galleryElements[i].onclick = onThumbnailsClick;
-	       }
-	   
-	       // Parse URL and open gallery if it contains #&pid=3&gid=1
-	       var hashData = photoswipeParseHash();
-	       if(hashData.pid && hashData.gid) {
-	           openPhotoSwipe( hashData.pid ,  galleryElements[ hashData.gid - 1 ], true, true );
-	       }
-	       };
-	   
-	       // execute above function
-	       initPhotoSwipeFromDOM('#imgshow');
-	   
-	       
-	       $("#imgshow>figure>div").each(function(){
-	           $(this).height($(this).width());
-	       });
-	   </script>
+	   	<div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:100;width:100%;height:100%;display:none;">
+	   	        <div id="innerdiv" style="position:absolute;">
+	   	            <a id="a_url"><img id="bigimg" style="border:5px solid #fff;" src="" /></a>
+	   	        </div>
+	   	 </div>  
+	     <script>
+		 $("#imgshow").on('click','#ejiao',function(){
+		             var _this = $(this);//将当前的pimg元素作为_this传入函数					
+		             imgShow("#outerdiv", "#innerdiv", "#bigimg", _this);
+		         });
+		         function imgShow(outerdiv, innerdiv, bigimg, _this){
+		             var src = _this.attr("src");//获取当前点击的pimg元素中的src属性
+		             $(bigimg).attr("src", src);//设置#bigimg元素的src属性
+					 $("#a_url").attr("href", src);
+					 $('#a_url').removeAttr('href');
+					
+		             var imageSize = getImageSize(_this);/*获取当前点击图片的真实大小，这里我封装了一个函数，返回一个数组*/
+					 
+		             var windowW = $(window).width();//获取当前窗口宽度
+		             var windowH = $(window).height();//获取当前窗口高度
+		             var realWidth = imageSize[0];//获取图片真实宽度
+		             var realHeight = imageSize[1];//获取图片真实高度
+		             var imgWidth, imgHeight;
+		             var scale = 0.8;//缩放尺寸，当图片真实宽度和高度大于窗口宽度和高度时进行缩放
+		             if(realHeight>windowH*scale) {//判断图片高度
+		                 imgHeight = windowH*scale;//如大于窗口高度，图片高度进行缩放
+		                 imgWidth = imgHeight/realHeight*realWidth;//等比例缩放宽度
+		                 if(imgWidth>windowW*scale) {//如宽度扔大于窗口宽度
+		                     imgWidth = windowW*scale;//再对宽度进行缩放
+		                 }
+		             } else if(realWidth>windowW*scale) {//如图片高度合适，判断图片宽度
+		                 imgWidth = windowW*scale;//如大于窗口宽度，图片宽度进行缩放
+		                 imgHeight = imgWidth/realWidth*realHeight;//等比例缩放高度
+		             } else {//如果图片真实高度和宽度都符合要求，高宽不变
+		                 imgWidth = realWidth;
+		                 imgHeight = realHeight;
+		             }
+		             $(bigimg).css("width",imgWidth);//以最终的宽度对图片缩放
+		             var w = (windowW-imgWidth)/2;//计算图片与窗口左边距
+		             var h = (windowH-imgHeight)/2;//计算图片与窗口上边距
+		             $(innerdiv).css({"top":h, "left":w});//设置#innerdiv的top和left属性
+					
+		             $(outerdiv).fadeIn("fast");//淡入显示#outerdiv及.pimg
+		            		 
+		             $(outerdiv).click(function(){//再次点击淡出消失弹出层
+		                 $(this).fadeOut("fast");
+		             });
+		         }
+		         function getImageSize(imgE){
+		             var i = new Image(); //新建一个图片对象
+		             var src=imgE.attr('src');
+		             i.src=src;//将图片的src属性赋值给新建的图片对象的src
+		             return new Array(i.width,i.height);
+		         }
+		 </script>
 	</body>
 </html>
 <script>
@@ -405,13 +203,13 @@ function directTurnIntoBase64(fileObj,callback){
 					{
 											$.each(data.result.exampleDiagramList, function (i,val) {
 												
-											$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><a  href="'+imgUrl+val.exampleDiagram+'" data-size="680x408"><img  src="'+imgUrl+val.exampleDiagram+'" width="50%" /></a></p></figure></div>')
+											$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><img  src="'+imgUrl+val.exampleDiagram+'" width="50%" /></p></figure></div>')
 											});
 					}
 					$.each(data.result.list, function (i,val) {
 						
 						if(val.exampleDiagram!="示例图位置,需要配置")
-						   var pics='<figure><p class="pt-2 img-dv"><a  href="'+imgUrl+val.exampleDiagram+'" data-size="680x408"><img src='+imgUrl+val.exampleDiagram+' id="ejiao" width="50%"/></a></p></figure>'
+						   var pics='<figure><p class="pt-2 img-dv"><img src='+imgUrl+val.exampleDiagram+' id="ejiao" width="50%"/></p></figure>'
 						else
 						    pics=""						
 						$(".list").append('<div class="st-bia"><span class="st ml-4">第 '+val.stepNumber+' 步</span></div><div class="f-size-15 pl-4 pt-2 pb-3 st-bib">'+val.detailed+''+pics+'</div>')

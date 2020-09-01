@@ -138,12 +138,10 @@ function list(tid)
 	                    me.noData();
 	                }
 	                // 为了测试，延迟1秒加载
-	                setTimeout(function(){
-	                    // 插入数据到页面，放到最后面
-	                    $('.list').append(result);
-	                    // 每次数据插入，必须重置
-	                    me.resetload();
-	                },1000);
+					// 插入数据到页面，放到最后面
+					$('.list').append(result);
+					// 每次数据插入，必须重置
+					me.resetload();	              
 	            },
 	            error: function(xhr, type){
 	                alert('Ajax error!');

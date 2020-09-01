@@ -1,4 +1,5 @@
-var url='http://101.200.129.62:8082'
+//var url='http://101.200.129.62:8082'
+var url='https://messionty.tongyunzn.com'
 var imgUrl='https://img.tongyunzn.com/increment/'
 var imgUrls='https://img.tongyunzn.com/increment/user/'
 var parpam ={}

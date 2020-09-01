@@ -173,7 +173,23 @@
         }
         return false;
     };
-
+ function getImageWidth(url) {
+	           var img = new Image();
+	           img.src = url;
+	           let obj = {}
+	           // 如果图片被缓存，则直接返回缓存数据
+	           if (img.complete) {
+	               obj.width = img.width;
+	               obj.height = img.height;
+	               return obj
+	           } else {
+	               img.onload = function () {
+	                   obj.width = img.width;
+	                   obj.height = img.height;
+	                   return obj
+	               }
+	           }
+	       }
     // parse picture index and gallery index from URL (#&pid=1&gid=2)
     var photoswipeParseHash = function() {
         var hash = window.location.hash.substring(1),
