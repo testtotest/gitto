@@ -1,0 +1,36 @@
+body{font: 12px/1.5 '微软雅黑',arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;}
+p{margin: 0px;}
+a{}	
+a:link {text-decoration: none;}
+a:hover{
+
+}
+a:visited{
+
+}
+.c_153{color: rgb(153, 153, 153)}
+.c_666{color:#666666}
+.f_14{font-size: 14px;}
+.f_15{font-size: 15px;}
+.f_24{font-size: 24px;}
+.f_36{font-size: 36px;}
+.t_center{text-align: center;}
+.l_line35{line-height: 35px;}
+.w-87{width: 90%;}
+.w-60{width: 60%;}
+.w-40{width: 40%;}
+.w-30{width: calc(33.333333333333336% - 20px);}
+.pb-10{padding-bottom: 20px;}
+.pt-30{padding-top: 80px;}
+.pt-50{padding-top: 50px;}
+.blog-footer {
+    padding: 1rem 0;
+    color: #999;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-top: .05rem solid #e5e5e5;
+}
+.container {
+			  max-width: 1024px;
+			}
+.i-news:hover{border-radius: .25rem!important;box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;color: #52b548;}

@@ -56,18 +56,18 @@ layui.define(["table", "form", "util", "api"], function (t) {
         },
 		{
 		  field: "userId",
-		  width: 120,
+		  width: 100,
 		  title: "用户ID"
 		}, 
 		
 		{
 		  field: "name",
-		  minWidth: 200,
+		 width: 100,
 		  title: "用户姓名",		
 		}, 
 		{
 		  field: "phone",
-		  minWidth: 200,
+		  width: 130,
 		  title: "用户电话",		
 		}, 
 		{
@@ -83,7 +83,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		{
 		  field: "create_time",
 		  title: "反馈时间",
-		  minWidth: 140,
+		  minWidth: 170,
 		  templet: function (d) {
 		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
 		  },
@@ -98,12 +98,12 @@ layui.define(["table", "form", "util", "api"], function (t) {
         },
 		{
 		  field: "remark",
-		  width: 100,
+		  width: 200,
 		  title: "处理反馈备注"
 		}, 
 		{
 		  title: "操作",
-		  minWidth: 100,
+		  minWidth: 200,
 		  align: "center",
 		  fixed: "right",
 		  toolbar: "#table-content-list",

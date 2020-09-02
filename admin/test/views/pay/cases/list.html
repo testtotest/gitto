@@ -154,10 +154,11 @@
           //监听
           table.on("tool(LAY-app-content-list)", function (t) {			
                 var e = t.data; 
-	            if ("detailDel" == t.event) {					
+	            if ("detailDel" == t.event) {
+					var subUrls = '/ty/heatingAdmin/file/delete'
 					var subUrl = '/ty/heatingAdmin/admin/cases/deleteCases'
 					var param = []
-					param = e.id	
+					param.oldFilePath = "https://img.tongyunzn.com/tyapplet/"+e.image
 					var arr = [ e.id ]; 
 									
 					$.ajax({
@@ -171,6 +172,19 @@
 						  dataType: "json",
 						  success: function (data) {
 								if (data.status == "0000") {
+			$.ajax({
+														  type: "DELETE",
+														  url: layui.api.baseUrltest + subUrls,
+														  data: JSON.stringify(param),
+														  contentType: "application/json",
+														  headers: {
+															token: sessionStorage.getItem("token")
+														  },
+														  dataType: "json",
+														  success: function (data) {
+																 
+														  }
+													 });								
 								   layer.msg(data.message);
 								   setTimeout(function () {
 								    layui.table.reload('LAY-app-content-list'); //重载表格

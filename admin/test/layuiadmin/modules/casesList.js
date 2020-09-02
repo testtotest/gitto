@@ -42,7 +42,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         width: 100,
         title: "图片",
         templet: function (d) {
-      	  return '<a href="http://'+d.carouselUrl+'" target="_blank"><img src="https://img.tongyunzn.com/tyapplet/'+d.image+'"/></a>'
+      	  return '<img src="https://img.tongyunzn.com/tyapplet/'+d.image+'"/>'
         }
       },
         {
@@ -66,15 +66,15 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		{
 		  field: "releaseTime",
 		  title: "案例发布时间",
-		  minWidth: 140,
+		  minWidth: 200,
 		  templet: function (d) {
-		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+		    return util.toDateString(d.releaseTime, "yyyy-MM-dd HH:mm:ss");
 		  },
 		},
 		{
 		  field: "createTime",
 		  title: "创建时间",
-		  minWidth: 140,
+		  minWidth: 200,
 		  templet: function (d) {
 		    return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
 		  },

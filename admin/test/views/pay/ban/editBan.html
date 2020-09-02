@@ -135,24 +135,29 @@
         var temImg1 = ''
         var uploadInst1 = upload.render({
           elem: "#photo1-btn",
-          url: imgurl,
+          url: layui.api.imgUpurl,
           before: function (obj) {
             //预读本地文件示例，不支持ie8
-			
-            obj.preview(function (index, file, result) {				
-                $("#photo1-img").attr("src", result); //图片链接（base64）
-			    $("#photo1").val(result);
-            });
+           obj.preview(function (index, file, result) {
+             $("#photo1-img").attr("src", result); //图片链接（base64）
+           });
           },
           data: {
-            "oldFilePath": temImg1
+            "oldFilePath": temImg1,
+        	"token": sessionStorage.getItem("token")
           },
           done: function (res) {
            
-            if (res.status == "0000") {
-              $("#photo1").val(res.result);
-              temImg1 = res.result;            
-            } 
+        
+        	console.log("res", res.result);
+        	if (res.status == "0000") {
+        		
+        	  $("#photo1").val(res.result);
+        	
+        	  return layer.msg("图片上传成功");
+        	} else {
+        	  return layer.msg("图片上传失败");
+        	}
           },
           error: function () {
             //演示失败状态，并实现重传
@@ -179,7 +184,7 @@
 			param.isShow = field.isShow
 			param.carouselImg = field.photo1	
 			param.id = field.id //修改	
-			alert(JSON.stringify(param))
+			
 			$.ajax({
 					type: "POST",
 					url: baseUrl+subUrl,
