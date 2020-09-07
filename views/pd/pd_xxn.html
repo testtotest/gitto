@@ -71,7 +71,15 @@ $(function(){
 						 }
 						 else
 						 {
-						 	swal(data.message);
+						 	swal({
+						 	  title: "",
+						 	  text: data.message,
+						 	  type: "",	       
+						 	  confirmButtonColor: "#FFCB4F",
+						 	  confirmButtonText: "知道了",
+						 	  closeOnConfirm: false
+						 	 }
+						 	);		
 						 }	
 					}
 					
@@ -174,7 +182,15 @@ function getP(id)
 						}
 						else
 						{
-							 swal(data.message);	
+							 swal({
+							   title: "",
+							   text: data.message,
+							   type: "",	       
+							   confirmButtonColor: "#FFCB4F",
+							   confirmButtonText: "知道了",
+							   closeOnConfirm: false
+							  }
+							 );		
 						}
 						
 					}

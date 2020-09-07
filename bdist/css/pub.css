@@ -1,9 +1,9 @@
 body{background-color: #F6F7F8;font-size: 0.9rem;}
 p{margin: 0px;padding: 0;}
-a{color: #303030;}	
+a{color: #303030;text-decoration: none;}	
 a:link {color: #303030;text-decoration: none;}
 a:hover{
-color: #303030;
+color: #303030;text-decoration: none;
 }
 a:visited{
 color: #303030;
@@ -24,7 +24,7 @@ color: #303030;
 .t-center{text-align: center;}
 .c-b{clear:both;}
 .border-bottom {
-	       border-bottom: 1px solid #F4F5F6!important;
+	       border-bottom: 1px solid #F4F5F6;
 	   }	
 	   .pb-6 {
 	       padding-bottom: 4rem!important;

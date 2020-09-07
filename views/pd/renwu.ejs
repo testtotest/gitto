@@ -122,10 +122,29 @@
 						{
 							if(data.status="7022")
 							{
-								swal("请点击已领取任务标题,上传任务截图");	
+								swal({
+								  title: "",
+								  text: "请点击已领取任务标题,上传任务截图",
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
+									
 							}   
 							else
-							swal(data.message);	
+							{
+								swal({
+								  title: "",
+								  text: data.message,
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
+							}
 						}
 									
 					}
@@ -150,7 +169,16 @@
 						}
 						else
 						{
-							swal(data.message);	
+							swal({
+							  title: "",
+							  text: data.message,
+							  type: "",	       
+							  confirmButtonColor: "#FFCB4F",
+							  confirmButtonText: "知道了",
+							  closeOnConfirm: false
+							 }
+							);		
+							
 						}
 						
 					}
@@ -240,7 +268,15 @@
 						}					
 						else
 						{
-							swal(data.message);
+							swal({
+							  title: "",
+							  text: data.message,
+							  type: "",	       
+							  confirmButtonColor: "#FFCB4F",
+							  confirmButtonText: "知道了",
+							  closeOnConfirm: false
+							 }
+							);		
 						}
 						
 					}

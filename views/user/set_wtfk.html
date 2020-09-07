@@ -40,7 +40,16 @@
 			         //alert($(this).data(""));	
 					 if($(".form-control").val().length==0)
 					 {
-						 swal("", "问题不能为空!", "error");
+						 swal({
+						   title: "",
+						   text: "问题不能为空!",
+						   type: "",	       
+						   confirmButtonColor: "#FFCB4F",
+						   confirmButtonText: "知道了",
+						   closeOnConfirm: false
+						  }
+						 );		
+						
 					 }
 					 else
 					 {
@@ -63,7 +72,15 @@
                          			}
                          			else
                          			{
-                         				swal(data.message);
+                         				swal({
+                         				  title: "",
+                         				  text: data.message,
+                         				  type: "",	       
+                         				  confirmButtonColor: "#FFCB4F",
+                         				  confirmButtonText: "知道了",
+                         				  closeOnConfirm: false
+                         				 }
+                         				);		
                          			}
                          			
                          		}

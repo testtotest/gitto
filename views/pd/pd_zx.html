@@ -54,17 +54,73 @@
 				</div>	
 		    </div>
 		</div>
-		<div class="content" >
+		    <div class="content" >
 			<div class="form-signins pt-3 pb-2 f-size-12 mb-2" style="background: url('bdist/img/gou.png') 40px 43px  no-repeat;" ><b >最新任务</b>
 			</div>
-			<div class="form-signins list" ></div></div>
+			<div class="form-signins list" ></div>
+			<div class="dropload-down"><div class="dropload-noData">没有更多了</div></div>
+			</div>
 	</div>	
 	<script> 
-	
+	var pageNum=1;	
+	var pages=0;	
 	 $(function(){	
 		
 		
+		       $(window).scroll(function(){
+					  var scrollTop = $(this).scrollTop();    
+					  var scrollHeight = $(document).height();   
+					  var clientHeight = $(this).height();
+					  if(scrollTop + clientHeight >= scrollHeight - 50){
+					        pageNum += 1;
+						if(pageNum > pages){
+							return false;
+						 }
+						 loadMore();
+					  }
+				 
+		        });
+		     loadMore();
+		   function loadMore() {
+			
+			
+			  var parpam ={}
+			  parpam.userId = $.session.get('uid');		
+			
+			  parpam.pageNo=pageNum;
+			  parpam.pageSize=7;	
+			  	  
+			  $.ajax({
+			      type: 'GET',
+			      url: url+"/ty/incrementHf/task/taskList", 
+			  	data: parpam,	
+			      dataType: 'json',
+			  	headers: {
+			  	  token: $.session.get('token')
+			  	},	
+			      success: function(data){
+					     var arrLen = data.result.list.length;
+						 pages = Math.ceil(data.result.count / parpam.pageSize);
+					   
+					    
+			  				   var result = '';
+			  			 $.each(data.result.list,function(i,val){						 		                  var results = '';
+			  			 $.each(val.label,function(ii,vals){
+			  				 results +='<button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+vals+'</button>'
+			  			 });						
+			  			 	result +='<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2 support-circles "><div class="f-size-1"><b>'+val.title+'</b></div><div class="pb-2">'+val.detailed+'</div><div>'+results+'</div></div></a>';
+			  				
+			  			 });
+			  					$('.list').append(result);		
+									 
+			      },
+			      error: function(xhr, type){
+			          alert('Ajax error!');			        
+			      }
+			  });
+		   }
 		  
+		   
 		  $(".but-msg").click(function(){
 			  $(location).attr('href', 'pdxx'); 
 		  })
@@ -93,100 +149,9 @@
 			
 		
 	 });
-   var tab1LoadEnd = false;
-   var tab2LoadEnd = false;
-   var counter = 0;
-   var num = 8;
-   var pageStart = 0,pageEnd = 0;
-	
-	
-	$('.content').dropload({		
-	    scrollArea : window,
-	    loadDownFn : function(me){	
-			
-	       
-			var parpam ={}			
-			parpam.userId = $.session.get('uid');		
-			parpam.pageNo=counter;
-			parpam.pageSize=num;	
-				  
-	        $.ajax({
-	            type: 'GET',
-	            url: url+"/ty/incrementHf/task/taskList", 
-				data: parpam,	
-	            dataType: 'json',
-				headers: {
-				  token: $.session.get('token')
-				},	
-	            success: function(data){	
-					
-					if(data.status=="4030")
-					{
-						noto()
-					}
-					var result = '';
-					counter++;
-					pageEnd = num * counter;
-					pageStart = pageEnd - num;
-					
-					if(pageStart <= data.result.list.length){
-						for(var i = pageStart; i < pageEnd; i++){	
-							var results = '';
-							 $.each(data.result.list[i].label,function(ii,vals){
-								 results +='<button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+vals+'</button>'
-							 });		
-							result +='<a href="paiinfo?id='+data.result.list[i].id+'"><div class="bg-f p-3 mb-2 support-circles "><div class="f-size-1"><b>'+data.result.list[i].title+'</b></div><div class="pb-2">'+data.result.list[i].detailed+'</div><div>'+results+'</div></div></a>';
-						
-							 if((i + 1) >= data.result.list.length){
-							     // 数据加载完
-							     tab1LoadEnd = true;
-							     // 锁定
-							     me.lock();
-							     // 无数据
-							     me.noData();
-							     break;
-							 }
-						}
-						// 插入数据到页面，放到最后面
-						$('.list').append(result);
-						// 每次数据插入，必须重置
-						me.resetload();
-					}
-					// var arrLen = data.result.list.length;
-					// pages = Math.ceil(data.result.count / parpam.pageSize);		                     
-	     //             if(arrLen > 0){
-						//  $.each(data.result.list,function(i,val){						 		                  var results = '';
-						//  $.each(val.label,function(ii,vals){
-						// 	 results +='<button type="button" class="btn btn-warning p-0 pl-1 pr-1 mr-1">'+vals+'</button>'
-						//  });						
-						//  	result +='<a href="paiinfo?id='+val.id+'"><div class="bg-f p-3 mb-2 support-circles "><div class="f-size-1"><b>'+val.title+'</b></div><div class="pb-2">'+val.detailed+'</div><div>'+results+'</div></div></a>';
-							
-						//  });
-						
-	     //               if(counter>=pages)
-						// {							// 锁定
-						// 	me.lock();
-						// 	// 无数据
-						// 	me.noData();
-						// }
-	     //             // 如果没有数据
-	     //             }else{
-	     //                // 锁定
-	     //                me.lock();
-	     //                // 无数据
-	     //                me.noData();
-	     //            }
-	                // 为了测试，延迟1秒加载
-	               
-	            },
-	            error: function(xhr, type){
-	                alert('Ajax error!');
-	                // 即使加载出错，也得重置
-	                me.resetload();
-	            }
-	        });
-	    }
-	});
+  ///////////////////////////////
+
+  
 
 	</script>
 		<div class="fixed-bottom bg-f pt-2 pl-4 pr-4 m-set">

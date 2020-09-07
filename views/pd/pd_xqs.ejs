@@ -230,8 +230,7 @@ $("#input-file").on("change",function(){
 	// 调用函数，对图片进行压缩  
 	compress(fileObj,function(imgBase64){  
 		imgBase64 = imgBase64;//存储转换后的base64编码  
-	    $("#shangchuanimg").attr("src",imgBase64);
-        console.log(imgBase64)
+	    $("#shangchuanimg").attr("src",imgBase64);      
 	});
 });
 function compress(fileObj, callback){
@@ -247,8 +246,9 @@ function compress(fileObj, callback){
 					image.onload = function(){ 
 					var originWidth = this.width;
 					var originHeight = this.height;	
+					
 					 // 最大尺寸限制
-					        var maxWidth = 300, maxHeight = 300;
+					        var maxWidth = 800, maxHeight = 800;
 					        // 目标尺寸
 					        var targetWidth = originWidth, targetHeight = originHeight;
 					        // 图片尺寸超过300x300的限制
@@ -284,10 +284,8 @@ function compress(fileObj, callback){
 						callback(data);    
 		            };      
 	        };    
-		    reader.readAsDataURL(fileObj);    
-				            
+		    reader.readAsDataURL(fileObj);  			            
 		}  
-
 }
 function directTurnIntoBase64(fileObj,callback){  
 	var r = new FileReader();  
@@ -304,10 +302,10 @@ function upimg(imgurl)
 		{
 			$("img").show();
 			 var parpamp ={}
-			 parpamp.img=imgurl;//$("#shangchuanimg").attr("src");
+			 parpamp.img=imgurl;
 			 parpamp.userId = uid;
 			 parpamp.receiveId = $("#taskId").val();
-            console.log(JSON.stringify(parpamp))
+          
 			 $.ajax({
 			 		type: 'POST',
 			 		url: url+"/ty/incrementHf/task/insertUserStep",
@@ -316,7 +314,10 @@ function upimg(imgurl)
 			 		headers: {
 			 		    token: token
 			 		},	
-			 		success: function(data){						    						
+			 		success: function(data){						    						                    if(data.status="0000")
+					         {
+								  $(".up-pic").show();
+							 }
 			 				swal({
 			 				  title: "",
 			 				  text: data.message,

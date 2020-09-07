@@ -59,8 +59,18 @@
 							{
 								$(".bankN").val(data.result)
 							}
-							else
-							    alert(data.message)								
+							else					
+							{
+								swal({
+								  title: "",
+								  text: data.message,
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
+							}							
 						}
 					 });	
 				}
@@ -90,7 +100,15 @@
 								  token: token
 								},	
 								success: function(data){
-								    swal(data.message);								
+								   swal({
+								     title: "",
+								     text: data.message,
+								     type: "",	       
+								     confirmButtonColor: "#FFCB4F",
+								     confirmButtonText: "知道了",
+								     closeOnConfirm: false
+								    }
+								   );									
 								}
 						});				
 					})

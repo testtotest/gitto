@@ -29,7 +29,15 @@ function walletInfo()
 				}
 				else
 				{
-					alert(data.message)
+					swal({
+					  title: "",
+					  text: data.message,
+					  type: "",	       
+					  confirmButtonColor: "#FFCB4F",
+					  confirmButtonText: "知道了",
+					  closeOnConfirm: false
+					 }
+					);		
 				}
 			}
 		}		

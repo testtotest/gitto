@@ -186,7 +186,7 @@ function compress(fileObj, callback){
 					            
 					        // canvas对图片进行缩放
 					      
-			        // square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
+			         square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
 			            canvas = document.createElement('canvas'), //创建canvas元素  
 			            context = canvas.getContext('2d'),  
 			        //  imageWidth = Math.round(square*image.width),    //压缩图片的大小  
@@ -199,7 +199,7 @@ function compress(fileObj, callback){
 						context.fillRect(0, 0, targetWidth, targetHeight);
 						
 					   // context.clearRect(0, 0, targetWidth, targetHeight);  // 
-					    context.drawImage(this, 0, 0, targetWidth, targetHeight);    
+					    context.drawImage(this, 0, 0, square*targetWidth, square*targetHeight);    
 						var data = canvas.toDataURL('image/jpeg');    
 						// //压缩完成执行回调   
 						upimg(data)

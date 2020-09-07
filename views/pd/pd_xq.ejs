@@ -109,82 +109,7 @@
 	</body>
 </html>
 <script>
-$("#input-file").on("change",function(){
-	var filePath = $(this).val(),         //获取到input的value，里面是文件的路径  
-	fileFormat = filePath.substring(filePath.lastIndexOf(".")).toLowerCase(),  
-	imgBase64 = '',      //存储图片的imgBase64  
-	fileObj = document.getElementById('input-file').files[0]; //上传文件的对象,要这样写才行，用jquery写法获取不到对象  
-			              
-	// 检查是否是图片  
-	if( !fileFormat.match(/.png|.jpg|.jpeg/) ) {  
-		alert('上传错误,文件格式必须为：png/jpg/jpeg');  
-		return;    
-	}  			        
-	// 调用函数，对图片进行压缩  
-	compress(fileObj,function(imgBase64){  
-		imgBase64 = imgBase64;//存储转换后的base64编码  
-	    $("#shangchuanimg").attr("src",imgBase64);
-
-	});
-});
-function compress(fileObj, callback){
-	if ( typeof (FileReader) === 'undefined') {    
-			console.log("当前浏览器内核不支持base64图标压缩");    
-			//调用上传方式不压缩    
-			directTurnIntoBase64(fileObj,callback);  
-		} else {       
-		        var reader = new FileReader();    
-			        reader.onload = function (e) { //这是个异步事件               	
-					var image = new Image();  
-					image.src=e.target.result;
-					image.onload = function(){ 
-					var originWidth = this.width;
-					var originHeight = this.height;	
-					 // 最大尺寸限制
-					        var maxWidth = 300, maxHeight = 300;
-					        // 目标尺寸
-					        var targetWidth = originWidth, targetHeight = originHeight;
-					        // 图片尺寸超过300x300的限制
-					        if (originWidth > maxWidth || originHeight > maxHeight) {
-					            if (originWidth / originHeight > maxWidth / maxHeight) {
-					                targetWidth = maxWidth;
-					                targetHeight = Math.round(maxWidth * (originHeight / originWidth));
-					            } else {
-					                targetHeight = maxHeight;
-					                targetWidth = Math.round(maxHeight * (originWidth / originHeight));
-					            }
-					        }
-					            
-					        // canvas对图片进行缩放
-					      
-			        // square = 100,   //定义画布的大小，也就是图片压缩之后的像素  
-			            canvas = document.createElement('canvas'), //创建canvas元素  
-			            context = canvas.getContext('2d'),  
-			        //  imageWidth = Math.round(square*image.width),    //压缩图片的大小  
-			        //  imageHeight = Math.round(square*image.height), 
-			        //  data = ''; 		  						
-					    canvas.width = targetWidth;
-					    canvas.height = targetHeight; 
-						 
-						context.fillStyle = "#fff";
-						context.fillRect(0, 0, targetWidth, targetHeight);
-						
-					   // context.clearRect(0, 0, targetWidth, targetHeight);  // 
-					    context.drawImage(this, 0, 0, targetWidth, targetHeight);    
-						var data = canvas.toDataURL('image/jpeg');    
-						// //压缩完成执行回调   
-						upimg(data)
-						callback(data);    
-		            };      
-	        };    
-		    reader.readAsDataURL(fileObj);    
-				            
-		}  
-
-}
-function directTurnIntoBase64(fileObj,callback){  
 	
-}  		
 ///////////////////////////////////////////////////////////////////////////////////////////
 		
 		var parpam ={};
@@ -203,7 +128,7 @@ function directTurnIntoBase64(fileObj,callback){
 					{
 											$.each(data.result.exampleDiagramList, function (i,val) {
 												
-											$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><img  src="'+imgUrl+val.exampleDiagram+'" width="50%" /></p></figure></div>')
+											$(".pic_list").append('<div class="p-2 bd-highlight" ><figure><p class="img-dv" ><img  src="'+imgUrl+val.exampleDiagram+'" id="ejiao" width="50%" /></p></figure></div>')
 											});
 					}
 					$.each(data.result.list, function (i,val) {
@@ -259,7 +184,15 @@ function directTurnIntoBase64(fileObj,callback){
 							}
 							else
 							{
-								swal(data.message);
+								swal({
+								  title: "",
+								  text: data.message,
+								  type: "",	       
+								  confirmButtonColor: "#FFCB4F",
+								  confirmButtonText: "知道了",
+								  closeOnConfirm: false
+								 }
+								);		
 							}							
 					}
 			 });		
