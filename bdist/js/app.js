@@ -118,6 +118,7 @@ function checkNumber(obj){
 } 
 
 function daojishi(seconds,obj){
+	
 	if (seconds > 1){
 		  
 	        seconds--;

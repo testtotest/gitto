@@ -10,6 +10,7 @@
 		<script src="bdist/js/jquerysession.js"></script>
 		<script src="bdist/js/app.js"></script>
 		<script src="bdist/js/swal.js"></script>
+		<script src="bdist/js/reg.js"></script>
 		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/sign.css" > 
@@ -31,12 +32,12 @@
 			<input type="password" id="inputP" class="form-control mb-3 login-input"  >
 		<label style="color:#666666">确认新密码</label>
 			<input type="password" id="inputPs" class="form-control mb-3 login-input"  >		
-		<button class="btn btn-lg btn-warning btn-block " type="button">重置密码</button> 
+		<button class="btn btn-lg btn-warning btn-block btn-forget" type="button">重置密码</button> 
 		 </form>
 	</body>
 </html>
 <script type="text/javascript">
-$(document).ready(function(){
+
 	$("#inputM").attr("type","text").val("请输入手机号").css({"color":"#CCCCCC"})
 	$("#inputP").attr("type","text").val("请输入密码").css({"color":"#CCCCCC"});
 	$("#inputPs").attr("type","text").val("请确认新密码").css({"color":"#CCCCCC"});
@@ -68,7 +69,7 @@ $(document).ready(function(){
 			}		
 		})
 	 })	
-})
+
 
 function gcode(txt)
 {
@@ -121,57 +122,8 @@ function gcode(txt)
 	   /////////////
 	}
 }
-$(".btn-block").click(function(){
-	var str = '';
-	if($.trim($('#inputM').val()).length == 0) {
-		  str += '手机号码没有输入\n';
-		  $('#inputM').focus();
-	 }else {
-		if(isPhoneNo($.trim($('#inputM').val()))== false){
-			   str += '手机号码不正确\n';
-			   $('#inputM').focus();
-		}
-	 }
-	 
-	  if($.trim($('#inputP').val()).length == 0 || $.trim($('#inputPs').val()).length == 0) {
-	      str += '密码没有输入\n';	  
-	  }
-	  if(str != '') {
-		  swal({
-		    title: "",
-		    text: str,
-		    type: "",	       
-		    confirmButtonColor: "#FFCB4F",
-		    confirmButtonText: "知道了",
-		    closeOnConfirm: false
-		   }
-		  );
-		  return false;
-	  }
-	  else
-	  {
-		  var parpam ={}
-		  parpam.captcha=$.trim($('#inputC').val());
-		  parpam.phone = $.trim($('#inputM').val());
-		  parpam.newPassword = $.trim($('#inputPs').val());		 
-		  $.ajax({
-		  			type: 'POST',
-		  			url: url+"/ty/incrementHf/user/resetPassword",
-		  			data: JSON.stringify(parpam),	
-		  			contentType: "application/json",	
-		  			//dataType: "json",
-		  			success: function(data){
-		  				if(data.status=="0000")
-						{
-							$(location).attr('href', '/');
-						}
-						else
-						{
-							 swal(data.message);
-						}
-		  			}
-		  });
-	  }
+$(".btn-blocktest").click(function(){
+
 })
 
 

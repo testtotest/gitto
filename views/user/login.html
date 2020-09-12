@@ -11,6 +11,7 @@
 		<script src="bdist/js/jquery.cookie.js"></script>
 		<script src="bdist/js/app.js"></script>
 		<script src="bdist/js/swal.js"></script>
+		<script src="bdist/js/reg.js"></script>
 		<link rel="stylesheet" href="bdist/css/swal.css">
 		<link rel="stylesheet" href="bdist/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="bdist/css/sign.css" >	
@@ -29,7 +30,7 @@
 		<p class="pull-right  pr-1 "><input type="checkbox" value="1" class="rep"/></p>
 		<div class="c-b"></div>			
 		</div>
-		<div><button class="btn btn-lg btn-warning btn-block" type="button">登录</button></div>			
+		<div><button class="btn btn-lg btn-warning btn-block btn-login" type="button">登录</button></div>			
 		<div class="mt-3">
 		<a href="forget" style="color: #d3d3d3;"><p class="text-left pull-left" >忘记密码</p></a>
 		<a href="reg"><p class="text-right pull-right" style="color:#343434">注册账号</p></a>			
@@ -39,7 +40,7 @@
 	</body>
 </html>
 <script type="text/javascript">		   
-$(document).ready(function(){
+
 	$("#inputM").attr("type","text").val("请输入手机号").css({"color":"#CCCCCC"})
 	$("#inputP").attr("type","text").val("请输入密码").css({"color":"#CCCCCC"});
 
@@ -79,93 +80,8 @@ $(document).ready(function(){
 	// 		//$("#inputP").attr("type","text").val("请输入密码").css({"color":"#CCCCCC"});
 		}) 	
 	 })
-    if($.cookie('isrep')==1)
-	{
-		
-		$('#inputM').val($.cookie('phone')).css({"color":"#CCCCCC"});
-		
-		$('#inputP').attr("type","password").val($.cookie('pwd')).css({"color":"#CCCCCC"});;
-		$('.rep').prop('checked',true);
-		
-	}
+   
 
-})
-$("button").click(function(){
-	
-	
-	var str = '';
-	if($.trim($('#inputM').val()).length == 0) {
-	  str += '手机号码没有输入\n';
-	  $('#inputM').focus();
-	 }else {
-		if(isPhoneNo($.trim($('#inputM').val()))== false){
-			   str += '手机号码不正确\n';
-			   $('#inputM').focus();
-		}
-	 }
-	 if($.trim($('#inputP').val()).length == 0 ) {
-	       str += '密码没有输入\n';	  
-	  }
-	  if(str != '') {	    
-	       swal({
-	        title: "",
-	        text: str,
-	        type: "",	       
-	        confirmButtonColor: "#FFCB4F",
-	        confirmButtonText: "知道了",
-	        closeOnConfirm: false
-	       }
-	      );
-		  return false;
-	  }
-	  else
-	  {
-		  
-		   var parpam ={}
-		   parpam.phone = $.trim($('#inputM').val());
-		   parpam.password = $.trim($('#inputP').val());	
-		   
-		   $.ajax({
-		   		type: 'POST',
-		   		url: "/loginForm",
-		   		data: parpam,		   		
-		   		dataType: "json",
-		   		success: function(data){	
-					if(data.status=="0000")
-					{
-						if($(".rep").prop("checked")==true)
-						{							
-							$.cookie('isrep', 1, { expires: 1 });
-							$.cookie('phone', $.trim($('#inputM').val()), { expires: 1 });	
-							$.cookie('pwd',   $.trim($('#inputP').val()), { expires: 1 });			
-						}
-						else
-						{
-							$.cookie('phone', null);	
-							$.cookie('isrep', 0);								
-						}
-					   	$.session.set('uid', data.result.id);
-					   	$.session.set('phone', data.result.phone);
-					   	$.session.set('token', data.result.token);	
-					   	$.session.set('pic', data.result.headPortrait);		
-						$(location).attr('href', 'set');
-					}	
-					else
-						{
-							swal({
-							  title: "",
-							  text: data.message,
-							  type: "",	       
-							  confirmButtonColor: "#FFCB4F",
-							  confirmButtonText: "知道了",
-							  closeOnConfirm: false
-							 }
-							);
-						}				   			
-		   		}
-		   });
-	   }
-	 
-})
+
 
 </script>
