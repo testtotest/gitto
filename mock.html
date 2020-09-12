@@ -27,3 +27,33 @@
 			
 	</body>
 </html>
+//require("!style-loader!css-loader!./sty.css");
+//document.write(require("./b2.js"));
+ //var Mock = require('mockjs')
+var data = Mock.mock('http://127.0.0.1:8848/test',{
+	'list|1-7': [{
+	        'id|+1': 1,
+	        'name': 'testa',
+	        'description|3-5':'testb',
+	        'area':'testc',
+	    }]
+})
+
+var arr=[{"desc":"da","area":"aa"},{"desc":"db","area":"ab"}];
+Mock.mock('http://127.0.0.1:8848/del','delete',function(options){	
+	var id = parseInt(options.body.split("=")[1])//获取删除的id
+	    var index;
+	    for(var i in arr){
+	        if(arr[i].id===id){//在数组arr里找到这个id
+	            index=i
+	            break;
+	        }
+	    }
+	    arr.splice(index,1)//把这个id对应的对象从数组里删除
+	    return arr;//返回这个数组,也就是返回处理后的假数据
+})
+
+// for(var i=0;i<data.list.length;i++)
+// {
+// 	console.log(data.list[i].area)
+// }
