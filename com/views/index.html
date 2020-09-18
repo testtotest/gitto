@@ -18,7 +18,7 @@
 			.card-header{background-color:transparent;border: 0;}			
 		</style>
 	</head>
-	<body>	
+	<body>				
         	<div id="navbar">
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<a class="navbar-brand" href="#">设备</a>
@@ -79,16 +79,15 @@
 		</div>
 		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators">
-				<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-				<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+				<% list.forEach(function(list){%>	
+				<li data-target="#carouselExampleIndicators" data-slide-to="<%=list.id%>" <%if(list.id==0){%>class="active"<%}%>></li><% }) %>   			
 			</ol>
 			<div class="carousel-inner">
-				<div class="carousel-item active">
-					<img src="bdist/img/bana.jpg" class="d-block w-100" alt="...">
+				<% list.forEach(function(list){%>				
+				<div class="carousel-item <%if(list.id==0){%>active<%}%>">
+					<img src="<%=list.pic%>" class="d-block w-100" alt="...">
 				</div>
-				<div class="carousel-item">
-					<img src="bdist/img/banb.jpg" class="d-block w-100" alt="...">
-				</div>
+				 <% }) %>				
 			</div>
 		</div>
 		<!--i-b-1 b-->
@@ -102,30 +101,16 @@
 				<div class="bigbox">
 					<div id="switcher">
 						<div class="content_1">
+							<% prolist.forEach(function(list){%>
 							<div class="pro-bd-highlight" >
-								<p><img src="bdist/img/p1.jpg" class="w-97" /></p>  
+								<a href="info?id=<%=list.id%>">
+								<p><img src="<%=list.pic%>" class="w-97" /></p>  
 								<div class="pb-3 pt-2 f_15">
-									科技有限公司科技有限公司a									
+									<%=list.title%>									
 								</div>
+								</a>
 							</div>
-							<div class="pro-bd-highlight" >
-								<p><img src="bdist/img/p1.jpg" class="w-97" /></p>
-								<div class="pb-3 pt-2 f_15">
-									科技有限公司科技有限公司b
-								</div>
-							</div>
-							<div class="pro-bd-highlight">
-								<p><img src="bdist/img/p1.jpg" class="w-97" /></p>
-								<div class="pb-3 pt-2 f_15">
-									科技有限公司科技有限公司c
-								</div>
-							</div>
-							<div class="pro-bd-highlight" >
-								<p><img src="bdist/img/p1.jpg" class="w-97" /></p>
-								<div class="pb-3 pt-2 f_15">
-									科技有限公司科技有限公司d
-								</div>
-							</div>
+							 <% }) %>							
 						</div>
 						<div class="content_2"></div>
 					</div>
@@ -225,11 +210,11 @@
 		<div class="container">
 			<div class="row featurette i-about-mtb">
 				<div class="col-md-6 order-md-1">
-				<img src="bdist/img/aba.jpg" width="100%" />
+				<img src="<%=piclist[0].pic%>" width="100%" />
 				</div>
 				<div class="col-md-6 order-md-2 c_666 i-about-l-1-cont">
-					<p class="index-a-t">关于我们</p>
-					<p><span class="c_153 f_14">您急需一台能真正直饮的净水器</span></p>
+					<p class="index-a-t"><%=piclist[0].title%></p>
+					<p><span class="c_153 f_14"><%=piclist[0].titles%></span></p>
 					<p class="l_line35 c_666 f_14 i-about-l-1-cont1">
 						深圳市XXXX净水科技有限公司是一家净水设备研究与开发、制造及销售的专业公司。参与行业四十多项标准的制定，并获颁国家高新技术企业和深圳市高新技术企业认证证书。截止2017年，已为行业贡献了国家发明专利3项、实用新型专利及外观专利超百项，
 					</p>
@@ -244,21 +229,21 @@
 		<div class="container">
 			<div class="row featurette">
 				<div class="col-md-7">
-					<p class="index-a-y">定制专属净水方案</p>
-					<p class="index-a-y-t"><span class="c_153 f_14">您急需一台能真正直饮的净水器</span></p>
+					<p class="index-a-y"><%=piclist[1].title%></p>
+					<p class="index-a-y-t"><span class="c_153 f_14"><%=piclist[1].titles%></span></p>
 					<p class="l_line35 c_666 f_14 index-a-y-c">结合19年专注净水领域的专业技术，推出为中国家庭量身定制兼过滤净化及加热制冷于一体的直饮机及净饮机系列产品。饮水机和管线机都能满足家庭对于热水的需求，好水，纯净畅享简单喝。饮水机和管线机都能满足家庭对于热水的需求，好水，纯净畅享简单喝。</p>
 				</div>
 				<div class="col-md-5">
-					<img src="bdist/img/excl.jpg" width="100%" />
+					<img src="<%=piclist[1].pic%>" width="100%" />
 				</div>
 			</div>
 			<div class="row featurette index-a-j">
 				<div class="col-md-7 order-md-1">
-					<img src="bdist/img/pur.jpg" width="100%" />
+					<img src="<%=piclist[2].pic%>" width="100%" />
 				</div>
 				<div class="col-md-5 order-md-2 c_666">
-					<p class="index-a-j-t">打造净水生活</p>
-					<p class="index-a-j-d"><span class="c_153 f_14">您急需一台能真正直饮的净水器</span></p>
+					<p class="index-a-j-t"><%=piclist[2].title%></p>
+					<p class="index-a-j-d"><span class="c_153 f_14"><%=piclist[2].titles%></span></p>
 					<p class="l_line35 c_666 f_14 index-a-j-c">
 						通过对中国人饮水习惯的多年研究，结合19年专注净水领域的专业技术，推出为中国家庭量身定制兼过滤净化及加热制冷于一体的直饮机及净饮机系列产品。饮水机和管线机都能满足家庭对于热水的需求，好水，纯净畅享简单喝。
 					</p>
@@ -401,62 +386,32 @@
 		<!--i-b-6 e-->
       <!--i-b-7 b-->
       <style>				
-      		 .i-n-bg{height: 120px;background: url(bdist/img/na.jpg) no-repeat;background-size:100% 120px ; overflow: hidden;display: block;} 
+      		 .i-n-bg{} 
       
       	</style>
        	<div class="container" >
       		
+      		
+      			
       		<p class="i-news-l-1-t text-center">健康课堂</p>
       		<p class="i-news-l-1-c text-center"><span class="c_153">00加仑大流量出水过滤速度快8倍</span></p>
       		  <!---->
       		  <div class="i-news-l-2">
       		  <div class="d-flex justify-content-center bd-highlight pb-5 ">
-      		  		 <div class="p-2 bd-highlight i-news mr-4">
-      					  
-      		  				<div class="i-n-bg"><p></p></div>
+				     <% newslist.forEach(function(list){%>
+      		  		 <div class="p-2 bd-highlight i-news mr-4"> 
+							<a href="ninfo?id=<%=list.id%>">			   
+      		  				<div style="background: url(<%=list.pic%>) no-repeat;height: 120px;background-size:100% 120px ; overflow: hidden;display: block;" class="i-n-bg" ><p></p></div>
       		  				<div class=" f_15">
-      		  				   <p class="pt-3">科技有限公司科技有限</p>
+      		  				   <p class="pt-3"><%=list.title%></p>
       		  					<span class="i-news-l-2-d">2020-08-19</span>
       		  				</div>
       		  				<div class="pt-3 pb-3 f_14 i-news-l-2-c">
       		  				   科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司
       		  				</div>
       		  				<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
-      		  		 </div>
-      		  						<div class="p-2 bd-highlight i-news mr-4">
-      		  										  				<div class="i-n-bg"><p></p></div>
-      		  										  				<div class=" f_15">
-      		  										  				   <p class="pt-3">科技有限公司科技有限</p>
-      		  										  					<span class="i-news-l-2-d">2020-08-19</span>
-      		  										  				</div>
-      		  										  				<div class="pt-3 pb-3 f_14 i-news-l-2-c">
-      		  										  				   科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司
-      		  										  				</div>
-      		  										  				<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
-      		  						</div>
-      		  						<div class="p-2 bd-highlight i-news mr-4">
-      		  										  				<div class="i-n-bg"><p></p></div>
-      		  										  				<div class=" f_15">
-      		  										  				   <p class="pt-3">科技有限公司科技有限</p>
-      		  										  					<span class="i-news-l-2-d">2020-08-19</span>
-      		  										  				</div>
-      		  										  				<div class="pt-3 pb-3 f_14 i-news-l-2-c">
-      		  										  				   科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司
-      		  										  				</div>
-      		  										  				<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
-      		  						</div>
-      		  						<div class="p-2 bd-highlight i-news w-15">
-      		  										  				<div class="i-n-bg"><p></p></div>
-      		  										  				<div class=" f_15">
-      		  										  				   <p class="pt-3">科技有限公司科技有限</p>
-      		  										  					<span class="i-news-l-2-d">2020-08-19</span>
-      		  										  				</div>
-      		  										  				<div class="pt-3 pb-3 f_14 i-news-l-2-c">
-      		  										  				   科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司
-      		  										  				</div>
-      		  										  				<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
-      		  						</div>
-      		  					</div>				
+							</a>
+      		  		 </div> <% }) %>	
       		   </div>
       		  <!---->
       		  <div class="i-news-l-2-m">

@@ -104,7 +104,9 @@
 			<p class="i-news-l-1-c text-center"><span class="c_153">00加仑大流量出水过滤速度快8倍</span></p>
 			<!---->
 			<div class="i-news-l-2">
+				
 				<div class="d-flex justify-content-center bd-highlight pb-5 ">
+					<a href="newslist">
 					<div class="p-2 bd-highlight i-news mr-4">
 
 						<div class="i-n-bg">
@@ -118,6 +120,7 @@
 							科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司科技有限公司
 						</div>
 						<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
+						</a>
 					</div>
 					<div class="p-2 bd-highlight i-news mr-4">
 						<div class="i-n-bg">
@@ -159,6 +162,7 @@
 						<div><button type="button" class=" btn-light pl-2 pr-2 pt-1 pb-1 i-news-l-1-b">新闻资讯</button></div>
 					</div>
 				</div>
+				
 			</div>
 			<!---->
 			<div class="i-news-l-2-m">
@@ -226,22 +230,17 @@
 		</div>
 		<!--i-b-7 e-->
 		<div class="container pt-3 pb-5">
+			<% newslist.forEach(function(list){%>
 			<div class="bd-highlight news-bd-highlight news-b-b">
+				<a href="ninfo?id=<%=list.id%>">
 				<div class="d-flex justify-content-between">
 					<p class="news_list_item_t">投资者投资者投资者投资者</p>
 					<span class="i-news-l-2-d">2020-08-19</span>
 				</div>
 				<div class="news_list_item_summery ">发展迅速,很多的投资者都争先恐后的想扎进来看看,但既有优势,也避免不了有所缺陷，营销环...</div>
-				<p><a href="ninfo.html" target="_blank" class="news_list_item_group_item">新闻动态</a></p>
+				<p><a href="ninfo" target="_blank" class="news_list_item_group_item">新闻动态</a></p>     </a>
 			</div>
-			<div class="bd-highlight news-bd-highlight news-b-b">
-				<div class="d-flex justify-content-between">
-					<p class="news_list_item_t">投资者投资者投资者投资者</p>
-					<span class="i-news-l-2-d">2020-08-19</span>
-				</div>
-				<div class="news_list_item_summery ">发展迅速,很多的投资者都争先恐后的想扎进来看看,但既有优势,也避免不了有所缺陷，营销环...</div>
-				<p><a href="nr.jsp?groupId=2" target="_blank" class="news_list_item_group_item">新闻动态</a></p>
-			</div>
+			<% }) %>
 		</div>
         <footer class="blog-footer">
 			<p>

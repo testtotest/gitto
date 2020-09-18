@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>列表</title>
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all" />
+  <style type="text/css">
+    .layui-form-label {
+      width: 86px;
+    }
+  </style>
+</head>
+
+<body>
+	<div id="outerdiv" style="width:100%;height:100%;z-index:100;text-align: center;position: absolute;background:rgba(0,0,0,0.7);display:none; padding-top: 10px;">
+				<img id="bigimg"  width="63%"/>		
+			</div>
+		 <script>
+			 function imgb(imgurl)
+			 {
+				 
+				 var _this = $(this);
+				 $("#bigimg").attr("src", imgurl);
+				 $("#outerdiv").fadeIn("fast");
+				 $("#outerdiv").click(function(){//再次点击淡出消失弹出层
+				     $(this).fadeOut("fast");
+				 });
+			 }
+			
+		</script>
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">  
+		  <div class="layui-inline">
+		      <label class="layui-form-label">开始时间</label>
+		      <div
+		        class="layui-input-inline"
+		        style="display: flex; flex-direction: row;"
+		      >
+		        <input
+		          type="text"
+		          class="layui-input"
+		          name="beginDate"
+		          id="beginDate"
+		          placeholder="yyyyMMdd"
+		  				  autocomplete="off"
+		        />
+		      </div>
+		    </div>
+		  			<div class="layui-inline">
+		  			    <label class="layui-form-label">结束时间</label>
+		  			    <div
+		  			      class="layui-input-inline"
+		  			      style="display: flex; flex-direction: row;"
+		  			    >
+		  			      <input
+		  			        type="text"
+		  			        class="layui-input"
+		  			        name="endDate"
+		  			        id="endDate"
+		  			        placeholder="yyyyMMdd"
+		  					autocomplete="off"
+		  			      />
+		  			    </div>
+		  			  </div>
+			 <div class="layui-inline">
+			   <label class="layui-form-label">状态</label>
+			   <div class="layui-input-inline">
+			     <select name="status">
+			       <option value="">请选择</option>
+			       <option value="">全部</option>
+			       <option value="1">录入</option>
+			       <option value="2">办结</option>
+				   <option value="3">放弃</option>
+			     </select>
+			   </div>
+			 </div>
+			 <div class="layui-inline">
+			   <label class="layui-form-label">类型</label>
+			   <div class="layui-input-inline">
+			     <select name="type">
+			       <option value="">请选择</option>
+			       <option value="">全部</option>
+			       <option value="1">个人</option>
+			       <option value="2">企业</option>			 		
+			     </select>
+			   </div>
+			 </div>
+		<div class="layui-inline">
+		  <label class="layui-form-label">产权人姓名</label>
+		  <div class="layui-input-inline">
+		    <input type="text" name="ownerName" id="ownerName" placeholder="请输入" autocomplete="off" class="layui-input" />
+		  </div>
+		</div>
+         <div class="layui-inline">
+           <label class="layui-form-label">申请人手机号</label>
+           <div class="layui-input-inline">
+             <input type="text" name="applicantPhone" id="applicantPhonee" placeholder="请输入" autocomplete="off" class="layui-input" />
+           </div>
+         </div>
+		
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+       <!-- <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-list" data-type="add">新增</button>
+        </div> -->
+
+        <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
+        <!-- <script type="text/html" id="buttonTpl">
+          {{#  if(d.status ==1){ }}
+            <button class="layui-btn layui-btn-xs">待推送</button>
+          {{#  } else { }}
+            <button class="layui-btn layui-btn-primary layui-btn-xs">已推送</button>
+          {{#  } }}
+        </script> -->
+       <script type="text/html" id="table-content-list">
+		    {{#  if(d.status !=2){ }}
+		<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detailEdit"><i
+		    class="layui-icon layui-icon-edit"></i>处理申请</a> 	 {{#  } }}
+        <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detailInfo"><i
+            class="layui-icon layui-icon-edit"></i>详情</a> 
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="../../../layuiadmin/layui/layui.js"></script>   -->
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/lib/layui.js"></script>
+  <script>
+    layui
+      .config({
+        base: "../../../layuiadmin/", //静态资源所在路径
+      })
+      .extend({
+        index: "lib/index", //主入口模块
+      })
+      .use(
+        ["index", "sqList", "table", "api", "laydate", "function", "helper"],
+        function () {
+          var table = layui.table,
+            form = layui.form,
+            $ = layui.$,
+            util = layui.util,
+            baseurl = layui.api.baseUrl,
+            helper = layer.helper,
+            laydate = layui.laydate,
+            channelList = layui.function.channelList;
+          console.log('helper_______', helper)
+          //channelList("#cid");
+          laydate.render({
+            //注册时间
+            elem: "#beginDate",
+          });
+          laydate.render({
+            elem: "#endDate",
+          });
+          laydate.render({
+            //认证时间
+            elem: "#attestTimeBeg",
+          });
+          laydate.render({
+            elem: "#attestTimeEnd",
+          });
+
+          $("#token").val(sessionStorage.getItem("token"));
+          var exporturl =
+            baseurl + "/qrcode/admin/user/queryUserList?isExport=1";
+          $("#form_submit").attr("action", exporturl);
+          layui.use("form", function () {
+            //调用ajax请求后 重新渲染表单 执行以下代码
+            var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
+            form.render();
+          });
+          //监听
+          table.on("tool(LAY-app-content-list)", function (t) {			
+                var e = t.data; 
+	            if ("detailDel" == t.event) {
+					var subUrls = '/ty/heatingAdmin/file/delete'
+					var subUrl = '/ty/heatingAdmin/admin/cases/deleteCases'
+					var param = []
+					param.oldFilePath = "https://img.tongyunzn.com/tyapplet/"+e.image
+					var arr = [ e.id ]; 
+									
+					$.ajax({
+						  type: "DELETE",
+						  url: layui.api.baseUrltest + subUrl,
+						  data: JSON.stringify(arr),
+						  contentType: "application/json",
+						  headers: {
+							token: sessionStorage.getItem("token")
+						  },
+						  dataType: "json",
+						  success: function (data) {
+								if (data.status == "0000") {
+			$.ajax({
+														  type: "DELETE",
+														  url: layui.api.baseUrltest + subUrls,
+														  data: JSON.stringify(param),
+														  contentType: "application/json",
+														  headers: {
+															token: sessionStorage.getItem("token")
+														  },
+														  dataType: "json",
+														  success: function (data) {
+																 
+														  }
+													 });								
+								   layer.msg(data.message);
+								   setTimeout(function () {
+								    layui.table.reload('LAY-app-content-list'); //重载表格
+								    layer.close(index); //再执行关闭 
+								   }, 1000)		 
+								} else if (data.status == "4031") {
+								  layer.msg(data.message);
+								  setTimeout(function () {
+								    window.parent.parent.location.href = '../../user/login.html';
+								  }, 2000)
+								} else {
+								  layer.msg('失败' + data.message)
+								}
+								
+						  }
+					});				
+				}
+				 /////////
+				if ("detailEdit" == t.event) {
+				  ////////////
+				  					layer.open({
+				  							type: 2,
+				  						    title: "修改",
+				  							content: "detailEdit.html",
+				  							maxmin: true,
+				  							area: ["100%", "100%"],
+				  							btn: ["确定", "取消"],
+				  							yes: function (index, layero) {
+				  												  //点击确认触发 iframe 内容中的按钮提交
+				  							var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+				  							 submit.click();
+				  							},
+				  							success: function (layero, index) {
+				  								var body = layer.getChildFrame("body", index);
+				  								body.contents().find("#id").val(e.id);
+				  						        body.contents().find("#status").val(e.status);
+				  							}
+				  					});
+				  /////////				  
+				}
+				  /////////
+				if ("detailInfo" == t.event) {
+				  ////////////
+				  					layer.open({
+				  							type: 2,
+				  						    title: "详情",
+				  							content: "detailInfo.html",
+				  							maxmin: true,
+				  							area: ["100%", "100%"],
+				  							//btn: ["取消"],
+				  							yes: function (index, layero) {
+				  												  //点击确认触发 iframe 内容中的按钮提交
+				  							var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+				  							 submit.click();
+				  							},
+				  							success: function (layero, index) {
+				var body = layer.getChildFrame("body", index);
+				body.contents().find("#id").val(e.id);
+				body.contents().find("#region").val(e.region);
+				body.contents().find("#address").val(e.address);
+				body.contents().find("#powerConsumptionTime").val(e.powerConsumptionTime);
+				body.contents().find("#equityProveType").val(e.equityProveType);
+				body.contents().find("#documentType").val(e.documentType);  							body.contents().find("#ownerName").val(e.ownerName); 
+				body.contents().find("#ownerIdCard").val(e.ownerIdCard); 
+				body.contents().find("#applicantPhone").val(e.applicantPhone);					        if(e.transformer==1) 
+				{
+					transformerTxt="是"
+					transformerTxts="安装"
+				}
+				else if(e.transformer==2)
+				{
+					transformerTxt="否"
+					transformerTxts="不安装"
+				}
+				body.contents().find("#transformer").val(transformerTxt);
+				body.contents().find("#transformers").val(transformerTxts);
+		        body.contents().find("#capacity").val(e.capacity);	
+				 body.contents().find("#typeProof").val(e.typeProof);	
+				body.contents().find("#enterpriseName").val(e.enterpriseName); 
+		      body.contents().find("#authorizationPhoto").val(e.authorizationPhoto);
+			  var pA=''
+			  var i
+			 for (i in e.installLocationList){				
+				 pA=pA+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.installLocationList[i].photo+'" width="100" style="margin-right:3px"/>';
+			 }
+			 body.contents().find("#installLocationList").html(pA);
+			 
+			body.contents().find("#companyPhoto").attr("src", layui.api.imgBaseUrl+e.companyPhoto);
+			
+			var pA=''
+			 var i
+			for (i in e.equityProveList){				
+							 pA=pA+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.installLocationList[i].photo+'" width="100" style="margin-right:3px"/>';
+			}
+			body.contents().find("#equityProveList").html(pA);
+			body.contents().find("#authorizationPhoto").attr("src", layui.api.imgBaseUrl+e.authorizationPhoto);
+				  								//body.contents().find("#photo1").val(e.image);
+				  							
+				  							
+				  							}
+				  					});
+				  /////////				  
+				 
+				}
+          });
+
+          //监听搜索
+          form.on("submit(LAY-app-contlist-search)", function (data) {
+            var field = data.field;
+            // $("#nickName2").val(field.nickName);
+            // $("#id2").val(field.id);
+            // $("#statusApi2").val(field.statusApi);
+            // $("#beginDate2").val(field.beginDate);
+            // $("#endDate2").val(field.endDate);
+            // $("#attestTimeBeg2").val(field.attestTimeBeg);
+            // $("#attestTimeEnd2").val(field.attestTimeEnd);
+            // $("#name2").val(field.name);
+            // $("#regType2").val(field.regType);
+            // $("#cid2").val(field.cid);
+            //执行重载
+            table.reload("LAY-app-content-list", {
+              where: field,
+            });
+          });
+
+         var $ = layui.$, active = {
+           //新增菜单
+           add: function () {
+            
+             layer.open({
+             							type: 2,
+             							title: "添加",
+             							content: "addCases.html",
+             							maxmin: true,
+             							area: ["100%", "100%"],
+             							btn: ["确定", "取消"],
+             							yes: function (index, layero) {
+             							  //点击确认触发 iframe 内容中的按钮提交
+             							 var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+             							 submit.click();
+             							},
+             							success: function (layero, index) {
+             								var body = layer.getChildFrame("body", index);
+             								body.contents().find("#id").val(e.id);
+             							}
+             });
+         
+         
+           },
+         };
+
+          $(".layui-btn.layuiadmin-btn-list").on("click", function () {
+            var type = $(this).data("type");
+            active[type] ? active[type].call(this) : "";
+          });
+        }
+      );
+  </script>
+</body>
+
+</html>

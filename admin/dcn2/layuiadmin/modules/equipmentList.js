@@ -65,13 +65,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "产品类型",
           align: "center",
           minWidth: 150,
-        },
-        {
-          field: "stock",
-          title: "库存",
-          align: "center",
-          minWidth: 150,
-        },
+        },     
         {
           field: "characteristic",
           title: "设备特点",
@@ -181,7 +175,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 
         {
           title: "操作",
-          minWidth: 400,
+          minWidth: 450,
           align: "center",
           fixed: "right",
           toolbar: "#table-content-list",

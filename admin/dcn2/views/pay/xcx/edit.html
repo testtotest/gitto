@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>修改</title>
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/latter.css" media="all" />
+  <style>
+    .layui-form-label-dry {
+      width: 150px;
+    }
+    .layui-form-item .layui-input-inline {
+      width: 300px;
+    }
+    .red {
+      color: red;
+      position: absolute;
+      top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
+    style="padding: 20px 30px 0 0;">
+    <input type="hidden" name="id" id="id" />
+  <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">姓名<span class="red">*</span></label>
+      <div class="layui-input-inline">
+        <input type="text" name="username" id="username" disabled lay-verify="required" maxlength="30" placeholder="请输入"
+          autocomplete="off" class="layui-input" />
+      </div>
+    </div>
+	<div class="layui-form-item">
+	   <label class="layui-form-label layui-form-label-dry">电话<span class="red">*</span></label>
+	   <div class="layui-input-inline">
+	     <input type="text" name="phone" id="phone" disabled lay-verify="required" maxlength="30" placeholder="请输入"
+	       autocomplete="off" class="layui-input" />
+	   </div>
+	 </div>
+
+   <div class="layui-form-item">
+     <label class="layui-form-label layui-form-label-dry">跟进状态</label>
+     <div class="layui-input-inline">
+       <select name="status" id="status" lay-filter="status">
+            <option value="1">未处理</option>
+   		    <option value="2">已处理成功</option>	
+			<option value="3">已处理失败</option>
+			<option value="4">已处理待跟进</option>
+			<option value="5">无效</option>				 
+       </select>
+     </div>
+   </div>  
+
+   <div class="layui-form-item">
+     <label class="layui-form-label layui-form-label-dry">备注<span class="red">*</span></label>
+     <div class="layui-input-inline">
+       <textarea name="remark" id="remark" style="width: 300px; height: 150px;" autocomplete="off"
+         class="layui-textarea"></textarea>
+     </div>
+   </div>
+
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
+        value="确认添加" />
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit"
+        value="确认编辑" />
+    </div>
+  </div>
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+    layui
+      .config({
+        base: "../../../layuiadmin/", //静态资源所在路径
+      })
+      .extend({
+        index: "lib/index", //主入口模块
+      })
+      .use(["index", "form", "laydate", "upload", "api", "tag"], function () {
+        var $ = layui.$,
+          form = layui.form,
+          upload = layui.upload,
+          baseUrl = layui.api.baseUrltest,
+          imgurl = layui.api.imgurl,
+          tag = layui.tag;
+        console.log("tag_______________", tag);
+        //缩略图上传
+
+        var uploadInst = upload.render({
+          elem: "#photo2-btn",
+          url: imgurl,
+          before: function (obj) {
+            //预读本地文件示例，不支持ie8
+            obj.preview(function (index, file, result) {
+              $("#photo2-img").attr("src", result); //图片链接（base64）
+			  
+            });
+          },
+          data: {
+            "oldFilePath": $("#photo2").val()
+          },
+          done: function (res) {
+           
+            if (res.status == "0000") {
+              $("#photo2").val(res.result);              
+              return layer.msg("图片上传成功");
+            } else {
+              return layer.msg("图片上传失败");
+            }
+          },
+          error: function () {
+            //演示失败状态，并实现重传
+            var demoText = $("#bigimages-normal-demoText");
+            demoText.html(
+              '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+            );
+            demoText.find(".demo-reload").on("click", function () {
+              uploadInst.upload();
+            });
+          },
+        });
+
+        //设备图上传
+        var temImg1 = ''
+        var uploadInst1 = upload.render({
+          elem: "#photo1-btn",
+          url: imgurl,
+          before: function (obj) {
+            //预读本地文件示例，不支持ie8
+			
+            obj.preview(function (index, file, result) {				
+                $("#photo1-img").attr("src", result); //图片链接（base64）
+			    $("#photo1").val(result);
+            });
+          },
+          data: {
+            "oldFilePath": temImg1
+          },
+          done: function (res) {
+           
+            if (res.status == "0000") {
+              $("#photo1").val(res.result);
+              temImg1 = res.result;            
+            } 
+          },
+          error: function () {
+            //演示失败状态，并实现重传
+            var demoText = $("#bigimages-normal-demoText");
+            demoText.html(
+              '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+            );
+            demoText.find(".demo-reload").on("click", function () {
+              uploadInst1.upload();
+            });
+          },
+        });
+
+
+        //监听提交
+        form.on("submit(layuiadmin-app-form-submit)", function (data) {
+            var field = data.field;
+			var index = parent.layer.getFrameIndex(window.name); 
+			var msg = ' '
+			var subUrl = '/ty/heatingAdmin/admin/procedure/makeFollowUp'			
+			var param = {}
+			param.id = field.id //修改	
+			//param.username = field.username
+			//param.phone = field.phone
+			param.status = field.status
+			param.remark = field.remark
+			
+			
+			$.ajax({
+					type: "POST",
+					url: baseUrl+subUrl,
+					data: JSON.stringify(param),
+					contentType: "application/json",
+					headers: {
+										 token: sessionStorage.getItem("token")
+					},
+								dataType: "json",
+								success: function (data) {
+									if (data.status == "0000") {
+									  layer.msg(data.message);			 
+									 setTimeout(function () {
+									   parent.layui.table.reload('LAY-app-content-list'); //重载表格
+									   parent.layer.close(index); //再执行关闭 
+									 }, 1000)
+									 
+									} else if (data.status == "4031") {
+									  layer.msg(data.message);
+									  setTimeout(function () {
+									    window.parent.parent.location.href = '../../user/login.html';
+									  }, 2000)
+									} else {
+									  layer.msg('失败' + data.message)
+									}
+									 parent.layer.closeAll("loading");			 
+					},
+			});
+			
+		
+			  
+			  
+			 
+        });
+      });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>采暖官网</title>
+		<script src="bdist/js/jquery.min.js"></script>
+		<script src="bdist/js/bootstrap.min.js"></script>
+		<script src="bdist/js/jquerysession.js"></script>
+		<script src="bdist/js/jquery.cookie.js"></script>
+		<link rel="stylesheet" href="bdist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bdist/css/pub.css">
+		<link rel="stylesheet" href="bdist/css/index.css">
+	</head>
+	<body>
+		<include src="/h.html"></include>
+		<div class="banner_pic_item">
+			<img src="bdist/img/AD0In-HLCBACGAAgqNWp3wUosej-pQMwgA849AM.jpg" class="w-100" />
+		</div>		
+		<div class="container mt-2 mb-2">
+			  <div class="row featurette ml-0 mr-0">
+				    <div class="col-md-5 p-i-p-l">
+						<div class="mb-1"> <img id="bigimg" class="w-100" src="<%=info.pic%>" /></div>
+						<div class="d-flex flex-row  bd-highlight pb-1" id="imgshow">
+							<div class="bd-highlight ml-2" style="width:18%;border:1px solid #eee;">
+								<img id="ejiao" class="w-100 img " src="bdist/img/AD0In-HLCBAEGAAgoNep3wUo2cvW1gMwugU40wQ.png.jpg" />
+							</div>
+							<div class="bd-highlight ml-2" style="width:18%;border:1px solid #eee;">
+								<img id="ejiao" class="w-100 img" src="bdist/img/AD0In-HLCBAEGAAgoNep3wUo2cvW1gMwugU40wQ.png.jpg" />
+							</div>
+							<div class="bd-highlight ml-2" style="width:18%;border:1px solid #eee;">
+								<img id="ejiao" class="w-100 img" src="bdist/img/AD0In-HLCBAEGAAgoNep3wUo2cvW1gMwugU40wQ.png.jpg" />
+							</div>						
+						</div>
+						<script>
+									  $("#imgshow").on('click','#ejiao',function(){
+									      var _this = $(this);
+										  var src = _this.attr("src");
+										  $("#bigimg").attr("src", src);
+										 $('.img').css("border","1px solid #eee");					
+										  _this.css("border","1px solid #52b548")
+															  
+									  })
+						</script>
+						<div class="d-flex justify-content-between  bd-highlight">
+							  <div class="p-2">								  
+								  <a  href="<%if(info.id>=1){%>info?id=<%=info.id-1%><%}%>" style="border: 1px solid #e9e9e9;border-radius: 15px;cursor: pointer;width:80px;line-height: 30px;color:#999;display: block;text-align: center;">上一个</a></div>         
+							  <div class="p-2">
+								  <a  href="<%if(info.id<=info.c){%>info?id=<%=info.id+1%><%}%>"  style="border: 1px solid #e9e9e9;border-radius: 15px;cursor: pointer;width:80px;line-height: 30px;color:#999;display: block;text-align: center;">下一个</a></div>
+						</div>	
+					</div>
+					<div class="col-md-5 p-i-p-r">
+						  <h5 class="pt-3"><%=info.title%></h5>
+						  <p class="p-2 p-i-p-r-p">￥3800.00</p>
+						  <div class="c_666  p-i-p-r-c">
+						  <p >颜色：130000000</p>
+						  <p >品牌：258506508</p>
+						  <p >保修期：2个月</p>
+						  <p><button type="button" class="btn btn-success pl-4 pr-4">电话:13000110011</button></p>
+						  </div>
+				    </div>
+			  </div>	  
+		</div>
+		<div class="container mt-2 mb-2">
+			<div class=" p-i-title">
+				<p class="p-i-title-1">产品详情</p>
+			</div>
+			<div class="p-i-title-cont p-3">
+				test
+			</div>			
+		</div>
+		<include src="/f.html"></include>
+		<script>
+			$("#pp").addClass("act");		 	
+		</script>
+	</body>
+</html>

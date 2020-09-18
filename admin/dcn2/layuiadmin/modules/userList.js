@@ -119,7 +119,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         // },
         {
           title: "操作",
-          minWidth: 120,
+          minWidth: 300,
           align: "center",
           fixed: "right",
           toolbar: "#table-content-list",

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>详情</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <style>
+    .layui-form-label-dry {
+      width: 150px;
+    }
+
+    .layui-form-item .layui-input-inline {
+      width: 300px;
+    }
+
+    .red {
+      color: red;
+      position: absolute;
+      top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+	<div id="outerdiv" style="width:100%;height:100%;z-index:100;text-align: center;position: absolute;background:rgba(0,0,0,0.7);display:none; padding-top: 10px;padding-bottom: 1050px;">
+			<img id="bigimg"  width="60%"/>		
+		</div>
+  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
+    style="padding: 20px 30px 0 0;" id="imgshow">
+   
+	<div class="layui-form-item">
+	  <label class="layui-form-label layui-form-label-dry">id</label>
+	  <div class="layui-input-inline">
+	    <input type="text" name="id" id="id" value="1" disabled class="layui-input">
+	  </div>
+	</div> 
+	<div class="layui-form-item">
+	  <label class="layui-form-label layui-form-label-dry">状态</label>
+	  <div class="layui-input-inline">
+	    <select name="type" id="type" lay-filter="type" disabled>
+	            <option value="1">个人</option>
+			    <option value="2">企业</option>									 
+	    </select>
+	  </div>
+	</div>  
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">县级ID</label>
+    <div class="layui-input-inline">
+      <input type="text" name="region" id="region"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">详细地址</label>
+    <div class="layui-input-inline">
+      <input type="text" name="address" id="address"  disabled class="layui-input">
+    </div>
+  </div> 
+  
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">预计用电时间</label>
+    <div class="layui-input-inline">
+      <input type="text" name="powerConsumptionTime" id="powerConsumptionTime"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">产权证明类型</label>
+    <div class="layui-input-inline">
+      <input type="text" id="equityProveType"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">产权人证件类型 / 法人证件类型</label>
+    <div class="layui-input-inline">
+      <input type="text" id="documentType"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">产权人姓名/法人姓名</label>
+    <div class="layui-input-inline">
+      <input type="text" id="ownerName"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">产权人身份证号码 / 法人身份证号码</label>
+    <div class="layui-input-inline">
+      <input type="text" id="ownerIdCard"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">申请人手机号</label>
+    <div class="layui-input-inline">
+      <input type="text" id="applicantPhone"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">是否是住宅用电</label>
+    <div class="layui-input-inline">
+      <input type="text" id="transformer"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">是否安装变压器</label>
+    <div class="layui-input-inline">
+      <input type="text" id="transformers"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">申请容量</label>
+    <div class="layui-input-inline">
+      <input type="text" id="capacity"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">企业主体证明类型</label>
+    <div class="layui-input-inline">
+      <input type="text" id="typeProof"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">企业名称</label>
+    <div class="layui-input-inline">
+      <input type="text" id="enterpriseName"  disabled class="layui-input">
+    </div>
+  </div> 
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">安装位置图片</label>
+    <div class="layui-input-inline">
+      <div class="layui-upload">
+      
+        <div class="layui-upload-list" id="installLocationList">
+         
+        </div>
+      </div>
+    </div>    
+  </div>  
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">企业主体照片</label>
+    <div class="layui-input-inline">
+      <div class="layui-upload">
+      
+        <div class="layui-upload-list">
+          <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="companyPhoto" />
+        </div>
+      </div>
+    </div>    
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">产权证明照片</label>
+    <div class="layui-input-inline">
+      <div class="layui-upload">      
+        <div class="layui-upload-list" id="equityProveList"></div>
+      </div>
+    </div>    
+  </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">授权书</label>
+    <div class="layui-input-inline">
+      <div class="layui-upload">
+      
+        <div class="layui-upload-list">
+          <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="authorizationPhoto" />
+        </div>
+      </div>
+    </div>
+    
+  </div>
+  
+  
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
+        value="确认添加">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+    </div>
+  </div>
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script>
+	 function bimg(obj)
+	 {
+		 var t = document.documentElement.scrollTop;
+		$("#bigimg").attr("src", obj.src);
+		$("#outerdiv").css("padding-top",t+"px");
+		$("#outerdiv").fadeIn("fast");
+		$("#outerdiv").click(function(){//再次点击淡出消失弹出层
+		    $(this).fadeOut("fast");
+		});
+	 }
+	  $("#companyPhoto").on('click',function(){
+	      var _this = $(this);
+	      var t=_this.offset().top-200		 
+	      
+	       $("#bigimg").attr("src", _this.attr("src"));
+	  			$("#outerdiv").css("padding-top",t+"px");
+	      $("#outerdiv").fadeIn("fast");
+	      $("#outerdiv").click(function(){//再次点击淡出消失弹出层
+	          $(this).fadeOut("fast");
+	      });
+	  })
+	   $("#authorizationPhoto").on('click',function(){
+	       var _this = $(this);
+	       var t=_this.offset().top-200		 
+	       
+	        $("#bigimg").attr("src", _this.attr("src"));
+			$("#outerdiv").css("padding-top",t+"px");
+	       $("#outerdiv").fadeIn("fast");
+	       $("#outerdiv").click(function(){//再次点击淡出消失弹出层
+	           $(this).fadeOut("fast");
+	       });
+	   })
+	   
+  </script>
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+
+    layui.config({
+      base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+      index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'laydate', 'upload', 'api'], function () {
+      var $ = layui.$
+        , form = layui.form
+        , upload = layui.upload
+        , baseUrl = layui.api.baseUrltest;
+      //监听提交
+      form.on('submit(layuiadmin-app-form-submit)', function (data) {
+      
+            var field = data.field; //获取提交的字段     
+			var index = parent.layer.getFrameIndex(window.name); 	  
+			var msg = ' '
+			var subUrl = '/ty/heatingAdmin/admin/newclothes/todDealWith'
+			if (field.id) {
+			  msg = '修改成功'
+			}
+			var param = {}
+			param.id = field.id			
+			param.status = field.status
+			$.ajax({
+				  type: "PUT",
+				  url: baseUrl+ subUrl,
+				  data: JSON.stringify(param),
+				  contentType: "application/json",
+				  headers: {
+					token: sessionStorage.getItem("token")
+				  },
+				  dataType: "json",
+				  success: function (data) {
+						if (data.status == "0000") {
+						   layer.msg(data.message);					 
+						 setTimeout(function () {
+						   parent.layui.table.reload('LAY-app-content-list'); //重载表格
+						   parent.layer.close(index); //再执行关闭 
+						 }, 1000)
+						 
+						} else if (data.status == "4031") {
+						  layer.msg(data.message);
+						  setTimeout(function () {
+						    window.parent.parent.location.href = '../../user/login.html';
+						  }, 2000)
+						} else {
+						  layer.msg('失败' + data.message)
+						}
+						 parent.layer.closeAll("loading");
+				  }
+			});
+      });
+    })
+  </script>
+</body>
+
+</html>

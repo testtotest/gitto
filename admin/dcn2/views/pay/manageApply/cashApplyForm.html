@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title>提现审核</title>
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all" />
+  <style>
+    .layui-form-label-dry {
+      width: 150px;
+    }
+
+    .layui-form-item .layui-input-inline {
+      width: 300px;
+    }
+
+    .red {
+      color: red;
+      position: absolute;
+      top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
+    style="padding: 20px 30px 0 0;">
+    <input type="hidden" name="id" id="id" />
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">审核<span class="red">*</span></label>
+      <div class="layui-input-inline">
+        <select name="auditStatus" id="auditStatus" lay-verify="required" lay-filter="auditStatus">
+          <option value="">请选择</option>
+          <option value="2">通过</option>
+          <option value="3">驳回</option>
+        </select>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label layui-form-label-dry">备注</label>
+      <div class="layui-input-inline">
+        <textarea name="remark" id="remark" style="width: 300px; height: 150px;" autocomplete="off"
+          class="layui-textarea"></textarea>
+      </div>
+    </div>
+    <div class="layui-form-item layui-hide">
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
+        value="确认添加" />
+      <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit"
+        value="确认编辑" />
+    </div>
+  </div>
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/layui/layui.js"></script>
+  <script>
+    layui
+      .config({
+        base: "../../../layuiadmin/", //静态资源所在路径
+      })
+      .extend({
+        index: "lib/index", //主入口模块
+      })
+      .use(["index", "form", "laydate", "upload", "api"], function () {
+        var $ = layui.$,
+          form = layui.form,
+          upload = layui.upload,
+          baseUrl = layui.api.baseUrl;
+
+        //校验
+        // form.verify({
+        //   // nickname: function(t, i) {
+        //   //   return new RegExp("^[a-zA-Z0-9_一-龥\\s·]+$").test(t)
+        //   //     ? /(^\_)|(\__)|(\_+$)/.test(t)
+        //   //       ? "用户名首尾不能出现下划线'_'"
+        //   //       : /^\d+\d+\d$/.test(t)
+        //   //       ? "用户名不能全为数字"
+        //   //       : void 0
+        //   //     : "用户名不能有特殊字符";
+        //   // },
+        //   //     menuName: [/^[\S]{1,120}$/, "菜单名称不得为空，且不能出现空格"],
+        //   // repass: function (t) {
+        //   //   if (t !== i("#LAY_password").val()) return "两次密码输入不一致";
+        //   // }
+        // });
+
+        //监听提交
+        form.on("submit(layuiadmin-app-form-submit)", function (data) {
+          parent.layer.load(1, {
+            shade: [0.5, "#000"], //0.1透明度的白色背景
+          });
+          var field = data.field; //获取提交的字段
+          var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+          var subUrl = "/ty/heatingAdmin/manager/examine/withdrawalAudit";
+          //  field.token = sessionStorage.getItem("token");
+          $.ajax({
+            type: "POST",
+            url: baseUrl + subUrl,
+            data: field,
+            headers: {
+              token: sessionStorage.getItem("token"),
+            },
+            dataType: "json",
+            success: function (data) {
+              if (data.status == "0000") {
+                layer.msg(data.message);
+                setTimeout(function () {
+                  parent.layui.table.reload("LAY-app-content-list"); //重载表格
+                  parent.layer.close(index); //再执行关闭
+                }, 1000);
+              } else if (data.status == "4031") {
+                layer.msg(data.message);
+                setTimeout(function () {
+                  window.parent.parent.location.href =
+                    "../../user/login.html";
+                }, 2000);
+              } else {
+                layer.msg("失败" + data.message);
+              }
+              parent.layer.closeAll("loading");
+            },
+          });
+        });
+      });
+  </script>
+</body>
+
+</html>

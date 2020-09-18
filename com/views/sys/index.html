@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="../bdist/js/jquery.min.js"></script>
+		<script src="../bdist/js/bootstrap.min.js"></script>
+		<link  href="../bdist/css/bootstrap.min.css" rel="stylesheet">
+		<title></title>
+	</head>
+	
+	<link href="https://v4.bootcss.com/docs/examples/sign-in/signin.css" rel="stylesheet">
+	 <body class="text-center">
+	    <form class="form-signin" method="post" action="/sys/login">	 
+	  <h1 class="h3 mb-3 font-weight-normal">后台登录</h1>
+	  <label for="inputEmail" class="sr-only"></label>
+	  <input type="text" name="uname" id="uname" class="form-control" placeholder="用户名" required>
+	  <label for="inputPassword" class="sr-only">Password</label>
+	  <input type="password" name="upwd" id="upwd" class="form-control mt-2" placeholder="密码" required>
+	  <div class="checkbox mb-3" style="display: none;">
+	    <label>
+	      <input type="checkbox" value="re"> Re
+	    </label>
+	  </div>
+	  <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+	  
+	</form>
+	</body>
+</html>

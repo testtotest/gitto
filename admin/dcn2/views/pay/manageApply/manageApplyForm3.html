@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>审核</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../layuiadmin/layui/css/layui.css"
+      media="all"
+    />
+    <style>
+      .layui-form-label-dry {
+        width: 150px;
+      }
+
+      .layui-form-item .layui-input-inline {
+        width: 300px;
+      }
+
+      .red {
+        color: red;
+        position: absolute;
+        top: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div
+      class="layui-form"
+      lay-filter="layuiadmin-app-form-list"
+      id="layuiadmin-app-form-list"
+      style="padding: 20px 30px 0 0;"
+    >
+      <input type="hidden" name="id" id="id" />
+      <input type="hidden" name="typeId" id="typeId" />
+      <!-- <input type="hidden" name="partsId2" id="partsId2" /> -->
+
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >返利金额<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <input
+            type="text"
+            name="money"
+            id="money"
+            lay-verify="required"
+            placeholder="请输入"
+            autocomplete="off"
+            class="layui-input"
+          />
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >地址<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <input
+            type="text"
+            name="address"
+            id="address"
+            lay-verify="required"
+            placeholder="请输入"
+            autocomplete="off"
+            class="layui-input"
+          />
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >设备类型<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <input
+            type="hidden"
+            name="model2"
+            id="model2"
+            autocomplete="off"
+            class="layui-input"
+          />
+          <select
+            name="model"
+            id="model"
+            lay-verify="required"
+            lay-filter="model"
+          >
+            <!-- <option value="">请选择</option> -->
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >售卖价格<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <input
+            type="text"
+            name="partsMoney"
+            id="partsMoney"
+            lay-verify="required"
+            placeholder="请输入"
+            autocomplete="off"
+            class="layui-input"
+          />
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >配件功率<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <!-- <input type="text" name="model" id="model" lay-verify="required" placeholder="请输入" autocomplete="off"
+          class="layui-input" /> -->
+          <select
+            name="partsId"
+            id="partsId"
+            lay-verify="required"
+            lay-filter="partsId"
+          >
+            <option value="">请选择</option>
+          </select>
+        </div>
+      </div>
+      <input
+        type="hidden"
+        name="partsId2"
+        id="partsId2"
+        lay-verify="required"
+        placeholder="请输入"
+        autocomplete="off"
+        class="layui-input"
+      />
+
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >设备唯一编码<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <input
+            type="text"
+            name="equipmentCode"
+            id="equipmentCode"
+            lay-verify="required"
+            placeholder="请输入"
+            autocomplete="off"
+            class="layui-input"
+          />
+        </div>
+      </div>
+      <!--
+      money	是	String	返利金额 回显	是
+      address	是	string	地址 回显	是
+      model	是	string	设备类型 回显	是,下拉
+      equipmentCode	是	string	设备唯一编码 不用回显,数据库中还没有
+   -->
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry"
+          >审核<span class="red">*</span></label
+        >
+        <div class="layui-input-inline">
+          <select
+            name="auditStatus"
+            id="auditStatus"
+            lay-verify="required"
+            lay-filter="auditStatus"
+          >
+            <option value="">请选择</option>
+            <option value="0">通过</option>
+            <option value="4">驳回</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <label class="layui-form-label layui-form-label-dry">备注</label>
+        <div class="layui-input-inline">
+          <textarea
+            name="remark"
+            id="remark"
+            style="width: 300px; height: 150px;"
+            autocomplete="off"
+            class="layui-textarea"
+          ></textarea>
+        </div>
+      </div>
+      <div class="layui-form-item layui-hide">
+        <input
+          type="button"
+          lay-submit
+          lay-filter="layuiadmin-app-form-submit"
+          id="layuiadmin-app-form-submit"
+          value="确认添加"
+        />
+        <input
+          type="button"
+          lay-submit
+          lay-filter="layuiadmin-app-form-edit"
+          id="layuiadmin-app-form-edit"
+          value="确认编辑"
+        />
+      </div>
+    </div>
+    <script src="../../../layuiadmin/lib/jquery.js"></script>
+    <script src="../../../layuiadmin/layui/layui.js"></script>
+    <script>
+      layui
+        .config({
+          base: "../../../layuiadmin/", //静态资源所在路径
+        })
+        .extend({
+          index: "lib/index", //主入口模块
+        })
+        .use(["index", "form", "laydate", "upload", "api"], function () {
+          var $ = layui.$,
+            form = layui.form,
+            upload = layui.upload,
+            baseUrl = layui.api.baseUrl;
+          //监听设备类型的变化
+          form.on("select(model)", function (data) {
+            console.log("c________________", data);
+            var arr = $(data.elem).val().split(",");
+            var model = arr[0];
+            var typeId = arr[1];
+
+            $("#model2").val(model);
+            $("#typeId").val(typeId);
+            //再次调用配件
+            $.ajax({
+              type: "GET",
+              url:
+                baseUrl +
+                "/ty/heatingAdmin/admin/equip/availableEquipmentPartsList",
+              data: {
+                typeId: $("#typeId").val(),
+                pageNo: 1,
+                pageSize: 100,
+              },
+              headers: {
+                token: sessionStorage.getItem("token"),
+              },
+              dataType: "json",
+              success: function (data) {
+                console.log("TTTTTTTTTTTTTTTTTTTTTTTTTT", data);
+                if (data.status != "0000") {
+                  layer.msg(data.message);
+                } else if (data.status != 0000) {
+                  layer.msg(data.message);
+                } else {
+                  if (!data.result.list.length) {
+                    layer.msg("暂无可用配件");
+                    var powerTempSeach = "";
+                    $("#partsId").html(powerTempSeach);
+                    layui.use("form", function () {
+                      var form = layui.form;
+                      form.render();
+                    });
+                    return false;
+                  }
+                  var powerTempSeach = '<option value="">请选择</option>';
+
+                  for (var i = 0; i < data.result.list.length; i++) {
+                    if ($("#partsId2").val() == data.result.list[i].id) {
+                      powerTempSeach +=
+                        '<option  selected="true" value="' +
+                        data.result.list[i].id +
+                        '">' +
+                        data.result.list[i].power +
+                        "</option>";
+                    } else {
+                      powerTempSeach +=
+                        '<option  value="' +
+                        data.result.list[i].id +
+                        '">' +
+                        data.result.list[i].power +
+                        "</option>";
+                    }
+                  }
+                  $("#partsId").html(powerTempSeach);
+                  layui.use("form", function () {
+                    var form = layui.form;
+                    form.render();
+                  });
+                }
+              },
+            });
+          });
+          //调用可用设备列表
+          $.ajax({
+            type: "POST",
+            url: baseUrl + "/ty/heatingAdmin/admin/equip/equipmentTypeList",
+            data: {
+              name: $("#typeId").val(),
+              pageNo: 1,
+              pageSize: 100,
+            },
+            headers: {
+              token: sessionStorage.getItem("token"),
+            },
+            dataType: "json",
+            success: function (data) {
+              console.log("single___________________", data.result.list);
+              if (data.status != "0000") {
+                layer.msg(data.message);
+              } else if (data.status != 0000) {
+                layer.msg(data.message);
+              } else {
+                if (!data.result.list.length) {
+                  layer.msg("暂无可用设备");
+                  return false;
+                }
+                var modelTempSeach = '<option value="">请选择</option>';
+
+                for (var i = 0; i < data.result.list.length; i++) {
+                  if ($("#model2").val() == data.result.list[i].model) {
+                    modelTempSeach +=
+                      '<option selected="true"   value="' +
+                      data.result.list[i].model +
+                      "," +
+                      data.result.list[i].id +
+                      '">' +
+                      data.result.list[i].model +
+                      "</option>";
+                  } else {
+                    modelTempSeach +=
+                      '<option    value="' +
+                      data.result.list[i].model +
+                      "," +
+                      data.result.list[i].id +
+                      '">' +
+                      data.result.list[i].model +
+                      "</option>";
+                  }
+                }
+                $("#model").html(modelTempSeach);
+                layui.use("form", function () {
+                  var form = layui.form;
+                  form.render();
+                });
+              }
+            },
+          });
+
+          //下拉配件  显示功率  取值  partsId
+          $.ajax({
+            type: "GET",
+            url:
+              baseUrl +
+              "/ty/heatingAdmin/admin/equip/availableEquipmentPartsList",
+            data: {
+              typeId: $("#typeId").val(),
+              pageNo: 1,
+              pageSize: 100,
+            },
+            headers: {
+              token: sessionStorage.getItem("token"),
+            },
+            dataType: "json",
+            success: function (data) {
+              console.log("TTTTTTTTTTTTTTTTTTTTTTTTTT", data);
+              if (data.status != "0000") {
+                layer.msg(data.message);
+              } else if (data.status != 0000) {
+                layer.msg(data.message);
+              } else {
+                if (!data.result.list.length) {
+                  layer.msg("暂无可用配件");
+                  $("#partsId").html(powerTempSeach);
+                  layui.use("form", function () {
+                    var form = layui.form;
+                    form.render();
+                  });
+                  return false;
+                }
+                var powerTempSeach = '<option value="">请选择</option>';
+
+                for (var i = 0; i < data.result.list.length; i++) {
+                  if ($("#partsId2").val() == data.result.list[i].id) {
+                    powerTempSeach +=
+                      '<option  selected="true" value="' +
+                      data.result.list[i].id +
+                      '">' +
+                      data.result.list[i].power +
+                      "</option>";
+                  } else {
+                    powerTempSeach +=
+                      '<option  value="' +
+                      data.result.list[i].id +
+                      '">' +
+                      data.result.list[i].power +
+                      "</option>";
+                  }
+                }
+                $("#partsId").html(powerTempSeach);
+                layui.use("form", function () {
+                  var form = layui.form;
+                  form.render();
+                });
+              }
+            },
+          });
+
+          //监听提交
+          form.on("submit(layuiadmin-app-form-submit)", function (data) {
+            parent.layer.load(1, {
+              shade: [0.5, "#000"], //0.1透明度的白色背景
+            });
+            var field = data.field; //获取提交的字段
+            var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            var msg = " ";
+            var subUrl = "/ty/heatingAdmin/manager/examine/equipmentAudit";
+
+            //  field.token = sessionStorage.getItem("token");
+            field.model = field.model2;
+            $.ajax({
+              type: "POST",
+              url: baseUrl + subUrl,
+              data: field,
+              headers: {
+                token: sessionStorage.getItem("token"),
+              },
+              dataType: "json",
+              success: function (data) {
+                if (data.status == "0000") {
+                  layer.msg(data.message);
+
+                  setTimeout(function () {
+                    parent.layui.table.reload("LAY-app-content-list"); //重载表格
+                    parent.layer.close(index); //再执行关闭
+                  }, 1000);
+                } else if (data.status == "4031") {
+                  layer.msg(data.message);
+                  setTimeout(function () {
+                    window.parent.parent.location.href =
+                      "../../user/login.html";
+                  }, 2000);
+                } else {
+                  layer.msg("失败" + data.message);
+                }
+                parent.layer.closeAll("loading");
+              },
+            });
+          });
+        });
+    </script>
+  </body>
+</html>

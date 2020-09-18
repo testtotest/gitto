@@ -10,14 +10,18 @@ layui.define(["table", "form", "util"], function (t) {
 
 
 
-    baseUrl = "https://xny.tongyunzn.com", //测试
+  baseUrl = "http://testxny.tongyunzn.com", //测试
+  baseUrltest="http://testxny.tongyunzn.com"
     //  baseUrl = "http://123.166.198.210:8080"
     // baseUrl = "http://101.200.129.62:8080",
     imgurl = "https://xny.tongyunzn.com/ty/heatingAdmin/file/fileUpload";
-  imgBaseUrl = "https://img.tongyunzn.com/tyapplet/",
+  imgBaseUrl = "https://img.tongyunzn.com/tyapplet/"
+  imgUpurl=baseUrltest+"/ty/heatingAdmin/file/upload"
     t("api", {
       baseUrl,
+	  baseUrltest,
       imgurl,
+	  imgUpurl,
       imgBaseUrl
     });
 });

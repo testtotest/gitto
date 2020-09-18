@@ -41,6 +41,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
           msg: "未查询到相关数据",
         };
       }
+	 
       return {
         code: res.status, //解析接口状态
         msg: res.message, //解析提示文本
@@ -54,14 +55,12 @@ layui.define(["table", "form", "util", "api"], function (t) {
         //   type: "checkbox",
         //   fixed: "left"
         // },
-
         {
           field: "id",
           width: 100,
           title: "配件id",
           sort: !0,
         },
-
         {
           field: "typeName",
           title: "设备名称",
@@ -70,7 +69,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         {
           field: "power",
           title: "功率:kw",
-          minWidth: 100,
+          minWidth: 200,
         },
         {
           field: "money",
@@ -110,7 +109,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 
         {
           title: "操作",
-          minWidth: 200,
+          minWidth: 400,
           align: "center",
           fixed: "right",
           toolbar: "#table-content-list",

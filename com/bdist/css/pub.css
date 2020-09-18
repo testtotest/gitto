@@ -1,12 +1,15 @@
 body{font: 12px/1.5 '微软雅黑',arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;}
 p{margin: 0px;}
-a{}	
+a{  color: #000000;
+   text-decoration: none;}	
 a:link {text-decoration: none;}
 a:hover{
-
+   color: #000000;
+   text-decoration: none;
 }
 a:visited{
-
+   color: #000000;
+   text-decoration: none;
 }
 .c_153{color: rgb(153, 153, 153)}
 .c_666{color:#666666}
@@ -17,6 +20,7 @@ a:visited{
 .t_center{text-align: center;}
 .l_line35{line-height: 35px;}
 .w-87{width: 90%;}
+.w-80{width: 83%;}
 .w-60{width: 60%;}
 .w-40{width: 40%;}
 .w-30{width: calc(33.333333333333336% - 20px);}

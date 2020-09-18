@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <title></title>
+  <meta name="renderer" content="webkit" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all" />
+</head>
+
+<body>
+	<div id="outerdiv" style="width:100%;height:100%;z-index:100;text-align: center;position: absolute;background:rgba(0,0,0,0.7);display:none; padding-top: 10px;padding-bottom: 1000px;">
+			<img id="bigimg"  width="63%"/>		
+		</div>
+	 <script>
+		 function imgb(imgurl)
+		 {
+			 
+			 var _this = $(this);
+			 $("#bigimg").attr("src", imgurl);
+			 $("#outerdiv").fadeIn("fast");
+			 $("#outerdiv").click(function(){//再次点击淡出消失弹出层
+			     $(this).fadeOut("fast");
+			 });
+		 }
+		
+	</script>
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-inline" style="display: flex; flex-direction: row;">
+              <input type="text" class="layui-input" name="beginDate" id="beginDate" placeholder="yyyyMMdd" autocomplete="off"/>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-inline" style="display: flex; flex-direction: row;">
+              <input type="text"  class="layui-input" name="endDate" id="endDate" placeholder="yyyyMMdd" autocomplete="off"/>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-list" data-type="add">
+            新增
+          </button>
+		  <button class="layui-btn layuiadmin-btn-list" data-type="del">删除</button>
+        </div>
+        <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
+        <!-- <script type="text/html" id="buttonTpl">
+          {{#  if(d.status ==1){ }}
+            <button class="layui-btn layui-btn-xs">待推送</button>
+          {{#  } else { }}
+            <button class="layui-btn layui-btn-primary layui-btn-xs">已推送</button>
+          {{#  } }}
+        </script> -->
+        <script type="text/html" id="table-content-list">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+              class="layui-icon layui-icon-edit"></i>编辑</a>
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="lists"><i
+              class="layui-icon layui-icon-edit"></i>小单列表</a>
+		  <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="detailDel"><i
+		      class="layui-icon layui-icon-edit"></i>删除</a>	  
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <!-- <script src="../../../layuiadmin/layui/layui.js"></script>   -->
+  <script src="../../../layuiadmin/lib/jquery.js"></script>
+  <script src="../../../layuiadmin/lib/layui.js"></script>
+  <script>
+    layui
+      .config({
+        base: "../../../layuiadmin/", //静态资源所在路径
+      })
+      .extend({
+        index: "lib/index", //主入口模块
+      })
+      .use(
+        ["index", "proList", "table", "api", "laydate"],
+        function () {
+          var table = layui.table,
+            form = layui.form,
+            $ = layui.$,
+            imgBaseUrl = layui.api.imgBaseUrl,
+            baseurl = layui.api.baseUrl;
+
+          laydate = layui.laydate;
+          laydate.render({
+            elem: "#beginDate",
+            //,type: 'date' //type 默认为 date，所以可不填
+          });
+          laydate.render({
+            elem: "#endDate",
+            //,type: 'date' //type 默认为 date，所以可不填
+          });
+
+          //调用产品列表
+          $.ajax({
+            type: "get",
+            url: baseurl + "/ty/heatingAdmin/admin/equip/equipmentTypeList",
+            data: {
+              pageSize: 1000,
+              pageNo: 1,
+              token: sessionStorage.getItem("token")
+            },
+            headers: {
+              token: sessionStorage.getItem("token"),
+            },
+            dataType: "json",
+            success: function (data) {
+              if (data.status == "4031") {
+                layer.msg(data.message);
+                setTimeout(function () {
+                  window.parent.parent.location.href = '../../user/login.html';
+                }, 2000)
+                return false;
+              }
+              if (data.status != 0000) {
+                layer.msg(data.message)
+              }
+              var data = data.result.list;
+              if (!data.length) {
+                layer.msg('暂无产品类型');
+                return false;
+              }
+              var issuerNoTempSeach = '<option value="">请选择</option>';
+              for (var i = 0; i < data.length; i++) {
+                issuerNoTempSeach += '<option value="' + data[i].model + '">' + data[i].model + '</option>'
+              }
+              $('#model').html(issuerNoTempSeach)
+              layui.use('form', function () {
+                var form = layui.form;
+                form.render();
+              });
+            }
+          })
+		  function dels(id,img)
+		  {
+			       var subUrls = '/ty/heatingAdmin/file/delete'
+			  		var subUrl = '/ty/heatingAdmin/admin/receipt/delete'
+			  		var param = []
+			  		param.oldFilePath = "https://img.tongyunzn.com/tyapplet/"+img
+			  		var arr = [ id ]; 
+			  						
+			  		$.ajax({
+			  			  type: "DELETE",
+			  			  url: layui.api.baseUrltest + subUrl,
+			  			  data: JSON.stringify(arr),
+			  			  contentType: "application/json",
+			  			  headers: {
+			  				token: sessionStorage.getItem("token")
+			  			  },
+			  			  dataType: "json",
+			  			  success: function (data) {
+			  					if (data.status == "0000") {
+			                                      $.ajax({
+			  											  type: "DELETE",
+			  											  url: layui.api.baseUrltest + subUrls,
+			  											  data: JSON.stringify(param),
+			  											  contentType: "application/json",
+			  											  headers: {
+			  												token: sessionStorage.getItem("token")
+			  											  },
+			  											  dataType: "json",
+			  											  success: function (data) {
+			  													 
+			  											  }
+			  										 });								
+			  					   layer.msg(data.message);
+			  					   setTimeout(function () {
+			  					    layui.table.reload('LAY-app-content-list'); //重载表格
+			  					    layer.close(index); //再执行关闭 
+			  					   }, 1000)		 
+			  					} else if (data.status == "4031") {
+			  					  layer.msg(data.message);
+			  					  setTimeout(function () {
+			  					    window.parent.parent.location.href = '../../user/login.html';
+			  					  }, 2000)
+			  					} else {
+			  					  layer.msg('失败' + data.message)
+			  					}
+			  					
+			  			  }
+			  		});				
+		  }
+          //监听
+          table.on("tool(LAY-app-content-list)", function (t) {
+            var e = t.data;
+            //监听配件
+            if ("lists" === t.event) {              
+              sessionStorage.setItem("proTypeId", t.data.id);			  
+              layer.open({
+                type: 2
+                , title: '列表'
+                , content: 'lists.html'
+                , maxmin: true
+                , area: ['100%', '100%']
+                , btn: ['返回产品列表']
+                , yes: function (index, layero) {
+                  //点击确认触发 iframe 内容中的按钮提交
+                  var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit");
+                  submit.click();
+                }
+              });
+            }
+            //监听 停用 启用
+           if ("detailDel" == t.event) {
+           		dels(e.id,e.receipts)
+           	}
+            //监听  编辑
+            if ("edit" === t.event) {
+              console.log('t____________', t.data)
+              layer.open({
+                type: 2,
+                title: "编辑",
+                content: "editForm.html",
+                maxmin: true,
+                area: ["100%", "100%"],
+                btn: ["确定", "取消"],
+                yes: function (index, layero) {
+                  //点击确认触发 iframe 内容中的按钮提交
+                  var submit = layero
+                    .find("iframe")
+                    .contents()
+                    .find("#layuiadmin-app-form-submit");
+                  submit.click();
+                },
+                success: function (layero, index) {
+                  var body = layer.getChildFrame("body", index);
+                  body.contents().find("#id").val(t.data.id);
+                body.contents().find("#photo1-img").attr("src", imgBaseUrl + t.data.receipts);
+                  body.contents().find("#photo1").val(t.data.receipts);
+                
+				  body.contents().find("#agentId").val(t.data.agentId);
+                  body.contents().find("#cargoNum").val(t.data.cargoNum);
+                  body.contents().find("#buyTime").val(t.data.buyTime);
+                  body.contents().find("#amount").val(t.data.amount);
+				  body.contents().find("#remark").val(t.data.remark);
+                  var characteristic = t.data.characteristic.split(',')
+                 
+
+
+                },
+              });
+            }
+            //修改数量  equipmentNumForm.html
+            if ("nums" === t.event) {
+              layer.open({
+                type: 2,
+                title: "编辑",
+                content: "equipmentNumForm.html",
+                maxmin: true,
+                area: ["100%", "100%"],
+                btn: ["确定", "取消"],
+                yes: function (index, layero) {
+                  //点击确认触发 iframe 内容中的按钮提交
+                  var submit = layero
+                    .find("iframe")
+                    .contents()
+                    .find("#layuiadmin-app-form-submit");
+                  submit.click();
+                },
+                success: function (layero, index) {
+                  var body = layer.getChildFrame("body", index);
+                  body.contents().find("#id").val(t.data.id);
+                  body.contents().find("#stock").val(t.data.stock);
+                  // body.contents().find('#name').val(t.data.name)
+                  // body.contents().find('#url').val(t.data.url)
+                  // body.contents().find('#type').val(t.data.type)
+                  // body.contents().find('#jumpType').val(t.data.jumpType)
+                  // body.contents().find('#bigimages-normal-img').attr('src', t.data.images)
+                  // body.contents().find('#bigimages').val(t.data.images)
+                },
+              });
+            }
+          });
+
+          //监听搜索
+          form.on("submit(LAY-app-contlist-search)", function (data) {
+            var field = data.field;
+            //执行重载
+            table.reload("LAY-app-content-list", {
+              where: field,
+            });
+          });
+
+          var $ = layui.$,
+            active = {
+             del: function () {
+             	 var checkStatus = table.checkStatus('LAY-app-content-list')
+             	 ,checkData = checkStatus.data; 					
+             	 		if(checkData.length == 0){
+             	 		   return layer.msg('请选择数据');
+             	 		}							
+             	 		layer.confirm('确定删除吗？', function(index) {					
+             	 			layer.close(layer.index);
+             	 			for(var i=0 ; i<checkData.length;i++)
+             	 			{
+             	 				  dels(checkData[i].id,checkData[i].receipts)
+             	 			}
+             	 		}					
+             	 )				
+             },
+              add: function () {
+                layer.open({
+                  type: 2,
+                  title: "新增",
+                  content: "addForm.html",
+                  maxmin: true,
+                  area: ["100%", "100%"],
+                  btn: ["确定", "取消"],
+                  yes: function (index, layero) {
+                    //点击确认触发 iframe 内容中的按钮提交
+                    var submit = layero
+                      .find("iframe")
+                      .contents()
+                      .find("#layuiadmin-app-form-submit");
+                    submit.click();
+                  },
+                  success: function (layero, index) {
+                    //  var body = layer.getChildFrame('body', index);
+                    // body.contents().find('#issuerNo').html(issuerNoTemp)
+                  },
+                });
+              },
+            };
+
+          $(".layui-btn.layuiadmin-btn-list").on("click", function () {
+            var type = $(this).data("type");
+            active[type] ? active[type].call(this) : "";
+          });
+        }
+      );
+  </script>
+</body>
+
+</html>

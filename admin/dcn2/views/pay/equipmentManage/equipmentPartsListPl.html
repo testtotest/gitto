@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>设备配件列表</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../layuiadmin/layui/css/layui.css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../layuiadmin/style/admin.css"
+      media="all"
+    />
+  </head>
+
+  <body>
+    <div class="layui-fluid">
+      <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+          <div class="layui-form-item">
+            <!--search-->
+            <!-- <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div> -->
+          </div>
+        </div>
+         <input type="hidden" name="category" id="category"  />
+		 <input type="hidden" name="pid" id="pid"  />
+        <div class="layui-card-body">
+          <div style="padding-bottom: 10px;">
+            <button class="layui-btn layuiadmin-btn-list" data-type="add">
+              新增配件
+            </button>
+          </div>
+          <table
+            id="LAY-app-content-list"
+            lay-filter="LAY-app-content-list"
+          ></table>
+          <script type="text/html" id="table-content-list">
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="list"><i
+			    class="layui-icon layui-icon-table"></i>配件列表</a>  
+            {{#  if(d.status ==1){ }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="switch"><i
+                class="layui-icon layui-icon-pause"></i>下架</a>
+            {{#  } else if(d.status ==2) { }}
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="switch"><i
+                class="layui-icon layui-icon-play"></i>上架</a>
+            {{#  } }}
+			<a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="del" ><i
+			    class="layui-icon layui-icon-delete"></i>删除配件</a>  
+            <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
+                class="layui-icon layui-icon-edit"></i>编辑配件</a>
+          </script>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-form-item layui-hide">
+      <input
+        type="button"
+        lay-submit
+        lay-filter="layuiadmin-app-form-submit"
+        id="layuiadmin-app-form-submit"
+        value="确定"
+      />
+    </div>
+    <!-- <script src="../../../layuiadmin/layui/layui.js"></script>   -->
+    <script src="../../../layuiadmin/lib/jquery.js"></script>
+    <script src="../../../layuiadmin/lib/layui.js"></script>
+    <script>
+      layui
+        .config({
+          base: "../../../layuiadmin/", //静态资源所在路径
+        })
+        .extend({
+          index: "lib/index", //主入口模块
+        })
+        .use(
+          ["index", "table", "api", "laydate", "util"],
+          function () {
+            var table = layui.table,
+              form = layui.form,
+              $ = layui.$,
+			  util = layui.util,
+              baseurl = layui.api.baseUrl;
+			  table.render({
+			     elem: '#LAY-app-content-list',
+			   url:baseurl+'/ty/heatingAdmin/admin/equip/equipmentPartsSublist'	   
+			      	 ,request: {
+			      	   pageName: "pageNo", //页码的参数名称，默认：page
+			      	   limitName: "pageSize",	 
+			      	   // token:sessionStorage.getItem("token")
+			      	 }
+			  ,where: {
+			     pid: $("#pid").val(),
+			  }
+			      	 ,method: 'get'
+			      	 ,headers: {"token":sessionStorage.getItem("token")}
+			      	 
+			      	 , parseData: function (res) {			 
+			      		return {
+			      		  code: res.status, //解析接口状态
+			      		  msg: res.message, //解析提示文本
+			      		  count: res.result.count, //解析数据长度
+			      		  data: res.result.list, //解析数据列表
+			      		};
+			      	 }
+			     ,cellMinWidth: 120 
+			     ,cols: [[        
+			       {
+			         field: "id",			        
+			         title: "配件id",
+			         sort: !0,
+			       },
+			       {
+			         field: "typeName",
+			         title: "设备名称",			        
+			       },
+				   {
+				     field: "power",
+				     title: "功率:kw/规格型号",
+				     minWidth: 200,
+				   },
+				   {
+				     field: "money",
+				     title: "价格(元)",
+				     align: "center",
+				     minWidth: 100,
+				     // templet: function (d) {
+				     //   return util.numberFormat(d.money / 100, 3);
+				     // },
+				   },
+				   {
+				     field: "createTime",
+				     title: "添加时间",
+				     minWidth: 180,
+				     templet: function (d) {
+				       return util.toDateString(d.createTime, "yyyy-MM-dd HH:mm:ss");
+				     },
+				   },
+				   {
+				     field: "heatingArea",
+				     title: "供暖面积:平方米",
+				     align: "center",
+				     minWidth: 150,
+				   },
+				   {
+				     field: "status",
+				     title: " 状态",
+				     minWidth: 150,
+				     templet: function (d) {
+				       if (d.status == "1") {
+				         return '<button type="button" class="layui-btn  layui-btn-xs ">正常</button>';
+				       } else if (d.status == "2") {
+				         return '<button type="button" class="layui-btn  layui-btn-xs layui-btn-disabled  ">停用</button>';
+				       }
+				     },
+				   },
+					{
+					  title: "操作",
+					  minWidth: 400,
+					  align: "center",
+					  fixed: "right",
+					  toolbar: "#table-content-list",
+					},
+				
+					
+			     ]],
+			      	 page: !0,
+			      	 limit: 5,
+			      	 limits: [10, 15, 20, 25, 30],
+			   });
+            //关闭当前页面
+            form.on("submit(layuiadmin-app-form-submit)", function (data) {
+              var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+              parent.layui.table.reload("LAY-app-content-list"); //重载表格
+              parent.layer.close(index); //再执行关闭
+            }),
+              //监听
+              table.on("tool(LAY-app-content-list)", function (t) {
+                var e = t.data;
+
+                //监听 配件停用 启用
+                if ("switch" === t.event) {
+                  var desc = "";
+                  var param = {};
+                  param.id = t.data.id;
+                  if (t.data.status == 2) {
+                    param.status = 1;
+                    desc = "确定要上架吗？";
+                  } else if (t.data.status == 1) {
+                    param.status = 2;
+                    desc = "确定要下架吗？";
+                  }
+                  layer.confirm(desc, function (e) {
+                    //console.log("t_______________________", t);
+                    $.ajax({
+                      type: "POST",
+                      url:
+                        baseurl +
+                        "/ty/heatingAdmin/manager/equip/upEquipmentPartsStatus",
+                      data: param,
+                      headers: {
+                        token: sessionStorage.getItem("token"),
+                      },
+                      dataType: "json",
+                      success: function (data) {
+                        if (data.status == "4031") {
+                          layer.msg(data.message);
+                          setTimeout(function () {
+                            window.parent.parent.location.href =
+                              "../../user/login.html";
+                          }, 2000);
+                          return false;
+                        }
+                        if (data.status != "0000") {
+                          layer.msg(data.message);
+                        } else if (data.status == "0000") {
+                          layer.msg(data.message);
+                          table.reload("LAY-app-content-list");
+                          layer.close(e);
+                        }
+                      },
+                    });
+                  });
+                }
+                //监听  编辑
+				if ("list" === t.event) {
+					layer.open({
+					  type: 2,
+					  title: "配件列表",
+					  content: "equipmentPartsListPl.html",
+					  maxmin: false,
+					  area: ["100%", "100%"],					
+					  yes: function (index, layero) {
+					    //点击确认触发 iframe 内容中的按钮提交
+					    var submit = layero
+					      .find("iframe")
+					      .contents()
+					      .find("#layuiadmin-app-form-submit");
+					    submit.click();
+					  },
+					  success: function (layero, index) {
+					       var body = layer.getChildFrame("body", index);
+						   body.contents().find("#pid").val(t.data.id);
+					  },
+					});
+				}
+				if ("del" === t.event) {
+					layer.confirm('确定删除吗？', function(index){
+						layer.close(layer.index);
+					var subUrl = '/ty/heatingAdmin/manager/equip/delEquipmentParts'
+					var param = {}
+					param.partsId = e.id			   
+					$.ajax({
+						  type: "POST",
+						  url: layui.api.baseUrl + subUrl,
+						  data: JSON.stringify(param),
+						  contentType: "application/json",
+						  headers: {
+							token: sessionStorage.getItem("token")
+						  },
+						  dataType: "json",
+						  success: function (data) {
+							  if (data.status == "0000") {
+								  layer.msg(data.message);
+								  setTimeout(function () {
+								   layui.table.reload('LAY-app-content-list'); //重载表格
+								   layer.close(index); //再执行关闭 
+								  }, 1000)							  
+							  } else if (data.status == "4031") {
+							    layer.msg(data.message);
+							    setTimeout(function () {
+							      window.parent.parent.location.href = '../../user/login.html';
+							    }, 2000)
+							  } else {
+							    layer.msg('失败' + data.message)
+							  }
+						  }
+					});
+				  });	
+					
+				}
+                if ("edit" === t.event) {
+                  //  console.log('t____________', t.data)
+                  layer.open({
+                    type: 2,
+                    title: "编辑",
+                    content: "equipmentPartsForm.html",
+                    maxmin: true,
+                    area: ["100%", "100%"],
+                    btn: ["确定", "取消"],
+                    yes: function (index, layero) {
+                      //点击确认触发 iframe 内容中的按钮提交
+                      var submit = layero
+                        .find("iframe")
+                        .contents()
+                        .find("#layuiadmin-app-form-submit");
+                      submit.click();
+                    },
+                    success: function (layero, index) {
+                      var body = layer.getChildFrame("body", index);
+                      body
+                        .contents()
+                        .find("#typeId")
+                        .val(sessionStorage.getItem("typeId"));
+                      body.contents().find("#id").val(t.data.id);
+                      body.contents().find("#power").val(t.data.power);
+					  body.contents().find("#titleLabel").val(t.data.titleLabel);
+					  body.contents().find("#stock").val(t.data.stock);
+					  body.contents().find("#pid").val(t.data.pid);
+                      body
+                        .contents()
+                        .find("#heatingArea")
+                        .val(t.data.heatingArea);
+                      if (t.data.money > 0) {
+                        var money = t.data.money / 1;
+                        money = money.toFixed(2);
+                      } else {
+                        var money = 0;
+                      }
+                      body.contents().find("#money").val(money); //价格
+                    },
+                  });
+                }
+              });
+
+          
+
+            var $ = layui.$,
+              active = {
+                //新增
+                add: function () {
+                  layer.open({
+                    type: 2,
+                    title: "新增",
+                    content: "equipmentPartsForm.html",
+                    maxmin: true,
+                    area: ["100%", "100%"],
+                    btn: ["确定", "取消"],
+                    yes: function (index, layero) {
+                      //点击确认触发 iframe 内容中的按钮提交
+                      var submit = layero
+                        .find("iframe")
+                        .contents()
+                        .find("#layuiadmin-app-form-submit");
+                      submit.click();
+                    },
+                    success: function (layero, index) {
+                      var body = layer.getChildFrame("body", index);					 
+                      body
+                        .contents()
+                        .find("#typeId")
+                        .val(sessionStorage.getItem("typeId"));
+					 body
+					   .contents()
+					   .find("#categoryId")
+					   .val(sessionStorage.getItem("categoryId"));
+					body
+					  .contents()
+					  .find("#pid")
+					  .val($("#pid").val());	   
+						
+                    },
+                  });
+                },
+              };
+
+            $(".layui-btn.layuiadmin-btn-list").on("click", function () {
+              var type = $(this).data("type");
+              active[type] ? active[type].call(this) : "";
+            });
+          }
+        );
+    </script>
+  </body>
+</html>

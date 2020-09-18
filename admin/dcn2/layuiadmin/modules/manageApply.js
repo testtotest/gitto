@@ -55,6 +55,20 @@ layui.define(["table", "form", "util", "api"], function (t) {
           // fixed: "left",
           sort: !0,
         },
+		{
+		  field: "type",
+		  title: "申请类型",
+		  minWidth: 110,
+		  templet: function (d) {
+		    if (d.type == "1") {
+		      return '<button type="button" class="layui-btn  layui-btn-xs layui-btn-primary ">自己安装</button>';
+		    } else if (d.type == "2") {
+		      return '<button type="button" class="layui-btn  layui-btn-xs light-pink-bg">推荐他人</button>';		   
+			} else if (d.type == "3") {
+				   return '<button type="button" class="layui-btn  layui-btn-xs light-pink-bg">h5申请安装</button>';	
+			}	
+		  },
+		},
         {
           field: "phone",
           title: "安装者手机号",

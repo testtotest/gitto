@@ -83,8 +83,8 @@ layui.define(["table", "form", "util", "api"], function (t) {
           templet: function (d) {
             if (d.type == "1") {
               return '<button type="button" class="layui-btn  layui-btn-xs layui-btn-normal">1级返利</button>';
-            } else if (d.type == "2") {
-              return '<button type="button" class="layui-btn  layui-btn-xs ">2级返利</button>';
+            } else if (d.type == "4") {
+              return '<button type="button" class="layui-btn  layui-btn-xs ">线上返利</button>';
             } else if (d.type == "3") {
               return '<button type="button" class="layui-btn  layui-btn-xs layui-btn-danger">提现</button>';
             }

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>订单增量</title>
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../layuiadmin/layui/css/layui.css"
+      media="all"
+    />
+    <link
+      rel="stylesheet"
+      href="../../../layuiadmin/style/admin.css"
+      media="all"
+    />
+  </head>
+
+  <body>
+    <div class="layui-fluid">
+      <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">单位</label>
+              <div class="layui-input-inline">
+                <select name="period" lay-filter="period">
+                  <option value="">请选择</option>
+                  <option value="m">月</option>
+                  <option value="y">年</option>
+                  <option value="d">日</option>
+                </select>
+              </div>
+            </div>
+            <div class="layui-inline" id="value-c">
+              <label class="layui-form-label">值</label>
+              <div class="layui-input-inline todate">
+                <!-- <input
+                  type="text"
+                  name="value"
+                  id="value"
+                  placeholder="请输入"
+                  autocomplete="off"
+                  class="layui-input"
+                /> -->
+                <input  type="text" class="layui-input"   name="value"  id="value"  placeholder="yyyy-MM" autocomplete="off"/>
+              <!--  <input style="display:none"
+                  type="text"
+                  class="layui-input"
+                  name="value"
+                  id="value0"
+                  placeholder="yyyy"
+                /> -->
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">开始时间</label>
+              <div
+                class="layui-input-inline"
+                style="display: flex; flex-direction: row;"
+              >
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="beginDate"
+                  id="beginDate"
+                  placeholder="yyyy-MM-dd"
+				   autocomplete="off"
+                />
+              </div>
+            </div>
+            <div class="layui-inline">
+              <label class="layui-form-label">结束时间</label>
+              <div
+                class="layui-input-inline"
+                style="display: flex; flex-direction: row;"
+              >
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="endDate"
+                  id="endDate"
+                  placeholder="yyyy-MM-dd"
+				  autocomplete="off"
+                />
+              </div>
+            </div>
+            <div class="layui-inline">
+              <button
+                class="layui-btn layuiadmin-btn-list"
+                lay-submit
+                lay-filter="LAY-app-contlist-search"
+              >
+                <i
+                  class="layui-icon layui-icon-search layuiadmin-button-btn"
+                ></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="layui-card-body">
+          <div class="layui-card">
+            <div class="layui-card-header">数据概览</div>
+            <div class="layui-card-body">
+              <div
+                class="layui-carousel layadmin-carousel layadmin-dataview"
+                data-anim="fade"
+                lay-filter="LAY-index-dataview"
+              >
+                <div
+                  carousel-item
+                  id="LAY-index-dataview"
+                  style="height: 700px;"
+                >
+                  <div>
+                    <i
+                      class="layui-icon layui-icon-loading1 layadmin-loading"
+                    ></i>
+                  </div>
+                  <!-- <div></div> -->
+                  <!-- <div></div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../../layuiadmin/lib/jquery.js"></script>
+    <script src="../../../layuiadmin/lib/layui.js"></script>
+    <script>
+      layui
+        .config({
+          base: "../../../layuiadmin/", //静态资源所在路径
+        })
+        .extend({
+          index: "lib/index", //主入口模块
+        })
+        .use(["index", "orderLine", "table", "api", "laydate"], function () {
+          var table = layui.table,
+            form = layui.form,
+            $ = layui.$,
+            laydate = layui.laydate,
+            baseUrl = layui.api.baseUrl;
+          laydate.render({
+            elem: "#beginDate",
+            //,type: 'date' //type 默认为 date，所以可不填
+          });
+          laydate.render({
+            elem: "#endDate",
+            //,type: 'date' //type 默认为 date，所以可不填
+          });
+		  laydate.render({
+		    elem: "#value",
+		    type: "month",
+		  });
+		   //$("#value").remove();
+          //监听变化
+          form.on("select(period)", function (data) {
+            if (data.value == "y") {
+              // $("#value").css('display','none')
+                 // $("#value").css('display','inline-block')
+				 $("#beginDate").val("")
+				 $("#endDate").val("")
+				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+                  $("#value").attr("placeholder", "yyyy");
+				  laydate.render({
+					elem: "#value",
+					type: "year",
+				  });
+				 
+            }
+            if (data.value == "m") {
+				$("#beginDate").val("")
+				$("#endDate").val("")
+				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+              $("#value").attr("placeholder", "yyyy-MM");
+              // $("#value").css('display','inline-block')
+              // $("#value0").css('display','none')
+              laydate.render({
+                elem: "#value",
+                type: "month",
+              });
+            }
+			// if (data.value == "n") {
+			// 	  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+			// 	$("#value").attr("placeholder", "yyyy-MM-dd");
+			// 	laydate.render({
+			// 	  elem: "#value",
+			// 	  type: "date",
+			// 	});
+			// }	
+            layui.use("form", function () {
+              var form = layui.form;
+              form.render();
+            });
+            if (data.value == "d") {
+              $("#value-c").css("display", "none");
+
+            } else {
+              $("#value-c").css("display", "inline-block");
+            }
+          });
+          //监听搜索
+          form.on("submit(LAY-app-contlist-search)", function (data) {
+            var field = data.field;
+            console.log("search", field);
+            if (field.period == "n") {
+               field.value =''
+			   //$("#value").remove(); 
+               if (field.beginDate == "" || field.endDate == "") {
+                   layer.msg("选择日时，开始时间和结束时间时必选项！");
+                   return false;
+               }
+            }
+           
+
+            $.ajax({
+              type: "get",
+              url: baseUrl + "/ty/heatingAdmin/admin/data/orderLineChart",
+              data: field,
+              headers: {
+                token: sessionStorage.getItem("token"),
+              },
+              // contentType: "application/json;charset=utf-8",
+              dataType: "json",
+              success: function (data) {
+                if (data.status != "0000") {
+                  layer.msg(data.message);
+                }
+                var e = layui.$,
+                  t = layui.carousel,
+                  a = layui.echarts,
+                  i = [],
+                  l = [
+                    {                     
+                      tooltip: { trigger: "axis" },
+                       legend: { data: ["订单增量", "订单金额增量"] },
+                      xAxis: [
+                        {
+                          type: "category",
+                          boundaryGap: !1,
+                          data: data.result["日期"],
+                        },
+                      ],
+                      yAxis: [{ type: "value" }],
+                     series: [
+                       {
+                         name: "订单增量",
+                         type: "line",
+                         smooth: !0,
+                         //  itemStyle: { normal: { areaStyle: { type: "default" } } },
+                         data: data.result["订单增量"],
+                       },
+                       {
+                         name: "订单金额增量",
+                         type: "line",
+                         smooth: !0,                    
+                         data: data.result["订单金额增量"],
+                       },
+                      ],
+                    },
+                  ];
+                (n = e("#LAY-index-dataview").children("div")),
+                  (r = function (e) {
+                    (i[e] = a.init(n[e], layui.echartsTheme)),
+                      i[e].setOption(l[e]),
+                      (window.onresize = i[e].resize);
+                  });
+                if (n[0]) {
+                  r(0);
+                  var o = 0;
+                  t.on("change(LAY-index-dataview)", function (e) {
+                    r((o = e.index));
+                  }),
+                    layui.admin.on("side", function () {
+                      setTimeout(function () {
+                        r(o);
+                      }, 300);
+                    }),
+                    layui.admin.on("hash(tab)", function () {
+                      layui.router().path.join("") || r(o);
+                    });
+                }
+              },
+            });
+
+            //执行重载
+            table.reload("LAY-index-dataview", {
+              where: field,
+            });
+          });
+          var $ = layui.$,
+            active = {};
+          $(".layui-btn.layuiadmin-btn-list").on("click", function () {
+            var type = $(this).data("type");
+            active[type] ? active[type].call(this) : "";
+          });
+        });
+    </script>
+  </body>
+</html>
