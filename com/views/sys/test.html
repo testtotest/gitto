@@ -8,7 +8,7 @@
 		  <div>新闻列表</div>
 		  <div><ul>
 		      <% newslist.forEach(function(list){%>
-		      <li><%=list.title%></li>
+		      <li><%=list.title%><span><a href="/sys/ninfo?id=<%=list.id%>">修改</a></span>|<span><a href="/sys/ndel?id=<%=list.id%>">删除</a></span></li>
 			  <% }) %>
 		  </ul></div> 
 		  <div>添加新闻</div>
