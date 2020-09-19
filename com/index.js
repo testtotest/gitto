@@ -7,8 +7,17 @@ var ejs=require('ejs');
 app.engine('html',ejs.__express);
 app.set('view engine','html');
 app.set('views', __dirname + '/views'); 
-routesys(app);
+var session=require("express-session");
+var cookieParser=require("cookie-parser")
+app.use(session({
+    secret:"dsafsafsf", //设置签名秘钥 内容可以任意填写
+   // cookie:{ maxAge:80*1000 }, //设置cookie的过期时间，例：80s后    session和相应的cookie失效过期
+    resave:true, //强制保存，如果session没有被修改也要重新保存
+    saveUninitialized:false //如果原先没有session那么久设置，否则不设置
+}))
 
+
+routesys(app);
 const $Fs = require('fs');
  app.get('/', function (req, res) {
 	
