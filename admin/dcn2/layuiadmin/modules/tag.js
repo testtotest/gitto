@@ -85,7 +85,7 @@ layui.define("jquery", function (exports) {
           ' type="button" class="' +
           TAG_ITEM +
           '">' +
-          ("<span>" + options.text + "</span>" || "unnaming") +
+          ("<span><input style='border:0px solid ' type=text value='" + options.text + "'</span>" || "unnaming") +
           "</button>";
       var result = layui.event.call(this, MOD_NAME, "add(" + filter + ")", {
         elem: tagElem,

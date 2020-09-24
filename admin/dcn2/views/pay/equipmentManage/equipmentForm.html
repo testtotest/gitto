@@ -22,365 +22,398 @@
       position: absolute;
       top: 12px;
     }
+	.n-c{
+		clear: both;
+	}
   </style>
 </head>
 
 <body>
-  <div class="layui-form" lay-filter="layuiadmin-app-form-list" id="layuiadmin-app-form-list"
-    style="padding: 20px 30px 0 0;">
-    <input type="hidden" name="id" id="id" />
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">产品类型</label>
-      <div class="layui-input-inline">
-        <select name="jurisdiction" id="jurisdiction" lay-filter="jurisdiction">			
-             <option value="0">普通产品</option>
-    		 <option value="1">供货源产品</option>			 
-        </select>
-      </div>
-    </div>
-	  <div class="layui-form-item">
-	    <label class="layui-form-label layui-form-label-dry">设备类型</label>
-	    <div class="layui-input-inline">
-	      <select name="category" id="category" lay-filter="category">			
-	           <option value="1">电锅炉</option>
-	  		   <option value="2">循环泵</option>	
-			   <option value="3">暖气片</option>	
-			   <option value="4">循环液</option>		   
-	      </select>
-	    </div>
-	  </div>  
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">设备类型<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text"  name="model" id="model" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">设备名称<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text" name="name" id="name" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
-    </div>
-	<div class="layui-form-item">
-	  <label class="layui-form-label layui-form-label-dry">面积区间<span class="red">*</span></label>
-	  <div class="layui-input-inline">
-	    <input type="text" name="heatingArea" id="heatingArea" lay-verify="required" maxlength="30" placeholder="请输入"
-	      autocomplete="off" class="layui-input" />
-	  </div>
-	</div>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">价格(元)<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text" name="prince" id="prince" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">一级返利(%)<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text" name="rebateOne" id="rebateOne" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
-    </div>
-
-    <!-- <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">二级返利(元)<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text" name="rebateTwo" id="rebateTwo" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
-    </div> -->
-
-    <!-- 
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">跳转类型<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <select name="jumpType" id="jumpType" lay-verify="required" lay-filter="termUnit">
-          <option value="">请选择</option>
-          <option value="1">原生</option>
-          <option value="2">H5</option>
-        </select>
-      </div>
-    </div> -->
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">缩略图</label>
-      <div class="layui-input-inline">
-        <div class="layui-upload">
-          <button type="button" class="layui-btn" id="photo2-btn">
-            上传图片
-          </button>
-          <div class="layui-upload-list">
-            <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo2-img" />
-          </div>
-        </div>
-      </div>
-      <input type="hidden" name="photo2" id="photo2" autocomplete="off" class="layui-input" />
-    </div>
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">设备图</label>
-      <div class="layui-input-inline">
-        <div class="layui-upload">
-          <button type="button" class="layui-btn" id="photo1-btn">
-            上传图片
-          </button>
-          <div class="layui-upload-list">
-            <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo1-img" />
-          </div>
-        </div>
-      </div>
-      <input type="hidden" name="photo1" id="photo1" autocomplete="off" class="layui-input" />
-    </div>
 	
-	<div class="layui-form-item">
-	  <label class="layui-form-label layui-form-label-dry">详情图</label>
-	  <div class="layui-input-inline">
-	    <div class="layui-upload">
-	      <button type="button" class="layui-btn" id="photo3-btn">
-	        上传图片
-	      </button>
-	      <div class="layui-upload-list">
-	        <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo3-img" />
-	      </div>
-	    </div>
-	  </div>
-	  <input type="hidden" name="photo3" id="photo3" autocomplete="off" class="layui-input" />
-	</div>
-
-
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">描述<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <textarea name="description" id="description" style="width: 300px; height: 150px;" autocomplete="off"
-          class="layui-textarea"></textarea>
-      </div>
-    </div>
-
-
-    <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">特点</label>
-      <div class="layui-input-inline">
-        <div class="layui-btn-container tag" id="tags" lay-filter="demo" lay-allowclose="true" lay-newTag="true">
-          <!-- <div lay-id="11" type="button" class="tag-item">
-            <span>特点一</span>
-          </div>
-          <button lay-id="22" type="button" class="tag-item">
-            <span>特点二</span>
-          </button> -->
-
-
-          <!--自定义新增标签按钮元素 button-new-tag -->
-          <!--<button type="button" class="layui-btn layui-btn-primary layui-btn-sm layui-btn-radius button-new-tag">+ New Tag</button>-->
-        </div>
-        <!-- <input type="text" name="name" id="name" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input"> -->
-      </div>
-    </div>
-    <!--
-    characteristic	否	string	特点 多个特点用[ , ]分割
-    id -->
-
-    <div class="layui-form-item layui-hide">
-      <input type="button" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit"
-        value="确认添加" />
-      <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit"
-        value="确认编辑" />
-    </div>
-  </div>
-  <script src="../../../layuiadmin/lib/jquery.js"></script>
-  <script src="../../../layuiadmin/layui/layui.js"></script>
-  <script>
-    layui
-      .config({
-        base: "../../../layuiadmin/", //静态资源所在路径
-      })
-      .extend({
-        index: "lib/index", //主入口模块
-      })
-      .use(["index", "form", "laydate", "upload", "api", "tag"], function () {
-        var $ = layui.$,
-          form = layui.form,
-          upload = layui.upload,
-          baseUrl = layui.api.baseUrl,
-          imgurl = layui.api.imgurl,
-          tag = layui.tag;
-        console.log("tag_______________", tag);
-        //缩略图上传
-
-        var uploadInst = upload.render({
-          elem: "#photo2-btn",
-          url: "http://testxny.tongyunzn.com/ty/heatingAdmin/admin/cases/queryAll",
-          before: function (obj) {
-            //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-               $("#photo2-img").attr("src", result); //图片链接（base64）
-			   $("#photo2").val(result);
-            });
-          },
-          data: {
-            "oldFilePath": $("#photo2").val(),
-			"token": sessionStorage.getItem("token")
-          },
-          done: function (res) {
-            console.log("res", res.result);
-            if (res.status == "0000") {
-              return layer.msg("图片上传成功");
-            } else {
-              return layer.msg("图片上传失败");
-            }
-          },
-          error: function () {
-            //演示失败状态，并实现重传
-            var demoText = $("#bigimages-normal-demoText");
-            demoText.html(
-              '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
-            );
-            demoText.find(".demo-reload").on("click", function () {
-              uploadInst.upload();
-            });
-          },
-        });
-
-        //设备图上传
-        var temImg1 = ''
-        var uploadInst1 = upload.render({
-          elem: "#photo1-btn",
-          url: "http://testxny.tongyunzn.com/ty/heatingAdmin/admin/cases/queryAll",
-          before: function (obj) {
-            //预读本地文件示例，不支持ie8
-            obj.preview(function (index, file, result) {
-              $("#photo1-img").attr("src", result); //图片链接（base64）
-			  $("#photo1").val(result);
-            });
-          },
-          data: {
-            "oldFilePath": temImg1,
-			"token": sessionStorage.getItem("token")
-          },
-          done: function (res) {
-            console.log("res", res);
-            if (res.status == "0000") {              
-              return layer.msg("图片上传成功");
-            } else {
-              return layer.msg("图片上传失败");
-            }
-          },
-          error: function () {
-            //演示失败状态，并实现重传
-            var demoText = $("#bigimages-normal-demoText");
-            demoText.html(
-              '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
-            );
-            demoText.find(".demo-reload").on("click", function () {
-              uploadInst1.upload();
-            });
-          },
-        });
+	
+ <div class="layui-collapse">
+   <div class="layui-colla-item">
+     <h2 class="layui-colla-title">产品信息</h2>
+     <div class="layui-colla-content layui-show">
+		 <!----->
+		 <div class="layui-fluid layui-form">
+		 	  <div class="layui-row layui-col-space15" style="padding: 20px 0px 0 0;">
+		 		   <input type="hidden" name="id" id="id"  value=""/>
+		 		   <div class="layui-col-md6">
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">产品类型</label>
+		 			     <div class="layui-input-inline">
+		 			       <select name="jurisdiction" id="jurisdiction" lay-filter="jurisdiction">			
+		 			            <option value="0">普通产品</option>
+		 			   		 <option value="1">供货源产品</option>			 
+		 			       </select>
+		 			     </div>
+		 			   </div>
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">编号<span class="red">*</span></label>
+		 			     <div class="layui-input-inline">
+		 			       <input type="text"  name="model" id="model" lay-verify="required" maxlength="30" placeholder="请输入"
+		 			         autocomplete="off" class="layui-input" />
+		 			     </div>
+		 			   </div>
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">一级返利(%)<span class="red">*</span></label>
+		 			     <div class="layui-input-inline">
+		 			       <input type="text" name="rebateOne" id="rebateOne" lay-verify="required" maxlength="30" placeholder="请输入"
+		 			         autocomplete="off" class="layui-input" />
+		 			     </div>
+		 			   </div>
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">描述<span class="red">*</span></label>
+		 			     <div class="layui-input-inline">
+		 			       <textarea name="description" id="description" style="width: 300px; height: 150px;" autocomplete="off"
+		 			         class="layui-textarea"></textarea>
+		 			     </div>
+		 			   </div>
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">缩略图</label>
+		 			     <div class="layui-input-inline">
+		 			       <div class="layui-upload">
+		 			         <button type="button" class="layui-btn" id="photo2-btn">
+		 			           上传图片
+		 			         </button>
+		 			         <div class="layui-upload-list">
+		 			           <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo2-img" />
+		 			         </div>
+		 			       </div>
+		 			     </div>
+		 			     <input type="hidden" name="photo2" id="photo2" autocomplete="off" class="layui-input" />
+		 			   </div>
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">详情长图</label>
+		 			     <div class="layui-input-inline">
+		 			       <div class="layui-upload">
+		 			         <button type="button" class="layui-btn" id="photo3-btn">
+		 			           上传图片
+		 			         </button>
+		 			         <div class="layui-upload-list">
+		 			           <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo3-img" />
+		 			         </div>
+		 			       </div>
+		 			     </div>
+		 			     <input type="hidden" name="photo3" id="photo3" autocomplete="off" class="layui-input" />
+		 			   </div>
+		 			   
+		 		   </div>
+		 		   <div class="layui-col-md6">
+		 			   <div class="layui-form-item">
+		 			     <label class="layui-form-label layui-form-label-dry">设备类型</label>
+		 			     <div class="layui-input-inline">
+		 			       <select name="category" id="category" lay-filter="category">			
+		 			            <option value="1">电锅炉</option>
+		 			   		   <option value="2">循环泵</option>	
+		 			   			   <option value="3">暖气片</option>	
+		 			   			   <option value="4">循环液</option>		   
+		 			       </select>
+		 			     </div>
+		 			   </div> 
+		 				<div class="layui-form-item">
+		 				  <label class="layui-form-label layui-form-label-dry">设备名称<span class="red">*</span></label>
+		 				  <div class="layui-input-inline">
+		 				    <input type="text" name="name" id="name" lay-verify="required" maxlength="30" placeholder="请输入"
+		 				      autocomplete="off" class="layui-input" />
+		 				  </div>
+		 				</div>
+		 				
+		 				<div class="layui-form-item" style="height: 180px;">
+		 				  <label class="layui-form-label layui-form-label-dry">特点</label>
+		 				  <div class="layui-input-inline">
+		 				    <div class="layui-btn-container tagp tag" id="tags" lay-filter="demo" lay-allowclose="true" lay-newTag="true"></div>				
+		 				  </div>
+		 				</div>				
+		 				
+		 				<div class="layui-form-item">
+		 				  <label class="layui-form-label layui-form-label-dry">设备图</label>
+		 				  <div class="layui-input-inline">
+		 				    <div class="layui-upload">
+		 				      <button type="button" class="layui-btn" id="photo1-btn">
+		 				        上传图片
+		 				      </button>
+		 				      <div class="layui-upload-list">
+		 				        <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo1-img" />
+		 				      </div>
+		 				    </div>
+		 				  </div>
+		 				  <input type="hidden" name="photo1" id="photo1" autocomplete="off" class="layui-input" />
+		 				</div>
+		 				
+		 		     </div>
+		 			 <!---->
+		 			 <div class="layui-form-item " style="padding-left: 56px;">
+		 			   <input type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="layuiadmin-app-form-submit" id="layuiadmin-app-form-submit" value="保存" />
+		 			
+		 			 </div>
+		 			 <!---->
+		 	  </div>	 
+		 </div>
+		 <!----->
+	 </div>
+   </div>
+   <div class="layui-colla-item" style="display: none;" id="ta">
+     <h2 class="layui-colla-title">配件信息</h2>
+     <div class="layui-colla-content layui-show">
+		 <div class="layui-fluid layui-form">
+			    <div class="table">
+				</div>
+			    <div class="tables">
+					<div style="border-bottom: 1px solid #eee;padding-right: 12px;margin-bottom: 10px;padding-bottom: 10px;">
+						<div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item" ><label class="layui-form-label">规格型号<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="power"  required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">价格(元)<span class="red">*</span></label><div class="layui-input-block"><input  type="text" name="money"  required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item"><label class="layui-form-label">标题小标签<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="titleLabel" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">供暖面积<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="heatingArea" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div>		
+						<div class="layui-form-item-a" style="padding-left: 50px;">
+						  <input type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="layuiadmin-app-form-submit-a"  id="layuiadmin-app-form-submit-a"
+						    value="保存" />
+						   <input type="button" class="layui-btn layuiadmin-btn-list" data-type="addrow"  value="新增"/>
+						</div>		 						
+						<div class="n-c"></div>
+					</div>
+				</div>
+				
+		 </div>	 
+	
 		
-		
-		var uploadInst2 = upload.render({
-		  elem: "#photo3-btn",
-		  url: "http://testxny.tongyunzn.com/ty/heatingAdmin/admin/cases/queryAll",
-		  before: function (obj) {
-		    //预读本地文件示例，不支持ie8
-		    obj.preview(function (index, file, result) {				
-		        $("#photo3-img").attr("src", result); //图片链接（base64）
-				$("#photo3").val(result);
-		    });
-		  },
-		  data: {
-		    "oldFilePath": temImg1,
-			"token": sessionStorage.getItem("token")
-		  },
-		  done: function (res) {		   
-		    if (res.status == "0000") {
-		      // $("#photo3").val(res.result);
-		      // temImg1 = res.result;
-		      return layer.msg("图片上传成功");
-		    } else {
-		      return layer.msg("图片上传失败");
-		    }
-		  },
-		  error: function () {
-		    //演示失败状态，并实现重传
-		    var demoText = $("#bigimages-normal-demoText");
-		    demoText.html(
-		      '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
-		    );
-		    demoText.find(".demo-reload").on("click", function () {
-		      uploadInst1.upload();
-		    });
-		  },
-		});
+	 </div>
+   </div>
 
-
-        //监听提交
-        form.on("submit(layuiadmin-app-form-submit)", function (data) {
-          var tags = ''
-          $(".tag-item>span").each(function () {
-            if (tags) {
-              tags += ',' + $(this).html()
-            } else {
-              tags = $(this).html()
-            }
-
-          });
-          $('#characteristic').val(tags);
-          
-          // return false;
-          parent.layer.load(1, {
-            shade: [0.5, "#000"], //0.1透明度的白色背景
-          });
-          var field = data.field; //获取提交的字段
-		
-          var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-          var msg = " ";
-          var subUrl = "/ty/heatingAdmin/manager/equip/upEquipment";
-          if (field.id) {
-            msg = "修改成功";
-          } else {
-            msg = "新增成功";
-          }
-          field.stock = field.stock / 1;
-          // field.rebateOne = field.rebateOne / 1;
-          // field.rebateTwo = field.rebateTwo / 1;
-          field.id = field.id / 1;
-          field.characteristic = tags;
-		  //field.jurisdiction = field.jurisdiction;baseUrl + subUrl
-		
-           field.token = sessionStorage.getItem("token");
-          $.ajax({
-            type: "POST",
-            url: baseUrl + subUrl,
-            data: JSON.stringify(field),
-            headers: {
-              token: sessionStorage.getItem("token"),
-            },
-            contentType: "application/json;charset=utf-8",
-            //  dataType: "json",
-            success: function (data) {
-              if (data.status == "0000") {
-                layer.msg(data.message);
-                setTimeout(function () {
-                  parent.layui.table.reload("LAY-app-content-list"); //重载表格
-                  parent.layer.close(index); //再执行关闭
-                }, 1000)
-              } else if (data.status == "4031") {
-                layer.msg(data.message);
-                setTimeout(function () {
-                  window.parent.parent.location.href =
-                    "../../user/login.html";
-                }, 2000);
-              } else {
-                layer.msg("失败" + data.message);
-              }
-              parent.layer.closeAll("loading");
-            },
-          });
-        });
-      });
-  </script>
+   <div class="layui-colla-item" style="display: none;"  id="tb">
+     <h2 class="layui-colla-title">柱数库存</h2>
+     <div class="layui-colla-content layui-show">
+		    <div class="layui-form-item">
+		          <div class="layui-btn-container "  >
+					  <div class="addrows"></div>
+					  <button type="button" class="layui-btn layuiadmin-btn-lists layui-btn-primary layui-btn-sm layui-btn-radius button-new-tag"  >+ 新增</button>
+				  </div>		    
+		    </div>
+	 </div>
+   </div>
+ </div>
+ 
+ <div class="layui-form-item layui-hide">
+   <input
+     type="button"
+     lay-submit
+     lay-filter="layuiadmin-app-form-submit-r"
+     id="layuiadmin-app-form-submit-r"
+     value="确定"
+   />
+ </div>
+<script src="../../../layuiadmin/lib/jquery.js"></script>
+		<script src="../../../layuiadmin/lib/layui.js"></script>
+	    <script>
+			layui
+			  .config({
+			    base: "../../../layuiadmin/", //静态资源所在路径
+			  })
+			  .extend({
+			    index: "lib/index", //主入口模块
+			  })
+			  .use(["index","equipmentForm", "form", "laydate", "upload", "api", "tag"], function () {
+			    var $ = layui.$,
+			      form = layui.form,
+			      upload = layui.upload,
+			      baseUrl = layui.api.baseUrl,
+			      imgurl = layui.api.imgurl,
+			      tag = layui.tag;
+				 var uploadInst = upload.render({
+				   elem: "#photo2-btn",
+				   url: baseUrl+"/ty/heatingAdmin/admin/cases/queryAll",
+				   before: function (obj) {
+				     //预读本地文件示例，不支持ie8
+				     obj.preview(function (index, file, result) {
+				        $("#photo2-img").attr("src", result); //图片链接（base64）
+				 				   $("#photo2").val(result);
+				     });
+				   },
+				   data: {
+				     "oldFilePath": $("#photo2").val(),
+				 				"token": sessionStorage.getItem("token")
+				   },
+				   done: function (res) {
+				     console.log("res", res.result);
+				     if (res.status == "0000") {
+				       return layer.msg("图片上传成功");
+				     } else {
+				       return layer.msg("图片上传失败");
+				     }
+				   },
+				   error: function () {
+				     //演示失败状态，并实现重传
+				     var demoText = $("#bigimages-normal-demoText");
+				     demoText.html(
+				       '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+				     );
+				     demoText.find(".demo-reload").on("click", function () {
+				       uploadInst.upload();
+				     });
+				   },
+				 });
+				 	
+				 //设备图上传
+				 var temImg1 = ''
+				 var uploadInst1 = upload.render({
+				   elem: "#photo1-btn",
+				   url: baseUrl+"/ty/heatingAdmin/admin/cases/queryAll",
+				   before: function (obj) {
+				     //预读本地文件示例，不支持ie8
+				     obj.preview(function (index, file, result) {
+				       $("#photo1-img").attr("src", result); //图片链接（base64）
+				 			$("#photo1").val(result);
+				     });
+				   },
+				   data: {
+				     "oldFilePath": temImg1,
+				 				"token": sessionStorage.getItem("token")
+				   },
+				   done: function (res) {
+				     console.log("res", res);
+				     if (res.status == "0000") {              
+				       return layer.msg("图片上传成功");
+				     } else {
+				       return layer.msg("图片上传失败");
+				     }
+				   },
+				   error: function () {
+				     //演示失败状态，并实现重传
+				     var demoText = $("#bigimages-normal-demoText");
+				     demoText.html(
+				       '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+				     );
+				     demoText.find(".demo-reload").on("click", function () {
+				       uploadInst1.upload();
+				     });
+				   },
+				 });
+				 			
+				 			
+				 			var uploadInst2 = upload.render({
+				 			  elem: "#photo3-btn",
+				 			  url: baseUrl+"/ty/heatingAdmin/admin/cases/queryAll",
+				 			  before: function (obj) {
+				 			    //预读本地文件示例，不支持ie8
+				 			    obj.preview(function (index, file, result) {				
+				 			        $("#photo3-img").attr("src", result); //图片链接（base64）
+				 					$("#photo3").val(result);
+				 			    });
+				 			  },
+				 			  data: {
+				 			    "oldFilePath": temImg1,
+				 				"token": sessionStorage.getItem("token")
+				 			  },
+				 			  done: function (res) {		   
+				 			    if (res.status == "0000") {
+				 			      // $("#photo3").val(res.result);
+				 			      // temImg1 = res.result;
+				 			      return layer.msg("图片上传成功");
+				 			    } else {
+				 			      return layer.msg("图片上传失败");
+				 			    }
+				 			  },
+				 			  error: function () {
+				 			    //演示失败状态，并实现重传
+				 			    var demoText = $("#bigimages-normal-demoText");
+				 			    demoText.html(
+				 			      '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+				 			    );
+				 			    demoText.find(".demo-reload").on("click", function () {
+				 			      uploadInst1.upload();
+				 			    });
+				 			  },
+				 			});	 
+							 form.on("submit(layuiadmin-app-form-submit-r)", function (data) {
+							   var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+							   parent.layui.table.reload("LAY-app-content-list"); //重载表格
+							   parent.layer.close(index); //再执行关闭
+							 }),
+				  //////////////////				
+				  form.on("submit(layuiadmin-app-form-submit)", function (data) {
+					    var tags = ''
+					      $(".tagp>.tag-item>span>input").each(function () {	
+							 
+					    		if (tags) {
+					    		  tags += ',' + $(this).val()
+					    		} else {
+					    		  tags = $(this).val()
+					    		}
+					      });
+						
+						
+					       
+					    $('#characteristic').val(tags);
+					    
+					    
+					    parent.layer.load(1, {
+					      shade: [0.5, "#000"], //0.1透明度的白色背景
+					    });
+					    var field = data.field; //获取提交的字段
+					    
+					    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+					    var msg = " ";
+					    var subUrl = "/ty/heatingAdmin/manager/equip/upEquipment";
+					    if (field.id) {
+					      msg = "修改成功";
+					    } else {
+					      msg = "新增成功";
+					    }
+					    field.stock = 0;//field.stock / 1;					  
+					    field.id = field.id / 1;
+					    field.characteristic = tags;				    
+					    // field.token = sessionStorage.getItem("token");
+						$.ajax({
+						  type: "POST",
+						  url: baseUrl + subUrl,
+						  data: JSON.stringify(field),
+						  headers: {
+						    token: sessionStorage.getItem("token"),
+						  },
+						  contentType: "application/json;charset=utf-8",
+						  //  dataType: "json",
+						   success: function (data) {
+							   if (data.status == "0000") {
+								    $("#id").val(data.result)
+									////////
+									
+									 //									 
+									$("#ta").show()
+									if(field.category==3 && $("#id").val())
+									{
+										//$("#tb").show()
+									}
+							        layer.msg("编辑成功");
+									parent.layui.table.reload("LAY-app-content-list"); 							   
+							   } else if (data.status == "4031") {
+							     layer.msg(data.message);
+							     setTimeout(function () {
+							       window.parent.parent.location.href =
+							         "../../user/login.html";
+							     }, 2000);
+							   } else {
+							     layer.msg("失败" + data.message);
+							   }
+							   parent.layer.closeAll("loading");
+						   }	  
+						 });	
+						
+						 
+						
+						 ///////
+						 
+						 
+				  });	  
+				  //////////////////
+				 
+			  }); 
+					  
+			 
+				  
+	    </script>
 </body>
 
 </html>
+
+
+
+		
+		

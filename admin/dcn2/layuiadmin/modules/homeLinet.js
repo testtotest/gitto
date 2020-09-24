@@ -54,7 +54,7 @@ layui.define(function (e) {
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["提现金额(分)"],
+                    data: data.result["提现金额(元)"],
                   },
                 ],
               },

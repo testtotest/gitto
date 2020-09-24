@@ -46,9 +46,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
     },
     cols: [
       [
-		{
-		  type: "checkbox",         
-		},
+	
      {
        field: "orderId",
        title: "Id",

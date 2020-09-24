@@ -237,7 +237,7 @@
 						
 					form = layui.form,
 					$ = layui.$;
-
+                   
 					var $ = layui.$,
 							active = {
 								//
@@ -306,7 +306,7 @@
 						});
 						$.ajax({
 							 type: "get",
-							 url:  "http://testxny.tongyunzn.com/ty/heatingAdmin/admin/data/homeStatistics",
+							 url:  layui.api.baseUrl+"/ty/heatingAdmin/admin/data/homeStatistics",
 							 headers: {
 							   token: sessionStorage.getItem("token"),
 							 },

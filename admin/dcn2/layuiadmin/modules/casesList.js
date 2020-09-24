@@ -42,6 +42,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
         data: res.result.list, //解析数据列表
       };
     },
+	cellMinWidth: 200,
     cols: [
       [
 		  {
@@ -49,8 +50,8 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		  },
       {
         field: "carouselImg",
-        width: 140,
-        title: "图片",
+        width: 150,
+        title: "案例封面",
         templet: function (d) {
       	  return '<div><img onclick=imgb("https://img.tongyunzn.com/tyapplet/'+d.image+'") src="https://img.tongyunzn.com/tyapplet/'+d.image+'"/></div>'
         }
@@ -58,23 +59,14 @@ layui.define(["table", "form", "util", "api"], function (t) {
       
 		{
 		  field: "title",
-		  width: 220,
+		  width: 300,		   
 		  title: "案例标题"
 		}, 
 		
-		{
-		  field: "releaseTime",
-		  title: "案例发布时间",
-		  minWidth: 200,
-		  templet: function (d) {
-		    return util.toDateString(d.releaseTime, "yyyy-MM-dd HH:mm:ss");
-		  },
-		},
 					 
         {
           field: "isShow",
-          title: "是否显示",
-          minWidth: 120,
+          title: "是否显示",        
           templet: function (d) { 
         	  if(d.isShow==1){return '显示'}else if(d.isShow==2){return '隐藏'}
           },
@@ -82,7 +74,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		
 		{
 		  title: "操作",
-		  minWidth: 300,
+		  width: 400,
 		  align: "center",
 		  fixed: "right",
 		  toolbar: "#table-content-list",

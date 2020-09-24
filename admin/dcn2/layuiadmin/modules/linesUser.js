@@ -43,15 +43,15 @@ layui.define(function (e) {
             i = [],
             l = [
               {
-                title: {
-                  text: "用户增量统计",
-                  x: "center",
-                  textStyle: { fontSize: 14 },
-                },
+                // title: {
+                //   text: "用户增量统计",
+                //   x: "center",
+                //   textStyle: { fontSize: 14 },
+                // },
                 color: ["#f60516", "#3805f6"],
                 tooltip: { trigger: "axis" },
                 lineStyle: { color: "#808bc6" },
-                legend: { data: ["", ""] },
+                legend: { data: ["用户增量", "有效用户增量"] },
                 xAxis: [
                   {
                     type: "category",

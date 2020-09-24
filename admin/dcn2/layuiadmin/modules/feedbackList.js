@@ -28,13 +28,13 @@ layui.define(["table", "form", "util", "api"], function (t) {
         layer.msg(res.message);
         return false;
       }
-      // if (res.result.count == 0) {
-      //   //显示无数据提示内容
-      //   return {
-      //     code: 201,
-      //     msg: "未查询到相关数据",
-      //   };
-      // }
+      if (res.result.count == 0) {
+        //显示无数据提示内容
+        return {
+          code: 201,
+          msg: "未查询到相关数据",
+        };
+      }
       return {
         code: res.status, //解析接口状态
         msg: res.message, //解析提示文本

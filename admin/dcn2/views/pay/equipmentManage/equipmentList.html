@@ -78,16 +78,13 @@
           {{#  } else if(d.status ==2) { }}
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="switch"><i
               class="layui-icon layui-icon-play"></i>上架</a>
-          {{#  } }}
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="nums"><i
-              class="layui-icon layui-icon-edit"></i>修改设备类型库存</a>
-
+          {{#  } }}         
           <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i
               class="layui-icon layui-icon-edit"></i>编辑</a>
 		  <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="del"><i
 		     class="layui-icon layui-icon-delete"></i>删除</a>	  
-          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="partsList"><i
-              class="layui-icon layui-icon-table"></i>配件列表</a>
+         <!-- <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="partsList"><i
+              class="layui-icon layui-icon-table"></i>配件列表</a> -->
         </script>
 				</div>
 			</div>
@@ -281,13 +278,9 @@
 									content: "equipmentForm.html",
 									maxmin: true,
 									area: ["100%", "100%"],
-									btn: ["确定", "取消"],
-									yes: function(index, layero) {
-										//点击确认触发 iframe 内容中的按钮提交
-										var submit = layero
-											.find("iframe")
-											.contents()
-											.find("#layuiadmin-app-form-submit");
+									btn: ['返回列表'],
+									yes: function(index, layero) {						
+										var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit-r");
 										submit.click();
 									},
 									success: function(layero, index) {
@@ -297,6 +290,7 @@
 										body.contents().find("#model").val(t.data.model);
 										body.contents().find("#prince").val(t.data.prince / 100); //价格
 										body.contents().find("#heatingArea").val(t.data.heatingArea); //面积区间
+										body.contents().find("#stock").val(t.data.stock); //库存
 										body.contents().find("#rebateOne").val(t.data.rebateOne); //一级返利  百分比
 										body.contents().find("#rebateTwo").val(t.data.rebateTwo / 100); //二级返利
 										// body.contents().find("#photo2-img").attr("src", imgBaseUrl + t.data.photo2);
@@ -316,17 +310,18 @@
 											tempHtml +=
 												`
                     <div lay-id="${i}" type="button" class="tag-item">
-                      <span>${characteristic[i]}</span>
+                      <span><input style='border:0px solid ' type="test" value="${characteristic[i]}"></span>
                     </div>
                     `
 										}
+										
 										body.contents().find("#tags").html(tempHtml);
 										body.contents().find("#jurisdiction").val(t.data.jurisdiction);
 										
 										body.contents().find("#prince").val(t.data.prince);
-										body.contents().find("#category").val(t.data.category);
+										body.contents().find("#category").val(t.data.category);										
 										// characteristic //特点
-
+                                     
 
 									},
 								});
@@ -403,13 +398,15 @@
 										content: "equipmentForm.html",
 										maxmin: true,
 										area: ["100%", "100%"],
-										btn: ["确定", "取消"],
+										btn: ['返回列表'],
 										yes: function(index, layero) {
 											//点击确认触发 iframe 内容中的按钮提交
-											var submit = layero
-												.find("iframe")
-												.contents()
-												.find("#layuiadmin-app-form-submit");
+											// var submit = layero
+											// 	.find("iframe")
+											// 	.contents()
+											// 	.find("#layuiadmin-app-form-submit");
+											// submit.click();
+											var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit-r");
 											submit.click();
 										},
 										success: function(layero, index) {

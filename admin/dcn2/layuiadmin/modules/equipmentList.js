@@ -60,6 +60,12 @@ layui.define(["table", "form", "util", "api"], function (t) {
           title: "ID",
           sort: !0,
         },
+		{
+		  field: "name",
+		  title: "设备名称",
+		  align: "center",
+		  minWidth: 150,
+		},     
         {
           field: "model",
           title: "产品类型",
@@ -175,7 +181,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 
         {
           title: "操作",
-          minWidth: 450,
+          minWidth: 300,
           align: "center",
           fixed: "right",
           toolbar: "#table-content-list",

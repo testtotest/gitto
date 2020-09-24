@@ -37,13 +37,9 @@ layui.define(function (e) {
             i = [],
             l = [
               {
-                title: {
-                  text: "设备售卖折线图",
-                  x: "center",
-                  textStyle: { fontSize: 14 },
-                },
+               
                 tooltip: { trigger: "axis" },
-                legend: { data: ["", ""] },
+                legend: { data: ["设备售卖(台)", "设备申请量"] },
                 xAxis: [
                   {
                     type: "category",

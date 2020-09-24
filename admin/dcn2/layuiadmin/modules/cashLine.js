@@ -31,20 +31,17 @@ layui.define(function (e) {
         // contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (data) {
+			
           var e = layui.$,
             t = layui.carousel,
             a = layui.echarts,
             i = [],
             l = [
               {
-                title: {
-                  text: "提现金额折线图",
-                  x: "center",
-                  textStyle: { fontSize: 14 },
-                },
+               
                 //    color: ["#2db7f5", "#ff6600", "#808bc6"],
                 tooltip: { trigger: "axis" },
-                legend: { data: ["", ""] },
+                legend: { data: ["提现金额"] },
                 xAxis: [
                   {
                     type: "category",
@@ -59,7 +56,7 @@ layui.define(function (e) {
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["提现金额(分)"],
+                    data: data.result["提现金额(元)"],
                   },
                 ],
               },

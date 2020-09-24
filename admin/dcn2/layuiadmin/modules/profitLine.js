@@ -31,19 +31,16 @@ layui.define(function (e) {
         // contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (data) {
+			console.log(data.result)
           var e = layui.$,
             t = layui.carousel,
             a = layui.echarts,
             i = [],
             l = [
               {
-                title: {
-                  text: "返利金额数据展示",
-                  x: "center",
-                  textStyle: { fontSize: 14 },
-                },
+              
                 tooltip: { trigger: "axis" },
-                legend: { data: ["", ""] },
+                legend: { data: ["一级返利(元)", "二级返利(元)"] },
                 xAxis: [
                   {
                     type: "category",
@@ -54,18 +51,18 @@ layui.define(function (e) {
                 yAxis: [{ type: "value" }],
                 series: [
                   {
-                    name: "一级返利(分)",
+                    name: "一级返利(元)",
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["返利"]["一级返利(分)"],
+                    data: data.result["返利"]["一级返利(元)"],
                   },
                   {
-                    name: "二级返利(分)",
+                    name: "二级返利(元)",
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["返利"]["二级返利(分)"],
+                    data: data.result["返利"]["二级返利(元)"],
                   },
                 ],
               },
