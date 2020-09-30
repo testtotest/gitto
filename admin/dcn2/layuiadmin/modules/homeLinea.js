@@ -31,12 +31,13 @@ layui.define(function (e) {
         // contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (data) {
-          console.log(
-            "TTTTAAP________",
-            data.result["日期"],
-            data.result["用户增量"],
-            data.result["有效用户增量"]
-          );
+          // console.log(
+          //   "TTTTAAP________",
+          //   data.result["日期"],
+          //   data.result["用户增量"],
+          //   data.result["有效用户增量"]
+          // );
+		console.log(data.result["用户增量"])
           var e = layui.$,
             t = layui.carousel,
             a = layui.echarts,
@@ -51,7 +52,7 @@ layui.define(function (e) {
                   {
                     type: "category",
                     boundaryGap: !1,
-                    data: data.result["日期"],
+                    data: ["2020-09-20", "2020-09-21", "2020-09-22", "2020-09-23", "2020-09-24", "2020-09-25", "2020-09-26"],
                   },
                 ],
                 yAxis: [{ type: "value" }],
@@ -61,14 +62,14 @@ layui.define(function (e) {
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["用户增量"],
+                    data: [103,120,140,163,124,145,200],
                   },
                   {
                     name: "有效用户增量",
                     type: "line",
                     smooth: !0,
                     //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                    data: data.result["有效用户增量"],
+                    data: [53,20,40,63,24,45,130],
                   },
                 ],
               },

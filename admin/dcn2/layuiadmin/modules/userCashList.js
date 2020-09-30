@@ -78,7 +78,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
 
         {
           field: "type",
-          minWidth: 200,
+          minWidth: 80,
           title: "类型",
           templet: function (d) {
             if (d.type == "1") {
@@ -117,7 +117,7 @@ layui.define(["table", "form", "util", "api"], function (t) {
               return "0";
             }
           },
-          minWidth: 150,
+          minWidth: 80,
         },
 
         {

@@ -61,7 +61,7 @@
 					<div style="padding-bottom: 10px;">
 						<button class="layui-btn layuiadmin-btn-list" data-type="add">
 							新增
-						</button>
+						</button>						
 					</div>
 					<table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
 					<!-- <script type="text/html" id="buttonTpl">
@@ -289,7 +289,7 @@
 										body.contents().find("#id").val(t.data.id);
 										body.contents().find("#model").val(t.data.model);
 										body.contents().find("#prince").val(t.data.prince / 100); //价格
-										body.contents().find("#heatingArea").val(t.data.heatingArea); //面积区间
+										//body.contents().find("#heatingArea").val(t.data.heatingArea); //面积区间
 										body.contents().find("#stock").val(t.data.stock); //库存
 										body.contents().find("#rebateOne").val(t.data.rebateOne); //一级返利  百分比
 										body.contents().find("#rebateTwo").val(t.data.rebateTwo / 100); //二级返利
@@ -319,7 +319,7 @@
 										body.contents().find("#jurisdiction").val(t.data.jurisdiction);
 										
 										body.contents().find("#prince").val(t.data.prince);
-										body.contents().find("#category").val(t.data.category);										
+										//body.contents().find("#category").val(t.data.category);										
 										// characteristic //特点
                                      
 
@@ -391,6 +391,24 @@
 								//     layer.msg('已删除');
 								//   });
 								// },
+								bigCate: function() {
+									layer.open({
+										type: 2,
+										title: "设备大类型列表",
+										content: "bigCate.html",
+										maxmin: true,
+										area: ["100%", "100%"],
+										//btn: ['返回列表'],
+										yes: function(index, layero) {
+											
+											var submit = layero.find('iframe').contents().find("#layuiadmin-app-form-submit-r");
+											submit.click();
+										},
+										success: function(layero, index) {
+											
+										},
+									});
+								},
 								add: function() {
 									layer.open({
 										type: 2,

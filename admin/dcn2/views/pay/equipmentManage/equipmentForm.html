@@ -39,6 +39,7 @@
 		 <div class="layui-fluid layui-form">
 		 	  <div class="layui-row layui-col-space15" style="padding: 20px 0px 0 0;">
 		 		   <input type="hidden" name="id" id="id"  value=""/>
+				 
 		 		   <div class="layui-col-md6">
 		 			   <div class="layui-form-item">
 		 			     <label class="layui-form-label layui-form-label-dry">产品类型</label>
@@ -105,10 +106,7 @@
 		 			     <label class="layui-form-label layui-form-label-dry">设备类型</label>
 		 			     <div class="layui-input-inline">
 		 			       <select name="category" id="category" lay-filter="category">			
-		 			            <option value="1">电锅炉</option>
-		 			   		   <option value="2">循环泵</option>	
-		 			   			   <option value="3">暖气片</option>	
-		 			   			   <option value="4">循环液</option>		   
+		 			           
 		 			       </select>
 		 			     </div>
 		 			   </div> 
@@ -119,6 +117,13 @@
 		 				      autocomplete="off" class="layui-input" />
 		 				  </div>
 		 				</div>
+						<div class="layui-form-item">
+						  <label class="layui-form-label layui-form-label-dry">价格<span class="red">*</span></label>
+						  <div class="layui-input-inline">
+						    <input type="text" name="prince" id="prince" lay-verify="required" maxlength="30" placeholder="请输入"
+						      autocomplete="off" class="layui-input" />
+						  </div>
+						</div>
 		 				
 		 				<div class="layui-form-item" style="height: 180px;">
 		 				  <label class="layui-form-label layui-form-label-dry">特点</label>
@@ -162,12 +167,12 @@
 				</div>
 			    <div class="tables">
 					<div style="border-bottom: 1px solid #eee;padding-right: 12px;margin-bottom: 10px;padding-bottom: 10px;">
-						<div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item" ><label class="layui-form-label">规格型号<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="power"  required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">价格(元)<span class="red">*</span></label><div class="layui-input-block"><input  type="text" name="money"  required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item"><label class="layui-form-label">标题小标签<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="titleLabel" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">供暖面积<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="heatingArea" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input"></div></div></div></div>		
+						<div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item" ><label class="layui-form-label">规格型号<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="power"  required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="power"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">价格(元)<span class="red">*</span></label><div class="layui-input-block"><input  type="text" name="money"  required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="money"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block" ><div class="layui-form-item"><label class="layui-form-label">标题小标签</label><div class="layui-input-block"><input type="text" name="titleLabel"  placeholder="请输入" autocomplete="off" class="layui-input" id="titleLabel"></div></div></div></div><div class="layui-col-md6"><div class="site-text site-block"><div class="layui-form-item"><label class="layui-form-label">供暖面积<span class="red">*</span></label><div class="layui-input-block"><input type="text" name="heatingArea" required  lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input" id="heatingArea"></div></div></div></div>		
 						<div class="layui-form-item-a" style="padding-left: 50px;">
-						  <input type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="layuiadmin-app-form-submit-a"  id="layuiadmin-app-form-submit-a"
-						    value="保存" />
-						   <input type="button" class="layui-btn layuiadmin-btn-list" data-type="addrow"  value="新增"/>
-						</div>		 						
+						 <input type="button" class="layui-btn layui-btn-normal" lay-submit lay-filter="layuiadmin-app-form-submit-a"  id="layuiadmin-app-form-submit-a"
+						    value="保存" /> 
+						 <!--  <input type="button" class="layui-btn layuiadmin-btn-list" data-type="addrow"  value="新增"/>
+						</div>		 -->						
 						<div class="n-c"></div>
 					</div>
 				</div>
@@ -217,6 +222,7 @@
 			      baseUrl = layui.api.baseUrl,
 			      imgurl = layui.api.imgurl,
 			      tag = layui.tag;
+			
 				 var uploadInst = upload.render({
 				   elem: "#photo2-btn",
 				   url: baseUrl+"/ty/heatingAdmin/admin/cases/queryAll",

@@ -39,7 +39,7 @@
             </div>
             <div class="layui-inline" id="value-c">
               <label class="layui-form-label">值</label>
-              <div class="layui-input-inline">
+              <div class="layui-input-inline todate">
                 <!-- <input
                   type="text"
                   name="value"
@@ -48,13 +48,7 @@
                   autocomplete="off"
                   class="layui-input"
                 /> -->
-                <input
-                  type="text"
-                  class="layui-input"
-                  name="value"
-                  id="value"
-                  placeholder="yyyy-MM"				 
-                />
+                <input  type="text" class="layui-input"   name="value"  id="value"  placeholder="yyyy-MM" autocomplete="off"/>
               <!--  <input style="display:none"
                   type="text"
                   class="layui-input"
@@ -167,40 +161,28 @@
           //监听变化
           form.on("select(period)", function (data) {
             if (data.value == "y") {
-              // $("#value").css('display','none')
-              // $("#value0").css('display','inline-block')
-             // $("#value").attr("placeholder", "yyyy");
-              // laydate.render({
-              //   elem: "#value0",
-              //   type: "year",
-              // });
-			  $("#beginDate").val("")
-			  $("#endDate").val("")
-			   $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
-			   $("#value").attr("placeholder", "yyyy");
-			   laydate.render({
-			  					elem: "#value",
-			  					type: "year",
-			   });
+				
+                $("#beginDate").val("")
+                $("#endDate").val("")
+                 $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+                 $("#value").attr("placeholder", "yyyy");
+                 laydate.render({
+                					elem: "#value",
+                					type: "year",
+                 }); 
             }
             if (data.value == "m") {
-              //$("#value").attr("placeholder", "yyyy-MM");
-              // $("#value").css('display','inline-block')
-              // $("#value0").css('display','none')
-              // laydate.render({
-              //   elem: "#value",
-              //   type: "month",
-              // });
-			  $("#beginDate").val("")
-			  				$("#endDate").val("")
-			  				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
-			  $("#value").attr("placeholder", "yyyy-MM");
-			  // $("#value").css('display','inline-block')
-			  // $("#value0").css('display','none')
-			  laydate.render({
-			    elem: "#value",
-			    type: "month",
-			  });
+				
+                $("#beginDate").val("")
+                				$("#endDate").val("")
+                				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+                $("#value").attr("placeholder", "yyyy-MM");
+                // $("#value").css('display','inline-block')
+                // $("#value0").css('display','none')
+                laydate.render({
+                  elem: "#value",
+                  type: "month",
+                }); 
             }
             layui.use("form", function () {
               var form = layui.form;

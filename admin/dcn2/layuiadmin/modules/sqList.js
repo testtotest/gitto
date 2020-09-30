@@ -44,14 +44,14 @@ layui.define(["table", "form", "util", "api"], function (t) {
     },
     cols: [
       [
-      {
-        field: "photo",
-        width: 150,
-        title: "图片",
-        templet: function (d) {
-      	  return '<div><img onclick=imgb("https://img.tongyunzn.com/tyapplet/'+d.companyPhoto+'") src="https://img.tongyunzn.com/tyapplet/'+d.companyPhoto+'"/></div>'
-        }
-      },
+      // {
+      //   field: "photo",
+      //   width: 150,
+      //   title: "图片",
+      //   templet: function (d) {
+      // 	  return '<div><img onclick=imgb("https://img.tongyunzn.com/tyapplet/'+d.companyPhoto+'") src="https://img.tongyunzn.com/tyapplet/'+d.companyPhoto+'"/></div>'
+      //   }
+      // },
         {
           field: "id",
           width: 70,

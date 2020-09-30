@@ -32,21 +32,21 @@
   <div class="layui-form-item">
       <label class="layui-form-label layui-form-label-dry">姓名<span class="red">*</span></label>
       <div class="layui-input-inline">
-        <input type="text" name="username" id="username" lay-verify="required" maxlength="30" placeholder="请输入"
+        <input type="text" name="username" id="username" disabled lay-verify="required" maxlength="30" placeholder="请输入"
           autocomplete="off" class="layui-input" />
       </div>
     </div>
 	<div class="layui-form-item">
 	   <label class="layui-form-label layui-form-label-dry">电话<span class="red">*</span></label>
 	   <div class="layui-input-inline">
-	     <input type="text" name="phone" id="phone" lay-verify="required" maxlength="30" placeholder="请输入"
+	     <input type="text" name="phone" id="phone" disabled lay-verify="required" maxlength="30" placeholder="请输入"
 	       autocomplete="off" class="layui-input" />
 	   </div>
 	 </div>
 	 <div class="layui-form-item">
 	    <label class="layui-form-label layui-form-label-dry">代理区域<span class="red">*</span></label>
 	    <div class="layui-input-inline">
-	      <input type="text" name="proxyArea" id="proxyArea" lay-verify="required" maxlength="30" placeholder="请输入"
+	      <input type="text" name="proxyArea" id="proxyArea" disabled lay-verify="required" maxlength="30" placeholder="请输入"
 	        autocomplete="off" class="layui-input" />
 	    </div>
 	  </div>
@@ -177,11 +177,11 @@
 			var subUrl = '/ty/heatingAdmin/admin/agent/followUp'			
 			var param = {}
 			param.id = field.id //修改	
-			param.username = field.username
-			param.phone = field.phone
+			//param.username = field.username
+			//param.phone = field.phone
 			param.status = field.status
 			param.remark = field.remark
-			param.proxyArea = field.proxyArea
+			//param.proxyArea = field.proxyArea
 			
 			$.ajax({
 					type: "POST",

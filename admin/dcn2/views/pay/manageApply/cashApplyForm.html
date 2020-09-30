@@ -40,6 +40,20 @@
         </select>
       </div>
     </div>
+	<div class="layui-form-item">
+	  <label class="layui-form-label layui-form-label-dry">打款凭证</label>
+	  <div class="layui-input-inline">
+	    <div class="layui-upload">
+	      <button type="button" class="layui-btn" id="photo1-btn">
+	        上传图片
+	      </button>
+	      <div class="layui-upload-list">
+	        <img style="max-width: 300px; max-height: 300px;" class="layui-upload-img" id="photo1-img" />
+	      </div>
+	    </div>
+	  </div>
+	  <input type="hidden" name="certImg" id="photo1" autocomplete="off" class="layui-input" />
+	</div>
     <div class="layui-form-item">
       <label class="layui-form-label layui-form-label-dry">备注</label>
       <div class="layui-input-inline">
@@ -86,7 +100,40 @@
         //   //   if (t !== i("#LAY_password").val()) return "两次密码输入不一致";
         //   // }
         // });
-
+      var temImg1 = ''
+      var uploadInst1 = upload.render({
+        elem: "#photo1-btn",
+        url: baseUrl+"/ty/heatingAdmin/admin/cases/queryAll",
+        before: function (obj) {
+          //预读本地文件示例，不支持ie8
+          obj.preview(function (index, file, result) {
+            $("#photo1-img").attr("src", result); //图片链接（base64）
+      			$("#photo1").val(result);
+          });
+        },
+        data: {
+          "oldFilePath": temImg1,
+      				"token": sessionStorage.getItem("token")
+        },
+        done: function (res) {
+          console.log("res", res);
+          if (res.status == "0000") {              
+            return layer.msg("图片上传成功");
+          } else {
+            return layer.msg("图片上传失败");
+          }
+        },
+        error: function () {
+          //演示失败状态，并实现重传
+          var demoText = $("#bigimages-normal-demoText");
+          demoText.html(
+            '<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>'
+          );
+          demoText.find(".demo-reload").on("click", function () {
+            uploadInst1.upload();
+          });
+        },
+      });
         //监听提交
         form.on("submit(layuiadmin-app-form-submit)", function (data) {
           parent.layer.load(1, {
@@ -94,9 +141,9 @@
           });
           var field = data.field; //获取提交的字段
           var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-
+       
           var subUrl = "/ty/heatingAdmin/manager/examine/withdrawalAudit";
-          //  field.token = sessionStorage.getItem("token");
+          //field.token = sessionStorage.getItem("token");
           $.ajax({
             type: "POST",
             url: baseUrl + subUrl,

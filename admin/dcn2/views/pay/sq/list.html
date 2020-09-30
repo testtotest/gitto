@@ -256,7 +256,8 @@
 				  								var body = layer.getChildFrame("body", index);
 				  								body.contents().find("#id").val(e.id);
 				  						        body.contents().find("#status").val(e.status);
-				  							}
+				  							   
+											}
 				  					});
 				  /////////				  
 				}
@@ -284,7 +285,8 @@
 				body.contents().find("#equityProveType").val(e.equityProveType);
 				body.contents().find("#documentType").val(e.documentType);  							body.contents().find("#ownerName").val(e.ownerName); 
 				body.contents().find("#ownerIdCard").val(e.ownerIdCard); 
-				body.contents().find("#applicantPhone").val(e.applicantPhone);					        if(e.transformer==1) 
+				body.contents().find("#applicantPhone").val(e.applicantPhone);					        body.contents().find("#type").val(e.type); 
+				if(e.transformer==1) 
 				{
 					transformerTxt="是"
 					transformerTxts="安装"
@@ -300,19 +302,27 @@
 				 body.contents().find("#typeProof").val(e.typeProof);	
 				body.contents().find("#enterpriseName").val(e.enterpriseName); 
 		      body.contents().find("#authorizationPhoto").val(e.authorizationPhoto);
-			  var pA=''
-			  var i
-			 for (i in e.installLocationList){				
+			console.log(e)
+			  var pA=''			 
+			  for (var i=0;e.installLocationList.length>i;i++){							
 				 pA=pA+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.installLocationList[i].photo+'" width="100" style="margin-right:3px"/>';
 			 }
 			 body.contents().find("#installLocationList").html(pA);
+			 var pC=''
+			  for (var i=0;e.identityProveList.length>i;i++){							
+			 				 pC=pC+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.identityProveList[i].photo+'" width="100" style="margin-right:3px"/>';
+			 }
+			 body.contents().find("#identityProveList").html(pC);
+			 
 			 
 			body.contents().find("#companyPhoto").attr("src", layui.api.imgBaseUrl+e.companyPhoto);
 			
 			var pA=''
-			 var i
-			for (i in e.equityProveList){				
-							 pA=pA+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.installLocationList[i].photo+'" width="100" style="margin-right:3px"/>';
+			
+			
+			for (var i=0;e.equityProveList.length>i;i++){	
+			
+				 pA=pA+'<img onclick=bimg(this) src="'+layui.api.imgBaseUrl+e.equityProveList[i].photo+'" width="100" style="margin-right:3px"/>';			
 			}
 			body.contents().find("#equityProveList").html(pA);
 			body.contents().find("#authorizationPhoto").attr("src", layui.api.imgBaseUrl+e.authorizationPhoto);

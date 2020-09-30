@@ -44,13 +44,12 @@
   	  />
     </div>
   </div>
-   <div class="layui-form-item">
-      <label class="layui-form-label layui-form-label-dry">代理id<span class="red">*</span></label>
-      <div class="layui-input-inline">
-        <input type="text" name="agentId" id="agentId" lay-verify="required" maxlength="30" placeholder="请输入"
-          autocomplete="off" class="layui-input" />
-      </div>
+  <div class="layui-form-item">
+    <label class="layui-form-label layui-form-label-dry">代理id</label>
+    <div class="layui-input-inline">
+      <select name="agentId" id="agentId" lay-filter="agentId"></select>
     </div>
+  </div>
 
  <div class="layui-form-item">
       <label class="layui-form-label layui-form-label-dry">进货数量<span class="red">*</span></label>
@@ -135,7 +134,43 @@
 		  });
         console.log("tag_______________", tag);
         //缩略图上传
-      
+      ///////////////////////////
+        	 var params = {}
+        	 params.status = 1
+        	$.ajax({
+        		  type: "GET",
+        		  url: layui.api.baseUrltest+ "/ty/heatingAdmin/admin/agentDetail/query",
+        		  data: params,
+        		  contentType: "application/json",
+        		  headers: {
+        			token: sessionStorage.getItem("token")
+        		  },
+        		  dataType: "json",
+        		  success: function (data) {
+        			
+        			  var list=data.result.list
+        			 
+        			 var cateTempSeach = '<option value="">请选择</option>'; 			 
+        			 for (var i = 0; i < data.result.count; i++) {
+        				// cateTempSeach += '<option value="' + list[i].id + '">' + list[i].typeName + '</option>'   
+        				 // if(slid==list[i].id)
+        				 // { $('#agentId').append('<option selected="selected" value="' + list[i].id + '">' + list[i].typeName + '</option>')}
+        				 
+      					  $('#agentId').append('<option  value="' + list[i].id + '">' + list[i].name + '</option>')
+        				 
+        			 }	
+        			
+        			
+        		
+        			layui.use('form', function() {
+        				var form = layui.form;				
+        				form.render();
+        			});
+        			
+        		
+        		  }	  
+        	});
+      /////////////////////////////////
         var uploadInst = upload.render({
           elem: "#photo2-btn",
           url: imgUpurl,

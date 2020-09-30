@@ -76,7 +76,7 @@
 			  <div class="layui-inline">
 			    <label class="layui-form-label">显示状态</label>
 			    <div class="layui-input-inline">
-			      <select name="isShow">
+			      <select name="isShow" id="isShow">
 			        <option value="">请选择</option>
 			        <option value="">全部</option>
 			        <option value="1">显示</option>
@@ -94,6 +94,9 @@
             <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
+			<button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+			  <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+			</button>
           </div>
         </div>
       </div>
@@ -222,6 +225,13 @@
 			  			  }
 			  		});				
 		  }
+		  form.on("submit(LAY-app-contlist-research)", function (data) {
+		  			     $("#isShow").val("");
+						 $("#title").val("");
+						 $("#beginDate").val("");
+						 $("#endDate").val("");						 
+		  			     form.render();
+		  });
           table.on("tool(LAY-app-content-list)", function (t) {			
                 var e = t.data; 
 	            if ("detailDel" == t.event) {

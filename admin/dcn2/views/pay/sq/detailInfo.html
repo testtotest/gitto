@@ -115,30 +115,32 @@
       <input type="text" id="capacity"  disabled class="layui-input">
     </div>
   </div> 
-  <div class="layui-form-item">
+  <div class="layui-form-item" id="qya">
     <label class="layui-form-label layui-form-label-dry">企业主体证明类型</label>
     <div class="layui-input-inline">
       <input type="text" id="typeProof"  disabled class="layui-input">
     </div>
   </div> 
-  <div class="layui-form-item">
+  <div class="layui-form-item" id="qyb">
     <label class="layui-form-label layui-form-label-dry">企业名称</label>
     <div class="layui-input-inline">
       <input type="text" id="enterpriseName"  disabled class="layui-input">
     </div>
-  </div> 
-  <div class="layui-form-item">
-    <label class="layui-form-label layui-form-label-dry">安装位置图片</label>
-    <div class="layui-input-inline">
-      <div class="layui-upload">
-      
-        <div class="layui-upload-list" id="installLocationList">
-         
-        </div>
-      </div>
-    </div>    
-  </div>  
-  <div class="layui-form-item">
+  </div>
+   <div class="layui-form-item">
+     <label class="layui-form-label layui-form-label-dry">产权人/法人身份证件照</label>
+     <div class="layui-input-inline">
+       <div class="layui-upload">
+       
+         <div class="layui-upload-list" id="identityProveList">
+          
+         </div>
+       </div>
+     </div>    
+   </div> 
+ 
+  
+  <div class="layui-form-item" id="qyc">
     <label class="layui-form-label layui-form-label-dry">企业主体照片</label>
     <div class="layui-input-inline">
       <div class="layui-upload">
@@ -149,7 +151,7 @@
       </div>
     </div>    
   </div>
-  <div class="layui-form-item">
+  <div class="layui-form-item" id="qyd">
     <label class="layui-form-label layui-form-label-dry">产权证明照片</label>
     <div class="layui-input-inline">
       <div class="layui-upload">      
@@ -157,7 +159,18 @@
       </div>
     </div>    
   </div>
-  <div class="layui-form-item">
+  <div class="layui-form-item" id="qye">
+    <label class="layui-form-label layui-form-label-dry">安装位置图片</label>
+    <div class="layui-input-inline">
+      <div class="layui-upload">
+      
+        <div class="layui-upload-list" id="installLocationList">
+         
+        </div>
+      </div>
+    </div>    
+  </div>
+  <div class="layui-form-item" style="display: none;">
     <label class="layui-form-label layui-form-label-dry">授权书</label>
     <div class="layui-input-inline">
       <div class="layui-upload">
@@ -226,6 +239,17 @@
         , upload = layui.upload
         , baseUrl = layui.api.baseUrltest;
       //监听提交
+	  if($("#type").val()==1)
+	  {
+		  $("#qya").hide();
+		  $("#qyb").hide();
+		  $("#qyc").hide();
+		  $("#qyd").hide();
+	  }
+	  if($("#type").val()==2)
+	  {
+		  $("#qye").hide();
+	  }
       form.on('submit(layuiadmin-app-form-submit)', function (data) {
       
             var field = data.field; //获取提交的字段     

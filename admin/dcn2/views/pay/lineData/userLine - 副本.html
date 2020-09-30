@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>设备售卖折线图</title>
+    <title>用户数据</title>
     <meta name="renderer" content="webkit" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta
@@ -22,87 +22,85 @@
   </head>
 
   <body>
-  <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">单位</label>
-            <div class="layui-input-inline">
-              <select name="period" lay-filter="period">
-                <option value="">请选择</option>
-                <option value="m">月</option>
-                <option value="y">年</option>
-                <option value="d">日</option>
-              </select>
+    <div class="layui-fluid">
+      <div class="layui-card">
+        <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+          <div class="layui-form-item">
+            <div class="layui-inline">
+              <label class="layui-form-label">单位</label>
+              <div class="layui-input-inline">
+                <select name="period" lay-filter="period">
+                  <option value="">请选择</option>
+                  <option value="m">月</option>
+                  <option value="y">年</option>
+                  <option value="d">日</option>
+                </select>
+              </div>
             </div>
-          </div>
-          <div class="layui-inline" id="value-c">
-            <label class="layui-form-label">值</label>
-            <div class="layui-input-inline todate">
-              <!-- <input
-                type="text"
-                name="value"
-                id="value"
-                placeholder="请输入"
-                autocomplete="off"
-                class="layui-input"
-              /> -->
-              <input  type="text" class="layui-input"   name="value"  id="value"  placeholder="yyyy-MM" autocomplete="off"/>
-            <!--  <input style="display:none"
-                type="text"
-                class="layui-input"
-                name="value"
-                id="value0"
-                placeholder="yyyy"
-              /> -->
+            <div class="layui-inline" id="value-c">
+              <label class="layui-form-label">值</label>
+              <div class="layui-input-inline">
+                <!-- <input
+                  type="text"
+                  name="value"
+                  id="value"
+                  placeholder="请输入"
+                  autocomplete="off"
+                  class="layui-input"
+                /> -->
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="value"
+                  id="value"                  
+                />
+               
+
+              </div>
             </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">开始时间</label>
-            <div
-              class="layui-input-inline"
-              style="display: flex; flex-direction: row;"
-            >
-              <input
-                type="text"
-                class="layui-input"
-                name="beginDate"
-                id="beginDate"
-                placeholder="yyyy-MM-dd"
-  			   autocomplete="off"
-              />
+            <div class="layui-inline">
+              <label class="layui-form-label">开始时间</label>
+              <div
+                class="layui-input-inline"
+                style="display: flex; flex-direction: row;"
+              >
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="beginDate"
+                  id="beginDate"
+                  placeholder="yyyy-MM-dd"
+                />
+              </div>
             </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">结束时间</label>
-            <div
-              class="layui-input-inline"
-              style="display: flex; flex-direction: row;"
-            >
-              <input
-                type="text"
-                class="layui-input"
-                name="endDate"
-                id="endDate"
-                placeholder="yyyy-MM-dd"
-  			  autocomplete="off"
-              />
+            <div class="layui-inline">
+              <label class="layui-form-label">结束时间</label>
+              <div
+                class="layui-input-inline"
+                style="display: flex; flex-direction: row;"
+              >
+                <input
+                  type="text"
+                  class="layui-input"
+                  name="endDate"
+                  id="endDate"
+                  placeholder="yyyy-MM-dd"
+                />
+              </div>
             </div>
-          </div>
-          <div class="layui-inline">
-            <button
-              class="layui-btn layuiadmin-btn-list"
-              lay-submit
-              lay-filter="LAY-app-contlist-search"
-            >
-              <i
-                class="layui-icon layui-icon-search layuiadmin-button-btn"
-              ></i>
-            </button>
+            <div class="layui-inline">
+              <button
+                class="layui-btn layuiadmin-btn-list"
+                lay-submit
+                lay-filter="LAY-app-contlist-search"
+              >
+                <i
+                  class="layui-icon layui-icon-search layuiadmin-button-btn"
+                ></i>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
         <div class="layui-card-body">
           <div class="layui-card">
@@ -143,12 +141,16 @@
         .extend({
           index: "lib/index", //主入口模块
         })
-        .use(["index", "sellLine", "table", "api", "laydate"], function () {
+        .use(["index", "linesUser", "table", "api", "laydate"], function () {
           var table = layui.table,
             form = layui.form,
             $ = layui.$,
             laydate = layui.laydate,
             baseUrl = layui.api.baseUrl;
+             laydate.render({
+            elem: "#beginDate",
+            //,type: 'date' //type 默认为 date，所以可不填
+          });
           laydate.render({
             elem: "#beginDate",
             //,type: 'date' //type 默认为 date，所以可不填
@@ -157,37 +159,53 @@
             elem: "#endDate",
             //,type: 'date' //type 默认为 date，所以可不填
           });
-		
+		 
           //监听变化
           form.on("select(period)", function (data) {
             if (data.value == "y") {
-               $("#beginDate").val("")
-               $("#endDate").val("")
-                $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
-                $("#value").attr("placeholder", "yyyy");
-                laydate.render({
-               					elem: "#value",
-               					type: "year",
-                });
+                 // $("#beginDate").val("")
+                 // $("#endDate").val("")
+                 //  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+                 //  $("#value").attr("placeholder", "yyyy");
+                 //  laydate.render({
+                 // 					elem: "#value",
+                 // 					type: "year",
+                 //  });
+				 $("#beginDate").val("")
+				 $("#endDate").val("")
+				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+				  $("#value").attr("placeholder", "yyyy");
+				  laydate.render({
+				 					elem: "#value",
+				 					type: "year",
+				  });
             }
             if (data.value == "m") {
-               $("#beginDate").val("")
-               				$("#endDate").val("")
-               				  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
-               $("#value").attr("placeholder", "yyyy-MM");
-               // $("#value").css('display','inline-block')
-               // $("#value0").css('display','none')
-               laydate.render({
-                 elem: "#value",
-                 type: "month",
-               });
+                 // $("#endDate").val("")
+                 // 								  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+                 // $("#value").attr("placeholder", "yyyy-MM");
+                 // // $("#value").css('display','inline-block')
+                 // // $("#value0").css('display','none')
+                 // laydate.render({
+                 // 					elem: "#value",
+                 // 					type: "month",
+                 // });
+				$("#beginDate").val("")
+								$("#endDate").val("")
+								  $(".todate").html(' <input  type="text" class="layui-input"   name="value"  id="value" autocomplete="off"/>')
+				$("#value").attr("placeholder", "yyyy-MM");
+				// $("#value").css('display','inline-block')
+				// $("#value0").css('display','none')
+				laydate.render({
+				  elem: "#value",
+				  type: "month",
+				}); 
             }
 		
             layui.use("form", function () {
               var form = layui.form;
               form.render();
             });
-			
             if (data.value == "d") {
               $("#value-c").css("display", "none");
             } else {
@@ -199,16 +217,19 @@
             var field = data.field;
             console.log("search", field);
             if (field.period == "n") {
-              field.value ='' 
+              field.value =''
               if (field.beginDate == "" || field.endDate == "") {
                 layer.msg("选择日时，开始时间和结束时间时必选项！");
                 return false;
               }
+            }else if(field.period =='y'){
+              field.value=$('#value0').val()
+            }else if(field.period =='m'){
+               field.value=$('#value').val()
             }
-            console.log("9999");
             $.ajax({
               type: "get",
-              url: baseUrl + "/ty/heatingAdmin/admin/data/equipmentSalesDate",
+              url: baseUrl + "/ty/heatingAdmin/admin/data/newUserDate",
               data: field,
               headers: {
                 token: sessionStorage.getItem("token"),
@@ -219,6 +240,12 @@
                 if (data.status != "0000") {
                   layer.msg(data.message);
                 }
+                console.log(
+                  "TTTTAAP________",
+                  data.result["日期"],
+                  data.result["用户增量"],
+                  data.result["有效用户增量"]
+                );
                 var e = layui.$,
                   t = layui.carousel,
                   a = layui.echarts,
@@ -226,7 +253,7 @@
                   l = [
                     {
                       title: {
-                        text: "设备售卖折线图",
+                        text: "用户增量统计",
                         x: "center",
                         textStyle: { fontSize: 14 },
                       },
@@ -242,18 +269,18 @@
                       yAxis: [{ type: "value" }],
                       series: [
                         {
-                          name: "设备售卖(台)",
+                          name: "用户增量",
                           type: "line",
                           smooth: !0,
                           //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                          data: data.result["设备"]["设备售卖(台)"],
+                          data: data.result["用户增量"],
                         },
                         {
-                          name: "设备申请量",
+                          name: "有效用户增量",
                           type: "line",
                           smooth: !0,
                           //  itemStyle: { normal: { areaStyle: { type: "default" } } },
-                          data: data.result["设备"]["设备申请量"],
+                          data: data.result["有效用户增量"],
                         },
                       ],
                     },
