@@ -78,6 +78,9 @@
             <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
+			<button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+			  <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+			</button>
           </div>
         </div>
       </div>
@@ -130,6 +133,18 @@
           //   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
           //   form.render();
           // });
+		  form.on("submit(LAY-app-contlist-research)", function (data) {
+		  		  			    	  						
+		  		  				 $("#beginDate").val("");
+		  		  				 $("#endDate").val("");			  				 
+		  		  				 $("#phone").val("");
+		  		  						 $("#userId").val("");
+		  		  						 $("#applicationNo").val("");  								 $("#remark").val("");  	
+		 $("#admId").val("");
+						 $("#auditStatus").val("");  
+						 
+		  		  			     form.render();
+		  		  });
           //监听
           table.on("tool(LAY-app-content-list)", function (t) {
             // alert(1);

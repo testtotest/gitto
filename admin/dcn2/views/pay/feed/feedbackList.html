@@ -60,7 +60,7 @@
 			  <div class="layui-inline">
 			    <label class="layui-form-label">状态</label>
 			    <div class="layui-input-inline">
-			      <select name="status">
+			      <select name="status" id="status">
 			        <option value="">请选择</option>
 			        <option value="">全部</option>
 			        <option value="1">未处理</option>
@@ -72,6 +72,9 @@
             <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
+			<button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+			  <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+			</button>
           </div>
         </div>
       </div>
@@ -182,6 +185,13 @@
 			  	  }
 			  });				 
 		  }
+		  form.on("submit(LAY-app-contlist-research)", function (data) {
+		  			     $("#isShow").val("");		  						
+		  				 $("#beginDate").val("");
+		  				 $("#endDate").val("");	
+		  				 $("#status").val("");		  								
+		  			     form.render();
+		  });
           //监听
           table.on("tool(LAY-app-content-list)", function (t) {			
                 var e = t.data; 

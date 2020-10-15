@@ -74,7 +74,7 @@
 			<div class="layui-inline">
 			  <label class="layui-form-label">审核状态</label>
 			  <div class="layui-input-inline">
-			    <select name="status">
+			    <select name="status" id="status">
 			        <option value="">请选择</option>
 			        <option value="">全部</option>
 			        <option value="1">启用</option>
@@ -85,7 +85,7 @@
      		<div class="layui-inline">
      		  <label class="layui-form-label">代理类型</label>
      		  <div class="layui-input-inline">
-     		    <select name="type">
+     		    <select name="type" id="type">
      		        <option value="">请选择</option>
      		        <option value="">全部</option>
      		        <option value="1">公司</option>
@@ -115,6 +115,9 @@
            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
            </button>
+		   <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+		     <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+		   </button>
          </div>
        </div>
      </div>
@@ -238,6 +241,16 @@
 			  			  }
 			  		});				
 		  }
+		  form.on("submit(LAY-app-contlist-research)", function (data) {
+		  			     $("#isShow").val("");		  						
+		  						 $("#beginDate").val("");
+		  						 $("#endDate").val("");	
+								 $("#status").val("");
+								 $("#type").val("");
+								 $("#name").val("");
+								 $("#phone").val("");
+		  			     form.render();
+		  });
           //监听
           table.on("tool(LAY-app-content-list)", function (t) {
             var e = t.data;
@@ -265,8 +278,7 @@
            if ("detailDel" == t.event) {
            		dels(e.id,e.contract)
            	}
-           	 /////////
-			 			  
+           	 /////////		 			  
 			  if ("detailEdit" === t.event) {
 				////////////
 						layer.open({
@@ -290,6 +302,10 @@
 												body.contents().find("#idcard").val(e.idcard);		
 										body.contents().find("#bankCard").val(e.bankCard);						                        body.contents().find("#email").val(e.email);
 										body.contents().find("#proxyArea").val(e.proxyArea);
+										body.contents().find("#provinceId").val(e.provinceId);
+										body.contents().find("#cityId").val(e.cityId);
+										body.contents().find("#countyId").val(e.countyId);
+										
 										body.contents().find("#type").val(e.type);
 										body.contents().find("#status").val(e.status);
 										body.contents().find("#joinTime").val(e.joinTime);

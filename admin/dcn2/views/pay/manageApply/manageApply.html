@@ -50,7 +50,7 @@
           <div class="layui-inline">
             <label class="layui-form-label">审核状态</label>
             <div class="layui-input-inline">
-              <select name="auditStatus">
+              <select name="auditStatus" id="auditStatus">
                 <option value="">请选择</option>
                 <option value="">全部</option>
                 <option value="1">已申请</option>
@@ -111,6 +111,9 @@
             <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
               <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
             </button>
+			<button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+			  <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+			</button>
           </div>
         </div>
       </div>
@@ -258,6 +261,21 @@
         //   var form = layui.form; //只有执行了这一步，部分表单元素才会自动修饰成功
         //   form.render();
         // });
+		form.on("submit(LAY-app-contlist-research)", function (data) {
+		 		  			    	  						
+		 		  				 $("#beginDate").val("");
+		 		  				 $("#endDate").val("");			  				 
+		 		  				 $("#fromPhone").val("");
+		 		  						 $("#phone").val("");
+		 		  						 $("#userId").val("");  								
+										  $("#model").val("");  	
+		$("#auditStatus").val("");
+								 $("#admId").val("");  
+								 $("#applicationNo").val("");  
+								 $("#type").val("");  
+								 
+		 		  			     form.render();
+		 		  });
         //监听
         table.on("tool(LAY-app-content-list)", function (t) {
           // alert(1);

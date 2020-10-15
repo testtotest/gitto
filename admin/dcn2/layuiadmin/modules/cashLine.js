@@ -31,8 +31,8 @@ layui.define(function (e) {
         // contentType: "application/json;charset=utf-8",
         dataType: "json",
         success: function (data) {
-			
-          var e = layui.$,
+			//console.log(data.result["日期"].length)
+            var e = layui.$,
             t = layui.carousel,
             a = layui.echarts,
             i = [],

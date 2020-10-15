@@ -111,6 +111,9 @@
            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
            </button>
+		   <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+		     <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+		   </button>
          </div>
        </div>
      </div>
@@ -210,7 +213,20 @@
 			  }
           
           });
-
+          form.on("submit(LAY-app-contlist-research)", function (data) {
+          			     $("#isShow").val("");		  						
+          						 $("#beginDate").val("");
+          						 $("#endDate").val("");	
+          								 $("#status").val("");
+          								 $("#orderId").val("");
+          								 $("#userId").val("");
+          								 $("#userName").val("");
+										 $("#phone").val("");
+										 $("#transactionId").val("");
+										 $("#outTradeNo").val("");
+										 
+          			     form.render();
+          });
           //监听搜索
           form.on("submit(LAY-app-contlist-search)", function (data) {
             var field = data.field;

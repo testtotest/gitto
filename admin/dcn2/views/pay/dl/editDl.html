@@ -46,6 +46,30 @@
 		  />
 	  </div>
 	</div>	
+	<div class="layui-form-item" id="area-picker">
+	  <label class="layui-form-label layui-form-label-dry">代理区域编号</label>
+	   <div class="layui-input-inline" style="width: 200px;">
+	   <select name="province" id="province" lay-filter="province" class="province-selector" > 	   
+	   </select>
+	    </div>
+	    <div class="layui-input-inline" style="width: 200px;">
+			<select name="city" id="city" lay-filter="city" class="city-selector">				
+			</select>
+		</div>
+		<div class="layui-input-inline" style="width: 200px;">
+			<select name="county" id="county" lay-filter="county" class="county-selector" ay-ignore>	 
+			</select>
+		</div>
+	</div>  
+	<div class="layui-form-item" style="display: none;">
+	   <label class="layui-form-label layui-form-label-dry">代理区域编号<span class="red">*</span></label>
+	   <div class="layui-input-inline">
+	     <input type="text" name="provinceId" id="provinceId"  value="0"  />
+	     <input type="text" name="cityId" id="cityId"      value="0"  />
+	     <input type="text" name="countyId" id="countyId"  value="0"  />
+	     <input type="text" name="proxyArea" id="proxyArea" lay-verify="required"  />
+	   </div>
+	 </div>
 	<div class="layui-form-item">
 	   <label class="layui-form-label layui-form-label-dry">父级代理id<span class="red">*</span></label>
 	   <div class="layui-input-inline">
@@ -88,13 +112,7 @@
 	       autocomplete="off" class="layui-input" />
 	   </div>
 	 </div>
-	 <div class="layui-form-item">
-	    <label class="layui-form-label layui-form-label-dry">代理区域编号<span class="red">*</span></label>
-	    <div class="layui-input-inline">
-	      <input type="text" name="proxyArea" id="proxyArea" lay-verify="required" maxlength="30" placeholder="请输入"
-	        autocomplete="off" class="layui-input" />
-	    </div>
-	  </div>
+	
 	  
 	
 
@@ -207,7 +225,82 @@
 		    elem: "#joinTime",
 		    type: 'datetime'
 		  });
-        console.log("tag_______________", tag);
+       layer.ready(function(){
+		    
+            getArea('province',0)
+			getArea('city',$("#provinceId").val())
+			getArea('county',$("#cityId").val())
+       });
+       function getArea(type,value){			
+       			 var tourl=value ? "/ty/heatingAdmin/admin/address/addressList?parentId="+value:"/ty/heatingAdmin/admin/address/addressList";			  
+       			 
+           $.ajax({
+                		type: "get",
+                		url: layui.api.baseUrltest + tourl,
+                		headers: {				
+                			token: sessionStorage.getItem("token")
+                		},       		
+                		success: function (res) {
+       							
+           				$('#'+type).empty();
+       							$('#'+type).append(new Option("请选择", 0));	
+									
+								
+       							res.result.forEach(function(item, index){	
+									    if(type=="province")
+									    {
+											if(item.id==$("#provinceId").val()) 
+											    var issel="selected"					
+										}
+                                        if(type=="city")
+									    {
+											if(item.id==$("#cityId").val()) 
+											    var issel="selected"					
+										}
+										if(type=="county")
+										{
+											if(item.id==$("#countyId").val()) 
+											    var issel="selected"					
+										}
+																				
+										
+       								 	$('#'+type).append('<option '+issel+'  value="' + item.id + '">' + item.name + '</option>')			       					
+								})
+       							
+       							 form.render('select');
+           			    // var list=res.result
+           			    // for (var i = 0; i < res.result.length; i++) {
+           			   	 
+           			   	//  $('#province').append('<option  value="' + list[i].id + '">' + list[i].name + '</option>')
+           			    // } 
+           			   //  layui.use('form', function() {
+           			   // 	var form = layui.form;				
+           			   // 	form.render();
+           			   // });					  		 
+                		}
+                });
+       }
+       form.on('select(province)', function (data) {			
+       			  $('#proxyArea').val(data.value)
+       			  $('#provinceId').val(data.value)
+				  $("#county").empty();
+				  form.render("select");
+       			  getArea('city',data.value)
+       			 
+         // 
+       	
+       });
+        
+       form.on('select(city)', function (data) {				 
+       			  $('#proxyArea').val(data.value)	
+				$('#cityId').val(data.value)				
+           getArea('county',data.value)	   
+       });
+       form.on('select(county)', function (data) {
+		         $('#countyId').val(data.value)
+       			  $('#proxyArea').val(data.value)
+       });
+              
         //缩略图上传
       
         var uploadInst = upload.render({

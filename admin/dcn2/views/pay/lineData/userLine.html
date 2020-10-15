@@ -29,7 +29,7 @@
            <div class="layui-inline">
              <label class="layui-form-label">单位</label>
              <div class="layui-input-inline">
-               <select name="period" lay-filter="period">
+               <select name="period" id="period" lay-filter="period">
                  <option value="">请选择</option>
                  <option value="m">月</option>
                  <option value="y">年</option>
@@ -100,6 +100,9 @@
                  class="layui-icon layui-icon-search layuiadmin-button-btn"
                ></i>
              </button>
+			 <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-research">
+			   <i class="layui-icon layui-icon-search layuiadmin-button-btn">重置</i>
+			 </button>
            </div>
          </div>
        </div>
@@ -161,7 +164,13 @@
             elem: "#endDate",
             //,type: 'date' //type 默认为 date，所以可不填
           });
-		 
+		 form.on("submit(LAY-app-contlist-research)", function (data) {
+		 			     $("#period").val("");		  						
+		 				 $("#beginDate").val("");
+		 				 $("#endDate").val("");	
+		 				 $("#value").val("");		  								
+		 			     form.render();
+		 });
           //监听变化
           form.on("select(period)", function (data) {
             if (data.value == "y") {

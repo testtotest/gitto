@@ -67,9 +67,9 @@ layui.define(["table", "form", "util", "api"], function (t) {
 		        },
 		      },
 		{
-		  field: "region",
-		  width: 120,
-		  title: "县级ID"
+		  field: "regionName",
+		  width: 220,
+		  title: "安装地址"
 		}, 
 		{
 		  field: "address",
