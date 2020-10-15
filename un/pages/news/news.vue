@@ -1,9 +1,6 @@
 <template>	
-		<nlist @itemClick="goInfo" :lists="goods"></nlist>
-	
+		<nlist @itemClick="goInfo" :lists="goods"></nlist>	
 </template>
-
-
 <script>
 	import news from '../../comp/glist/nlist.vue'
 	export default {

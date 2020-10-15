@@ -1,0 +1,62 @@
+9239!a
+use git from git bash only
+环境变量 
+path 安装目录\bin 
+2
+右键->gitbash
+git config --global user.name "jasontesttest"
+git config --global user.email "869147237@qq.com"
+查看是否执行以上代码，c:用户.gitconfig 出现用户名
+3
+本地和git免秘钥设置ssh
+右键->gitbash->ssh-keygen -t rsa -C 869147237@qq.com
+c:\user\ssh 查看
+
+4
+登录github->personal settings->ssh and gpg keys->new->title任意->key本地ssh(pub)
+
+5
+查看是否连接ssh -T git@gitee.com->yes->success
+c:\user\.ssh 查看 known_hosts已连接
+
+6上传文件
+当前目录右键->gitbash
+git init
+远程github新建目录
+git remote rm origin
+git remote add origin git@gitee.com:tyzn_2020/point_heating_program.git 远程目录复制地址到本机执行
+
+第一次发布项目
+git add .到暂存区  .当前文件
+git commit -m "dev"
+git push -u origin master
+
+第一次下载项目
+新建下载目录
+当前目录右键->gitbash 
+git clone git@github.com:testtotest/gitto.git远程标识符
+
+提交(本地到远程)
+git pull origin master
+git add .
+git commit -m "edit"
+git push origin master
+更新(远程到本地) 
+git pull
+
+7
+eclipe 下操作git
+
+
+
+11冲突解决
+
+12团队协助
+登录github->项目->setting->collaborators->输入用户名
+点击邀请链接 copy invite link复制发给邀请者
+邀请者登录会受到 accept invitation后可编辑
+
+
+http://api.map.baidu.com/lbsapi/creatmap/index.html
+
+
